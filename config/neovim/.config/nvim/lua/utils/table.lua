@@ -16,7 +16,7 @@ function M.is_module_available(name)
 end
 
 function M.is_array(table)
-	return #table == 0 or table[1] ~= nil
+	return type(table) == "table" and (#table > 0 or next(table) == nil)
 end
 
 function M.get_table_keys(table)
