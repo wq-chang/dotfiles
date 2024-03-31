@@ -1,14 +1,13 @@
 local module_utils = require("utils/module")
 local table_utils = require("utils/table")
-local lsp_mapper = require("customs/mason_mapper/lsp_to_mason")
-local conform_mapper = require("customs/mason_mapper/conform_to_mason")
-local nvim_lint_mapper = require("customs/mason_mapper/nvim_lint_to_mason")
+local conform_mapper = require("customs/mason-mapper/conform_to_mason")
+local nvim_lint_mapper = require("customs/mason-mapper/nvim_lint_to_mason")
 
 local M = {}
 
 local supported_modules = {
 	conform = conform_mapper.conform_to_package,
-	lsp = lsp_mapper.lspconfig_to_package,
+	lsp = {},
 	nvim_lint = nvim_lint_mapper.nvimlint_to_package,
 }
 
@@ -25,8 +24,13 @@ function M.get_all_wanted_packages()
 	for k, v in pairs(supported_modules) do
 		local wanted_packages = M.get_wanted_packages(k)
 		local mapped_packages = {}
+		local has_mapper = next(v) ~= nil
 		for nk, nv in pairs(wanted_packages) do
-			mapped_packages[nk] = v[nv]
+			if has_mapper then
+				mapped_packages[nk] = v[nv]
+			else
+				mapped_packages[nk] = nv
+			end
 		end
 		r = table_utils.concat_arrays(r, mapped_packages)
 	end
