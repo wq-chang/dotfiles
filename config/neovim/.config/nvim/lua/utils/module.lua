@@ -1,6 +1,6 @@
 local M = {}
 
-function M.prequire(module)
+function M.try_require(module)
 	local status, lib = pcall(require, module)
 	if status then
 		return lib

@@ -1,40 +1,60 @@
 local module_utils = require("utils/module")
-local table_utils = require("utils/table")
 local conform_mapper = require("customs/mason-mapper/conform_to_mason")
-local nvim_lint_mapper = require("customs/mason-mapper/nvim_lint_to_mason")
+-- local nvim_lint_mapper = require("customs/mason-mapper/nvim_lint_to_mason")
 
 local M = {}
 
-local supported_modules = {
-	conform = conform_mapper.conform_to_package,
-	lsp = {},
-	nvim_lint = nvim_lint_mapper.nvimlint_to_package,
-}
-
-function M.get_wanted_packages(plugin_name)
-	local plugin = module_utils.prequire("plugins/" .. plugin_name)
-	if plugin then
-		return plugin[1].get_wanted_packages()
+local function map_to_mason_packages(packages, mapper)
+	local r = {}
+	for i, v in ipairs(packages) do
+		r[i] = mapper[v]
+		if not r[i] then
+			error("Failed to map this package to mason package name: " .. v)
+		end
 	end
-	return {}
+
+	return r
 end
 
-function M.get_all_wanted_packages()
-	local r = {}
-	for k, v in pairs(supported_modules) do
-		local wanted_packages = M.get_wanted_packages(k)
-		local mapped_packages = {}
-		local has_mapper = next(v) ~= nil
-		for nk, nv in pairs(wanted_packages) do
-			if has_mapper then
-				mapped_packages[nk] = v[nv]
-			else
-				mapped_packages[nk] = nv
-			end
+local get_ensure_installed_functions = {
+	get_conform_ensured_installed = function()
+		local conform = module_utils.try_require("conform")
+		if not conform then
+			return {}
 		end
-		r = table_utils.concat_arrays(r, mapped_packages)
+
+		local formatters_by_ft = conform.formatters_by_ft
+		local formatter_list = vim.tbl_values(formatters_by_ft)
+		local flatten_formatters = vim.tbl_flatten(formatter_list)
+		return map_to_mason_packages(
+			flatten_formatters,
+			conform_mapper.conform_to_package
+		)
+	end,
+
+	-- get_nvim_lint_ensure_installed = function()
+	-- 	local conform = module_utils.try_require("conform")
+	-- 	if not conform then
+	-- 		return {}
+	-- 	end
+	--
+	-- 	local formatters_by_ft = conform.formatters_by_ft
+	-- 	local formatter_list = table_utils.get_table_values(formatters_by_ft)
+	-- 	return table_utils.flat_map(formatter_list)
+	-- end,
+}
+
+M.ensure_installed = {}
+
+function M.add_all_ensure_installed(packages)
+	vim.list_extend(M.ensure_installed, packages)
+end
+
+function M.get_ensure_installed()
+	for _, v in pairs(get_ensure_installed_functions) do
+		vim.list_extend(M.ensure_installed, v())
 	end
-	return r
+	return M.ensure_installed
 end
 
 return M

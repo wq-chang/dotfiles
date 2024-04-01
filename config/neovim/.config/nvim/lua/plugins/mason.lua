@@ -3,9 +3,16 @@ return {
 	{ "williamboman/mason.nvim", config = true },
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		dependencies = { "williamboman/mason.nvim" },
-		opts = { ensure_installed = mason_mapper.get_all_wanted_packages() },
-		config = function(_, opts)
+		dependencies = {
+			"williamboman/mason.nvim",
+			{ "williamboman/mason-lspconfig.nvim", optional = true },
+			{ "neovim/nvim-lspconfig", optional = true },
+			{ "stevearc/conform.nvim", optional = true },
+		},
+		config = function()
+			local opts = {
+				ensure_installed = mason_mapper.get_ensure_installed(),
+			}
 			require("mason-tool-installer").setup(opts)
 		end,
 	},
