@@ -5,7 +5,7 @@ return {
 			"williamboman/mason.nvim",
 			{ "williamboman/mason-lspconfig.nvim" },
 			{ "j-hui/fidget.nvim", opts = {}, config = true },
-			-- { "folke/neodev.nvim", opts = {} },
+			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
