@@ -70,16 +70,16 @@ return {
 				end,
 			})
 
-			-- -- LSP servers and clients are able to communicate to each other what features they support.
-			-- --  By default, Neovim doesn't support everything that is in the LSP specification.
-			-- --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-			-- --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-			-- capabilities = vim.tbl_deep_extend(
-			-- 	"force",
-			-- 	capabilities,
-			-- 	require("cmp_nvim_lsp").default_capabilities()
-			-- )
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			local mu = require("utils.module")
+			local cmp_nvim_lsp = mu.try_require("cmp_nvim_lsp")
+			if cmp_nvim_lsp then
+				capabilities = vim.tbl_deep_extend(
+					"force",
+					capabilities,
+					cmp_nvim_lsp.default_capabilities()
+				)
+			end
 
 			local mapper = require("customs/mason-mapper")
 			local servers = {
@@ -99,15 +99,12 @@ return {
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for tsserver)
-						-- server.capabilities = vim.tbl_deep_extend(
-						-- 	"force",
-						-- 	{},
-						-- 	capabilities,
-						-- 	server.capabilities or {}
-						-- )
+						server.capabilities = vim.tbl_deep_extend(
+							"force",
+							{},
+							capabilities,
+							server.capabilities or {}
+						)
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},

@@ -52,6 +52,7 @@ return {
 				"regex",
 				"tsx",
 				"typescript",
+				"vim",
 				"xml",
 				"yaml",
 			},

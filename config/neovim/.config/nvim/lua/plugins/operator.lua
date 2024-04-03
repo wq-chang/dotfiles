@@ -1,6 +1,9 @@
 return {
 	{
 		"echasnovski/mini.operators",
-		opts = { sort = { prefix = "gS" } },
+		opts = {
+			replace = { prefix = "gR" },
+			sort = { prefix = "gS" },
+		},
 	},
 }
