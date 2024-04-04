@@ -14,6 +14,16 @@ bindkey -e
 # The following lines were added by compinstall
 zstyle :compinstall filename $HOME/.zshrc
 
+# FZF coloj
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+--color=fg:#c0caf5,bg:#1a1b26,hl:#ff9e64 \
+--color=fg+:#c0caf5,bg+:#292e42,hl+:#ff9e64 \
+--color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+--color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
+
+# ZSH completion color
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
@@ -65,3 +75,6 @@ autoload -U +X bashcompinit && bashcompinit
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source ${ZDOTDIR:-$HOME}/.zsh_plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# zoxide
+eval "$(zoxide init zsh)"
