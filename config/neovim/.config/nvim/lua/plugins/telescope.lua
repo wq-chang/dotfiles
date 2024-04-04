@@ -56,7 +56,7 @@ return {
 			end
 			map(
 				"b",
-				"<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
+				"Telescope buffers sort_mru=true sort_lastused=true",
 				"Buffers"
 			)
 			map(
@@ -64,7 +64,7 @@ return {
 				"lua require('telescope').extensions.live_grep_args.live_grep_args()",
 				"Grep root dir"
 			)
-			map(".", "Telescope command_history", "Grep root dir")
+			map(".", "Telescope command_history", "Command history")
 			map(
 				"ff",
 				"lua require('telescope.builtin').find_files()",

@@ -106,5 +106,5 @@ return {
 			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
-	{ "m-demare/hlargs.nvim", config = true },
+	{ "m-demare/hlargs.nvim", opts = {} },
 }
