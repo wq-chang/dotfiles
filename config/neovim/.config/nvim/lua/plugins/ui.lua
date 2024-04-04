@@ -1,5 +1,4 @@
 return {
-	{ "stevearc/dressing.nvim", opts = { input = { enabled = false } } },
 	{
 		"folke/noice.nvim",
 		dependencies = {

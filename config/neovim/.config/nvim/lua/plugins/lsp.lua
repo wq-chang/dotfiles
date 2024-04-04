@@ -8,6 +8,9 @@ return {
 			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
+			vim.diagnostic.config({
+				float = { border = "rounded" },
+			})
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup(
 					"lsp-attach",
@@ -23,23 +26,39 @@ return {
 						)
 					end
 
-					local tls_builtin = require("telescope.builtin")
-					map("gd", tls_builtin.lsp_definitions, "Goto definition")
-					map("gr", tls_builtin.lsp_references, "Goto references")
+					local module_utils = require("utils.module")
+					local tls_builtin =
+						module_utils.try_require("telescope.builtin")
+					if tls_builtin then
+						map(
+							"gd",
+							tls_builtin.lsp_definitions,
+							"Goto definition"
+						)
+						map("gr", tls_builtin.lsp_references, "Goto references")
+						map(
+							"gi",
+							tls_builtin.lsp_implementations,
+							"Goto implementation"
+						)
+						map(
+							"<leader>ls",
+							tls_builtin.lsp_document_symbols,
+							"Document symbols"
+						)
+					end
+
+					map("<leader>la", vim.lsp.buf.code_action, "Code action")
 					map(
-						"gi",
-						tls_builtin.lsp_implementations,
-						"Goto implementation"
-					)
-					map(
-						"<leader>ls",
-						tls_builtin.lsp_document_symbols,
-						"Document symbols"
+						"<space>ld",
+						vim.diagnostic.open_float,
+						"Show diagnostic"
 					)
 					map("<leader>lr", vim.lsp.buf.rename, "Rename")
-					map("<leader>la", vim.lsp.buf.code_action, "Code action")
 					map("K", vim.lsp.buf.hover, "Hover Documentation")
 					map("gD", vim.lsp.buf.declaration, "Goto declaration")
+					map("[d", vim.diagnostic.goto_prev, "Prev diagnostic")
+					map("]d", vim.diagnostic.goto_next, "Next diagnostic")
 
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
