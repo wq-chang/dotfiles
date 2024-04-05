@@ -2,13 +2,7 @@ local wezterm = require("wezterm")
 local config = {}
 
 config.enable_wayland = false
-config.window_decorations = "RESIZE"
-config.window_padding = {
-	left = 5,
-	right = 5,
-	top = 3,
-	bottom = 3,
-}
+config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 config.colors = {
 	foreground = "#c0caf5",
