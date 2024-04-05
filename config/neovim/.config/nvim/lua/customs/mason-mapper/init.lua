@@ -1,5 +1,5 @@
 local module_utils = require("utils/module")
-local conform_mapper = require("customs/mason-mapper/conform_to_mason")
+local mapping = require("customs/mason-mapper/mapping")
 -- local nvim_lint_mapper = require("customs/mason-mapper/nvim_lint_to_mason")
 
 local M = {}
@@ -28,7 +28,7 @@ local get_ensure_installed_functions = {
 		local flatten_formatters = vim.tbl_flatten(formatter_list)
 		return map_to_mason_packages(
 			flatten_formatters,
-			conform_mapper.conform_to_package
+			mapping.conform_to_mason
 		)
 	end,
 

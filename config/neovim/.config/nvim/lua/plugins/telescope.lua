@@ -65,6 +65,7 @@ return {
 				"Grep root dir"
 			)
 			map(".", "Telescope command_history", "Command history")
+			map("fc", "Telescope commands", "Find commands")
 			map(
 				"ff",
 				"lua require('telescope.builtin').find_files()",

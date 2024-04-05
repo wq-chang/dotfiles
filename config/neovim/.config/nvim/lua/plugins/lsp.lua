@@ -8,6 +8,17 @@ return {
 			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
+			-- Lsp UI config
+			local signs = {
+				Error = "󰅚 ",
+				Warn = "󰀪 ",
+				Hint = "󰌶 ",
+				Info = "󰋽 ",
+			}
+			for type, icon in pairs(signs) do
+				local hl = "DiagnosticSign" .. type
+				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+			end
 			vim.diagnostic.config({
 				float = { border = "rounded" },
 			})

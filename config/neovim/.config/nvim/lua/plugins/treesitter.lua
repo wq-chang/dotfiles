@@ -94,6 +94,8 @@ return {
 					keymaps = {
 						["aa"] = "@parameter.outer",
 						["ia"] = "@parameter.inner",
+						["ac"] = "@class.outer",
+						["ic"] = "@class.inner",
 						["af"] = "@function.outer",
 						["if"] = "@function.inner",
 					},
