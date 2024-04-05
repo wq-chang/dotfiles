@@ -35,6 +35,7 @@ path=(
 )
 
 # Plugins
+plugin_dir=$HOME/.zsh_plugins
 # assumes github and slash separated plugin names
 github_plugins=(
 	romkatv/powerlevel10k
@@ -46,35 +47,44 @@ github_plugins=(
 
 for plugin in $github_plugins; do
   # clone the plugin from github if it doesn't exist
-  if [[ ! -d ${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin ]]; then
-    mkdir -p ${ZDOTDIR:-$HOME}/.zsh_plugins/${plugin%/*}
-    git clone --depth 1 --recursive https://github.com/$plugin.git ${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin
+  if [[ ! -d $plugin_dir/$plugin ]]; then
+    mkdir -p $plugin_dir/${plugin%/*}
+    git clone --depth 1 --recursive https://github.com/$plugin.git $plugin_dir/$plugin
   fi
   # load the plugin
   for initscript in ${plugin#*/}.zsh ${plugin#*/}.plugin.zsh ${plugin#*/}.sh; do
-    if [[ -f ${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin/$initscript ]]; then
-      source ${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin/$initscript
+    if [[ -f $plugin_dir/$plugin/$initscript ]]; then
+      source $plugin_dir/$plugin/$initscript
       break
     fi
   done
 done
 
-# clean up
-unset github_plugins
-unset plugin
-unset initscript
-
-# alias for update zsh plugins
-alias zshpull="find ${ZDOTDIR:-$HOME}/.zsh_plugins -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
-# alias for home switch update
-alias restow=". ${HOME}/dotfiles/restow.sh"
+# Custom Plugins
+if [[ -d $plugin_dir/custom ]]; then
+    for initscript in $plugin_dir/custom/*.zsh; do
+        if [[ -f $initscript ]]; then
+            source $initscript
+        fi
+    done
+fi
 
 autoload -U +X bashcompinit && bashcompinit
 
 # p10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-source ${ZDOTDIR:-$HOME}/.zsh_plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
+source $plugin_dir/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# zoxide
 eval "$(zoxide init zsh)"
+
+# alias for update zsh plugins
+alias zshpull="find $plugin_dir -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
+# alias for home switch update
+alias restow=". ${HOME}/dotfiles/restow.sh"
+
+# clean up
+unset github_plugins
+unset plugin
+unset initscript
+unset plugin_dir
