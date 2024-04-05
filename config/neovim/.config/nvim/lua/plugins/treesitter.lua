@@ -96,8 +96,6 @@ return {
 						["ia"] = "@parameter.inner",
 						["af"] = "@function.outer",
 						["if"] = "@function.inner",
-						["af"] = "@function.outer",
-						["if"] = "@function.inner",
 					},
 				},
 			},

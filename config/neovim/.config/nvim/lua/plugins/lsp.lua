@@ -111,6 +111,7 @@ return {
 						},
 					},
 				},
+				pyright = {},
 			}
 			mapper.add_all_ensure_installed(vim.tbl_keys(servers))
 
