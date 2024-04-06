@@ -79,8 +79,6 @@ if [[ -d $plugin_dir/custom ]]; then
     done
 fi
 
-autoload -U +X bashcompinit && bashcompinit
-
 eval "$(zoxide init zsh)"
 
 # alias for update zsh plugins
@@ -88,6 +86,8 @@ alias zshpull="find $plugin_dir -type d -exec test -e '{}/.git' ';' -print0 | xa
 # alias for home switch update
 alias restow=". ${HOME}/dotfiles/restow.sh"
 
+#load completion module, to fix menuselect not found
+zmodload zsh/complist
 # keybinding
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
