@@ -42,6 +42,11 @@ return {
 						themes.get_dropdown({}),
 					},
 				},
+				pickers = {
+					find_files = {
+						hidden = true,
+					},
+				},
 			})
 			telescope.load_extension("fzf")
 			telescope.load_extension("ui-select")
