@@ -3,7 +3,7 @@ curdir=$(pwd)
 cd ${HOME}/dotfiles/config
 
 for d in *; do
-    stow -d $(pwd) -t ${HOME} -R ${d}
+	stow -d $(pwd) -t ${HOME} -R ${d}
 done
 
 cd ${curdir}
