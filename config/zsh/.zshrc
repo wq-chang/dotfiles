@@ -4,6 +4,11 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+# p10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+plugin_dir=$HOME/.zsh_plugins
+source $plugin_dir/romkatv/powerlevel10k/powerlevel10k.zsh-theme
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -14,7 +19,11 @@ bindkey -e
 # The following lines were added by compinstall
 zstyle :compinstall filename $HOME/.zshrc
 
-# FZF coloj
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+# FZF color
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 --color=fg:#c0caf5,bg:#1a1b26,hl:#ff9e64 \
 --color=fg+:#c0caf5,bg+:#292e42,hl+:#ff9e64 \
@@ -23,10 +32,10 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 
 # ZSH completion color
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu select
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+# ZSH substring search color
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#7aa2f7,fg=#16161e,bold'
 
 # Add path
 path=(
@@ -35,14 +44,15 @@ path=(
 )
 
 # Plugins
-plugin_dir=$HOME/.zsh_plugins
 # assumes github and slash separated plugin names
 github_plugins=(
 	romkatv/powerlevel10k
 	zsh-users/zsh-autosuggestions
 	zsh-users/zsh-completions
-	# must be last
+
+	# important sequence
 	zsh-users/zsh-syntax-highlighting
+	zsh-users/zsh-history-substring-search
 )
 
 for plugin in $github_plugins; do
@@ -71,17 +81,17 @@ fi
 
 autoload -U +X bashcompinit && bashcompinit
 
-# p10k
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-source $plugin_dir/romkatv/powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 eval "$(zoxide init zsh)"
 
 # alias for update zsh plugins
 alias zshpull="find $plugin_dir -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
 # alias for home switch update
 alias restow=". ${HOME}/dotfiles/restow.sh"
+
+# keybinding
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # clean up
 unset github_plugins
