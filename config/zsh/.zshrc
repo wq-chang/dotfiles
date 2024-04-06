@@ -2,13 +2,8 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-# p10k
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-plugin_dir=$HOME/.zsh_plugins
-source $plugin_dir/romkatv/powerlevel10k/powerlevel10k.zsh-theme
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -39,11 +34,12 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#7aa2f7,fg=#16161e,bold'
 
 # Add path
 path=(
-    $path
-    $HOME/go/bin
+	$path
+	$HOME/go/bin
 )
 
 # Plugins
+plugin_dir=$HOME/.zsh_plugins
 # assumes github and slash separated plugin names
 github_plugins=(
 	romkatv/powerlevel10k
@@ -56,28 +52,32 @@ github_plugins=(
 )
 
 for plugin in $github_plugins; do
-  # clone the plugin from github if it doesn't exist
-  if [[ ! -d $plugin_dir/$plugin ]]; then
-    mkdir -p $plugin_dir/${plugin%/*}
-    git clone --depth 1 --recursive https://github.com/$plugin.git $plugin_dir/$plugin
-  fi
-  # load the plugin
-  for initscript in ${plugin#*/}.zsh ${plugin#*/}.plugin.zsh ${plugin#*/}.sh; do
-    if [[ -f $plugin_dir/$plugin/$initscript ]]; then
-      source $plugin_dir/$plugin/$initscript
-      break
-    fi
-  done
+	# clone the plugin from github if it doesn't exist
+	if [[ ! -d $plugin_dir/$plugin ]]; then
+		mkdir -p $plugin_dir/${plugin%/*}
+		git clone --depth 1 --recursive https://github.com/$plugin.git $plugin_dir/$plugin
+	fi
+	# load the plugin
+	for initscript in ${plugin#*/}.zsh ${plugin#*/}.plugin.zsh ${plugin#*/}.sh ${plugin#*/}.zsh-theme; do
+		if [[ -f $plugin_dir/$plugin/$initscript ]]; then
+			source $plugin_dir/$plugin/$initscript
+			break
+		fi
+	done
 done
 
 # Custom Plugins
 if [[ -d $plugin_dir/custom ]]; then
-    for initscript in $plugin_dir/custom/*.zsh; do
-        if [[ -f $initscript ]]; then
-            source $initscript
-        fi
-    done
+	for initscript in $plugin_dir/custom/*.zsh; do
+		if [[ -f $initscript ]]; then
+			source $initscript
+		fi
+	done
 fi
+
+# p10k
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 eval "$(zoxide init zsh)"
 
@@ -95,6 +95,6 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # clean up
 unset github_plugins
-unset plugin
 unset initscript
+unset plugin
 unset plugin_dir
