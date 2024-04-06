@@ -11,12 +11,19 @@ HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
 # End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
+# Completion setting
 zstyle :compinstall filename $HOME/.zshrc
+fpath=(
+	$fpath
+	$HOME/.zsh_plugins/.cache/completions
+)
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+if command -v aws_completer &>/dev/null; then
+	complete -C "$(command -v aws_completer)" aws
+fi
+# End completion setting
 
 # FZF color
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
@@ -83,8 +90,7 @@ eval "$(zoxide init zsh)"
 
 # alias for update zsh plugins
 alias zshpull="find $plugin_dir -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
-# alias for home switch update
-alias restow=". ${HOME}/dotfiles/restow.sh"
+alias restow="source $HOME/dotfiles/restow.sh"
 
 #load completion module, to fix menuselect not found
 zmodload zsh/complist
