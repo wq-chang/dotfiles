@@ -8,6 +8,7 @@ return {
 			{ "williamboman/mason-lspconfig.nvim", optional = true },
 			{ "neovim/nvim-lspconfig", optional = true },
 			{ "stevearc/conform.nvim", optional = true },
+			{ "mfussenegger/nvim-lint", optional = true },
 		},
 		config = function()
 			local opts = {
