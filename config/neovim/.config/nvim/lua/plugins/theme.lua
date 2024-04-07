@@ -9,5 +9,4 @@ return {
 			vim.cmd([[colorscheme tokyonight]])
 		end,
 	},
-	"HiPhish/rainbow-delimiters.nvim",
 }
