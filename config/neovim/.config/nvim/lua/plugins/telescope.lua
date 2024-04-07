@@ -25,11 +25,28 @@ return {
 					mappings = {
 						i = {
 							["<esc>"] = actions.close,
+							["<up>"] = actions.cycle_history_prev,
+							["<down>"] = actions.cycle_history_next,
 						},
+					},
+				},
+				pickers = {
+					find_files = {
+						hidden = true,
 					},
 				},
 				extensions = {
 					live_grep_args = {
+						vimgrep_arguments = {
+							"rg",
+							"--color=never",
+							"--no-heading",
+							"--with-filename",
+							"--line-number",
+							"--column",
+							"--smart-case",
+							"--hidden",
+						},
 						mappings = {
 							i = {
 								["<C-k>"] = require(
@@ -42,14 +59,10 @@ return {
 						themes.get_dropdown({}),
 					},
 				},
-				pickers = {
-					find_files = {
-						hidden = true,
-					},
-				},
 			})
 			telescope.load_extension("fzf")
 			telescope.load_extension("ui-select")
+			telescope.load_extension("live_grep_args")
 
 			local map = function(keys, func, desc)
 				vim.keymap.set(
