@@ -50,6 +50,7 @@ return {
 				"markdown_inline",
 				"python",
 				"regex",
+				"sql",
 				"tsx",
 				"typescript",
 				"vim",

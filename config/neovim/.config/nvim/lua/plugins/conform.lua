@@ -10,10 +10,10 @@ return {
 			},
 			formatters_by_ft = {
 				lua = { "stylua" },
+				json = { "prettierd" },
+				sh = { "shfmt" },
+				zsh = { "shfmt" },
 			},
 		},
-		config = function(_, opts)
-			require("conform").setup(opts)
-		end,
 	},
 }

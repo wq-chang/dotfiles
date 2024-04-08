@@ -12,6 +12,11 @@ map(
 	{ desc = "Escape and clear hlsearch" }
 )
 
+-- Ctrl + Backspace to delete word
+map("i", "<C-H>", "<C-W>", { noremap = true })
+-- Shift + Enter to enter new line
+map("i", "<S-cr>", "<C-o>o", { noremap = true })
+
 -- Navigate windows
 map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
