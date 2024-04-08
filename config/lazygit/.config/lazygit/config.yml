@@ -3,3 +3,7 @@ os:
   editAtLine: 'nvim --line={{line}} {{filename}}'
   editAtLineAndWait: 'nvim --block --line={{line}} {{filename}}'
   openDirInEditor: 'nvim {{dir}}'
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --line-numbers --syntax-theme=tokyonight_night --paging=never --true-color=always
