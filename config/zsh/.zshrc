@@ -98,6 +98,7 @@ zmodload zsh/complist
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M menuselect '^[[Z' reverse-menu-complete
+bindkey '^H' backward-kill-word
 
 # clean up
 unset github_plugins
