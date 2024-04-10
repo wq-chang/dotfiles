@@ -4,6 +4,7 @@ os:
   editAtLineAndWait: 'nvim --block --line={{line}} {{filename}}'
   openDirInEditor: 'nvim {{dir}}'
 git:
+  disableForcePushing: true
   paging:
     colorArg: always
     pager: delta --dark --line-numbers --syntax-theme=tokyonight_night --paging=never --true-color=always
