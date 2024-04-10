@@ -4,6 +4,53 @@ local config = {}
 config.enable_wayland = false
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
+local act = wezterm.action
+config.leader = { key = "Space", mods = "CTRL|SHIFT" }
+config.keys = {
+	{
+		key = "h",
+		mods = "CTRL|SHIFT",
+		action = act.ActivatePaneDirection("Left"),
+	},
+	{
+		key = "j",
+		mods = "CTRL|SHIFT",
+		action = act.ActivatePaneDirection("Down"),
+	},
+	{
+		key = "k",
+		mods = "CTRL|SHIFT",
+		action = act.ActivatePaneDirection("Up"),
+	},
+	{
+		key = "l",
+		mods = "CTRL|SHIFT",
+		action = act.ActivatePaneDirection("Right"),
+	},
+	{
+		key = "c",
+		mods = "LEADER",
+		action = act.CloseCurrentPane({ confirm = true }),
+	},
+	{
+		key = "s",
+		mods = "LEADER",
+		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "v",
+		mods = "LEADER",
+		action = act.SplitHorizontal({
+			domain = "CurrentPaneDomain",
+		}),
+	},
+	{
+		key = "f",
+		mods = "LEADER",
+		action = act.QuickSelect,
+	},
+}
+
 config.colors = {
 	foreground = "#c0caf5",
 	background = "#1a1b26",
