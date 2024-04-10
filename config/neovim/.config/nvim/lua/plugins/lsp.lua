@@ -22,13 +22,19 @@ return {
 			vim.diagnostic.config({
 				float = { border = "rounded" },
 			})
+			vim.keymap.set(
+				"n",
+				"<leader>li",
+				"<cmd>LspInfo<cr>",
+				{ desc = "Lsp info" }
+			)
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup(
 					"lsp-attach",
 					{ clear = true }
 				),
 				callback = function(event)
-					local map = function(keys, func, desc)
+					local function map(keys, func, desc)
 						vim.keymap.set(
 							"n",
 							keys,
@@ -61,7 +67,7 @@ return {
 
 					map("<leader>la", vim.lsp.buf.code_action, "Code action")
 					map(
-						"<space>ld",
+						"<leader>ld",
 						vim.diagnostic.open_float,
 						"Show diagnostic"
 					)

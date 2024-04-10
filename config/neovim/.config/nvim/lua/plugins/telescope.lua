@@ -27,12 +27,20 @@ return {
 							["<esc>"] = actions.close,
 							["<up>"] = actions.cycle_history_prev,
 							["<down>"] = actions.cycle_history_next,
+							["<C-s>"] = actions.select_horizontal,
 						},
 					},
 				},
 				pickers = {
 					find_files = {
 						hidden = true,
+					},
+					buffers = {
+						mappings = {
+							i = {
+								["<C-x>"] = actions.delete_buffer,
+							},
+						},
 					},
 				},
 				extensions = {
@@ -64,11 +72,23 @@ return {
 			telescope.load_extension("ui-select")
 			telescope.load_extension("live_grep_args")
 
-			local map = function(keys, func, desc)
+			local git_utils = require("utils.git")
+			local function find_files_from_git_root()
+				local cwd = git_utils.get_git_root()
+				require("telescope.builtin").find_files({ cwd = cwd })
+			end
+
+			local function live_grep_from_git_root()
+				local cwd = git_utils.get_git_root()
+				require("telescope").extensions.live_grep_args.live_grep_args({
+					cwd = cwd,
+				})
+			end
+			local map = function(keys, func, desc, is_local_func)
 				vim.keymap.set(
 					"n",
 					"<leader>" .. keys,
-					"<cmd>" .. func .. "<cr>",
+					is_local_func and func or ("<cmd>" .. func .. "<cr>"),
 					{ desc = desc }
 				)
 			end
@@ -77,18 +97,10 @@ return {
 				"Telescope buffers sort_mru=true sort_lastused=true",
 				"Buffers"
 			)
-			map(
-				"/",
-				"lua require('telescope').extensions.live_grep_args.live_grep_args()",
-				"Grep root dir"
-			)
+			map("/", live_grep_from_git_root, "Grep root dir", true)
 			map(".", "Telescope command_history", "Command history")
 			map("fc", "Telescope commands", "Find commands")
-			map(
-				"ff",
-				"lua require('telescope.builtin').find_files()",
-				"Find file"
-			)
+			map("ff", find_files_from_git_root, "Find file", true)
 		end,
 	},
 }

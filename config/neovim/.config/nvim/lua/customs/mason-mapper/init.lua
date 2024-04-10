@@ -1,5 +1,5 @@
-local module_utils = require("utils/module")
-local mappings = require("customs/mason-mapper/mapping")
+local module_utils = require("utils.module")
+local mappings = require("customs.mason-mapper.mapping")
 
 local M = {}
 
