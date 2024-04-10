@@ -1,0 +1,18 @@
+[user]
+	email = email@email.com
+	name = name
+
+[core]
+	pager = delta -s --line-numbers --syntax-theme=tokyonight_night --true-color=always
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true # use n and N to move between diff sections
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
