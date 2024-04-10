@@ -10,11 +10,19 @@ return {
 				changedelete = { text = "▎" },
 				untracked = { text = "▎" },
 			},
+			_signs_staged_enable = true,
 			on_attach = function(buffer)
 				local gs = package.loaded.gitsigns
 
 				local function map(mode, l, r, desc)
 					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+				end
+
+				local function toggle_inline_diff()
+					gs.toggle_numhl()
+					gs.toggle_deleted()
+					gs.toggle_word_diff()
+					gs.toggle_linehl()
 				end
 
 				map("n", "]h", gs.next_hunk, "Next Hunk")
@@ -43,10 +51,17 @@ return {
 				map("n", "<leader>gb", function()
 					gs.blame_line({ full = true })
 				end, "Blame Line")
-				map("n", "<leader>gd", gs.diffthis, "Diff This")
-				map("n", "<leader>gD", function()
+				map(
+					"n",
+					"<leader>gB",
+					gs.toggle_current_line_blame,
+					"Blame Line"
+				)
+				map("n", "<leader>gd", function()
 					gs.diffthis("~")
 				end, "Diff This ~")
+				map("n", "<leader>gD", gs.diffthis, "Diff This")
+				map("n", "<leader>gt", toggle_inline_diff, "Toggle inline diff")
 				map(
 					{ "o", "x" },
 					"ih",
