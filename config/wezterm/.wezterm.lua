@@ -5,7 +5,7 @@ config.enable_wayland = false
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 local act = wezterm.action
-config.leader = { key = "Space", mods = "CTRL|SHIFT" }
+config.leader = { key = "Space", mods = "SHIFT" }
 config.keys = {
 	{
 		key = "h",
