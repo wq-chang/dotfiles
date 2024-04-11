@@ -16,11 +16,9 @@ return {
 				["<leader>g"] = { name = "+git" },
 				["<leader>gh"] = { name = "+hunks" },
 				["<leader>l"] = { name = "+lsp" },
-				["<leader>q"] = { name = "+quit/session" },
-				["<leader>s"] = { name = "+search" },
+				["<leader>m"] = { name = "+mergetools" },
 				["<leader>u"] = { name = "+ui" },
 				["<leader>w"] = { name = "+windows" },
-				["<leader>x"] = { name = "+diagnostics/quickfix" },
 			},
 		},
 		config = function(_, opts)

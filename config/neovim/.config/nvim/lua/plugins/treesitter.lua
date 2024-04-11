@@ -40,6 +40,7 @@ return {
 			ensure_installed = {
 				"bash",
 				"html",
+				"java",
 				"javascript",
 				"jsdoc",
 				"json",
