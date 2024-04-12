@@ -84,7 +84,7 @@ return {
 					cwd = cwd,
 				})
 			end
-			local map = function(keys, func, desc, is_local_func)
+			local function map(keys, func, desc, is_local_func)
 				vim.keymap.set(
 					"n",
 					"<leader>" .. keys,

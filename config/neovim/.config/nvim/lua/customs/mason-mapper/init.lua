@@ -33,7 +33,7 @@ end
 
 local get_ensure_installed_functions = {
 	get_conform_ensured_installed = function()
-		local get_conform_packages = function(conform)
+		local function get_conform_packages(conform)
 			return conform.formatters_by_ft
 		end
 
@@ -45,7 +45,7 @@ local get_ensure_installed_functions = {
 	end,
 
 	get_nvim_lint_ensure_installed = function()
-		local get_conform_packages = function(lint)
+		local function get_conform_packages(lint)
 			return lint.linters_by_ft
 		end
 
