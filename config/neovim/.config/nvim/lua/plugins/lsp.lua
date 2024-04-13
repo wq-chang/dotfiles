@@ -43,28 +43,16 @@ return {
 					end
 
 					local module_utils = require("utils.module")
-					local tls_builtin =
-						module_utils.try_require("telescope.builtin")
-					if tls_builtin then
-						map(
-							"gd",
-							tls_builtin.lsp_definitions,
-							"Goto definition"
-						)
-						map("gr", tls_builtin.lsp_references, "Goto references")
 						map(
 							"gi",
-							tls_builtin.lsp_implementations,
 							"Goto implementation"
 						)
 						map(
 							"<leader>ls",
-							tls_builtin.lsp_document_symbols,
 							"Document symbols"
 						)
 					end
 
-					map("<leader>la", vim.lsp.buf.code_action, "Code action")
 					map(
 						"<leader>ld",
 						vim.diagnostic.open_float,
