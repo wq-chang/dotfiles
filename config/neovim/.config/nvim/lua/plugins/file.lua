@@ -10,18 +10,26 @@ return {
 			},
 		},
 		config = function(_, opts)
-			require("mini.files").setup(opts)
+			local files = require("mini.files")
+			files.setup(opts)
 			local git_utils = require("utils.git")
 			local function open_from_root()
 				local cwd = git_utils.get_git_root()
-				require("mini.files").open(cwd)
+				files.open(cwd)
+			end
+			local function open_from_cur_file_dir()
+				local cwd = vim.api.nvim_buf_get_name(0)
+				if vim.fn.filereadable(cwd) == 0 then
+					cwd = git_utils.get_git_root()
+				end
+				files.open(cwd)
 			end
 			vim.api.nvim_set_hl(0, "MiniFilesTitle", { link = "StatusLineNC" })
 
 			vim.keymap.set(
 				"n",
 				"<leader>fe",
-				"<cmd>lua MiniFiles.open()<cr>",
+				open_from_cur_file_dir,
 				{ desc = "Open file explorer" }
 			)
 			vim.keymap.set(
