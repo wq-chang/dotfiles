@@ -43,14 +43,23 @@ return {
 					end
 
 					local module_utils = require("utils.module")
+					local fzf = module_utils.try_require("fzf-lua")
+					if fzf then
+						map("gd", function()
+							fzf.lsp_definitions({ jump_to_single_result = true })
+						end, "Goto definition")
+						map("gr", fzf.lsp_references, "Goto references")
 						map(
 							"gi",
+							fzf.lsp_implementations,
 							"Goto implementation"
 						)
 						map(
 							"<leader>ls",
+							fzf.lsp_document_symbols,
 							"Document symbols"
 						)
+						map("<leader>la", fzf.lsp_code_actions, "Code action")
 					end
 
 					map(
