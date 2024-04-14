@@ -1,9 +1,9 @@
 upcmp() {
-	cacheDir=$HOME/.zsh_plugins/.cache
-	fishDir=$cacheDir/fish
-	cacheCmpDir=$cacheDir/completions
-	cmcpy=$cacheDir/create_manpage_completions.py
-	drpy=$cacheDir/deroff.py
+	local cacheDir=$HOME/.zsh_plugins/.cache
+	local fishDir=$cacheDir/fish
+	local cacheCmpDir=$cacheDir/completions
+	local cmcpy=$cacheDir/create_manpage_completions.py
+	local drpy=$cacheDir/deroff.py
 
 	if [ ! -d "$fishDir" ]; then
 		mkdir -p "$fishDir"
@@ -24,6 +24,7 @@ upcmp() {
 		"https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker"
 	)
 
+	local url
 	for url in "${urls[@]}"; do
 		filename=$(basename "$url")
 		curl -s -o "$cacheCmpDir/$filename" "$url"

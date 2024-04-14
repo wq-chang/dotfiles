@@ -7,4 +7,5 @@ for d in *; do
 done
 
 cd ${curdir}
+unset curdir
 echo "Updated all dotfiles"
