@@ -1,5 +1,4 @@
 upcmp() {
-	scriptDir=$HOME/dotfiles/extra/zsh/completion
 	cacheDir=$HOME/.zsh_plugins/.cache
 	fishDir=$cacheDir/fish
 	cacheCmpDir=$cacheDir/completions

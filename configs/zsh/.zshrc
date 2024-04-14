@@ -75,8 +75,9 @@ for plugin in $github_plugins; do
 done
 
 # Custom Plugins
-if [[ -d $plugin_dir/custom ]]; then
-	for initscript in $plugin_dir/custom/*.zsh; do
+extra_dir=$HOME/dotfiles/extras/zsh
+if [[ -d $extra_dir ]]; then
+	for initscript in $extra_dir/*.zsh; do
 		if [[ -f $initscript ]]; then
 			source $initscript
 		fi
@@ -102,6 +103,7 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 bindkey '^H' backward-kill-word
 
 # clean up
+unset extra_dir
 unset github_plugins
 unset initscript
 unset plugin
