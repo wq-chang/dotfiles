@@ -1,12 +1,70 @@
 local wezterm = require("wezterm")
 local config = {}
+local act = wezterm.action
 
+local colors = wezterm.color.load_scheme(
+	wezterm.home_dir .. "/dotfiles/extras/wezterm/tokyonight_night.toml"
+)
+
+config.colors = colors
 config.enable_wayland = false
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
-local act = wezterm.action
+local function find_active_pane_by_title(mux_win, title)
+	local tabs = mux_win:tabs()
+	for i, tab in ipairs(tabs) do
+		local active_pane = tab:active_pane()
+		if active_pane:get_title() == title then
+			return i - 1, active_pane
+		end
+	end
+	return nil
+end
+
+local function get_active_tab_index(mux_win)
+	for _, item in ipairs(mux_win:tabs_with_info()) do
+		if item.is_active then
+			return item.index
+		end
+	end
+end
+
+local function open_or_switch_to_lazygit(win, pane)
+	if pane:get_title() == "lazygit" then
+		return
+	end
+	local mux_win = win:mux_window()
+	local active_tab_index = get_active_tab_index(mux_win)
+	local lazygit_tab_index, lazygit_pane =
+		find_active_pane_by_title(mux_win, "lazygit")
+	if lazygit_pane then
+		win:perform_action(act.ActivateTab(lazygit_tab_index), pane)
+	else
+		mux_win:spawn_tab({
+			args = { "lazygit" },
+			set_environment_variables = {
+				PATH = wezterm.home_dir .. "/go/bin:" .. os.getenv("PATH"),
+			},
+		})
+		active_tab_index = active_tab_index + 1
+	end
+
+	if active_tab_index == 0 then
+		win:perform_action(act.MoveTab(active_tab_index), pane)
+	else
+		win:perform_action(act.MoveTab(active_tab_index - 1), pane)
+	end
+end
+
 config.leader = { key = "Space", mods = "SHIFT" }
 config.keys = {
+	{
+		key = "g",
+		mods = "LEADER",
+		action = wezterm.action_callback(function(win, pane)
+			open_or_switch_to_lazygit(win, pane)
+		end),
+	},
 	{
 		key = "h",
 		mods = "CTRL|SHIFT",
@@ -48,67 +106,6 @@ config.keys = {
 		key = "f",
 		mods = "LEADER",
 		action = act.QuickSelect,
-	},
-}
-
-config.colors = {
-	foreground = "#c0caf5",
-	background = "#1a1b26",
-	cursor_bg = "#c0caf5",
-	cursor_border = "#c0caf5",
-	cursor_fg = "#1a1b26",
-	selection_bg = "#283457",
-	selection_fg = "#c0caf5",
-	split = "#7aa2f7",
-	compose_cursor = "#ff9e64",
-	scrollbar_thumb = "#292e42",
-
-	tab_bar = {
-		inactive_tab_edge = "#16161e",
-		background = "#1a1b26",
-		active_tab = {
-			fg_color = "#16161e",
-			bg_color = "#7aa2f7",
-		},
-		inactive_tab = {
-			fg_color = "#545c7e",
-			bg_color = "#292e42",
-		},
-		inactive_tab_hover = {
-			fg_color = "#7aa2f7",
-			bg_color = "#292e42",
-			intensity = "Bold",
-		},
-		new_tab_hover = {
-			fg_color = "#7aa2f7",
-			bg_color = "#1a1b26",
-			intensity = "Bold",
-		},
-		new_tab = {
-			fg_color = "#7aa2f7",
-			bg_color = "#1a1b26",
-		},
-	},
-
-	ansi = {
-		"#15161e",
-		"#f7768e",
-		"#9ece6a",
-		"#e0af68",
-		"#7aa2f7",
-		"#bb9af7",
-		"#7dcfff",
-		"#a9b1d6",
-	},
-	brights = {
-		"#414868",
-		"#f7768e",
-		"#9ece6a",
-		"#e0af68",
-		"#7aa2f7",
-		"#bb9af7",
-		"#7dcfff",
-		"#c0caf5",
 	},
 }
 
