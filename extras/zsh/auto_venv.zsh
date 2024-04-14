@@ -1,25 +1,25 @@
 # Function to check if the specified directory contains a 'venv' or '.venv' folder
-function contains_venv {
+contains_venv() {
 	[[ -d "$1/venv" || -d "$1/.venv" ]]
 }
 
 # Function to check if the virtual environment is activated
-function is_venv_activated {
+is_venv_activated() {
 	[[ -n "$VIRTUAL_ENV" ]]
 }
 
 # Function to activate the virtual environment
-function activate_venv {
+activate_venv() {
 	source "$1/venv/bin/activate" 2>/dev/null || source "$1/.venv/bin/activate" 2>/dev/null
 }
 
 # Function to deactivate the virtual environment
-function deactivate_venv {
+deactivate_venv() {
 	deactivate 2>/dev/null
 }
 
 # Function to handle changing directories
-function chpwd_hook {
+chpwd_hook() {
 	local root_dir
 
 	if git rev-parse --is-inside-work-tree &>/dev/null; then
@@ -39,7 +39,9 @@ function chpwd_hook {
 			activate_venv "$root_dir"
 		fi
 	else
-		deactivate_venv
+		if is_venv_activated; then
+			deactivate_venv
+		fi
 	fi
 }
 

@@ -1,4 +1,4 @@
-pullThemes() {
+pullthemes() {
 	local curdir=$(pwd)
 
 	echo "Pulling Bat themes"
