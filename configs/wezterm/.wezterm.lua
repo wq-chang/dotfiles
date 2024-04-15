@@ -43,7 +43,10 @@ local function open_or_switch_to_lazygit(win, pane)
 		mux_win:spawn_tab({
 			args = { "lazygit" },
 			set_environment_variables = {
-				PATH = wezterm.home_dir .. "/go/bin:" .. os.getenv("PATH"),
+				PATH = wezterm.home_dir
+					.. "/go/bin:/opt/homebrew/bin:"
+					.. os.getenv("PATH"),
+				XDG_CONFIG_HOME = wezterm.home_dir .. "/.config",
 			},
 		})
 		active_tab_index = active_tab_index + 1
