@@ -24,7 +24,7 @@ return {
 				end
 				files.open(cwd)
 			end
-			vim.api.nvim_set_hl(0, "MiniFilesTitle", { link = "StatusLineNC" })
+			vim.api.nvim_set_hl(0, "MiniFilesTitle", { link = "InactiveText" })
 
 			vim.keymap.set(
 				"n",
