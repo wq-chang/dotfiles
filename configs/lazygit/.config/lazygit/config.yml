@@ -1,8 +1,5 @@
 os:
-  edit: 'nvim {{filename}}'
-  editAtLine: 'nvim --line={{line}} {{filename}}'
-  editAtLineAndWait: 'nvim --block --line={{line}} {{filename}}'
-  openDirInEditor: 'nvim {{dir}}'
+  editPreset: 'nvim'
 git:
   disableForcePushing: true
   paging:
