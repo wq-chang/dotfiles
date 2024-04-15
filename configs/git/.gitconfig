@@ -3,7 +3,7 @@
 	name = name
 
 [core]
-	pager = delta -s --line-numbers --syntax-theme=tokyonight_night --true-color=always
+	pager = delta -s --line-numbers
 
 [interactive]
 	diffFilter = delta --color-only
@@ -16,3 +16,10 @@
 
 [diff]
 	colorMoved = default
+
+[include]
+	path = ~/dotfiles/extras/delta/themes.gitconfig
+
+[delta]
+	features = tokyonight-night
+	true-color = always

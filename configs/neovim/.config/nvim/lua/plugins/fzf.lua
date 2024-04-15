@@ -16,7 +16,7 @@ return {
 			lsp = {
 				code_actions = {
 					previewer = "codeaction_native",
-					preview_pager = "delta -s --width=$COLUMNS --hunk-header-style='omit' --file-style='omit' --syntax-theme='tokyonight_night' --true-color='always'",
+					preview_pager = "delta -s --width=$COLUMNS --hunk-header-style='omit' --file-style='omit'",
 				},
 			},
 			fzf_opts = {
