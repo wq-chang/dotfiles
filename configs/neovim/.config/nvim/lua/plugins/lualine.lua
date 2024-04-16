@@ -22,12 +22,6 @@ return {
 					"diagnostics",
 					sources = { "nvim_lsp", "nvim_diagnostic" },
 					sections = { "error", "warn", "info", "hint" },
-					diagnostics_color = {
-						error = "DiagnosticError",
-						warn = "DiagnosticWarn",
-						info = "DiagnosticInfo",
-						hint = "DiagnosticHint",
-					},
 				},
 			}
 			return {
