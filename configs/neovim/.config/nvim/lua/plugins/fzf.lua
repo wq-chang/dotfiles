@@ -59,20 +59,14 @@ return {
 			local function map(keys, func, desc)
 				vim.keymap.set("n", keys, func, { desc = desc })
 			end
+			-- stylua: ignore start
 			map("<leader>b", "<cmd>FzfLua buffers<cr>", "Buffers")
-			map("<leader>/", function()
-				live_grep_from_git_root()
-			end, "Grep root dir")
-			map("<leader>?", function()
-				live_grep_from_git_root(true)
-			end, "Grep root dir")
-			map(
-				"<leader>.",
-				"<cmd>FzfLua command_history<cr>",
-				"Command history"
-			)
+			map("<leader>/", function() live_grep_from_git_root() end, "Grep root dir")
+			map("<leader>?", function() live_grep_from_git_root(true) end, "Grep root dir")
+			map( "<leader>.", "<cmd>FzfLua command_history<cr>", "Command history")
 			map("<leader>fc", "<cmd>FzfLua commands<cr>", "Find commands")
 			map("<leader>ff", find_files_from_git_root, "Find file")
+			-- stylua: ignore end
 		end,
 	},
 }

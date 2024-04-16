@@ -21,12 +21,8 @@ return {
 			vim.diagnostic.config({
 				float = { border = "rounded" },
 			})
-			vim.keymap.set(
-				"n",
-				"<leader>li",
-				"<cmd>LspInfo<cr>",
-				{ desc = "Lsp info" }
-			)
+			-- stylua: ignore
+			vim.keymap.set( "n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Lsp info" })
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup(
 					"lsp-attach",
@@ -44,29 +40,17 @@ return {
 
 					local module_utils = require("utils.module")
 					local fzf = module_utils.try_require("fzf-lua")
+					-- stylua: ignore
 					if fzf then
-						map("gd", function()
-							fzf.lsp_definitions({ jump_to_single_result = true })
-						end, "Goto definition")
+						map("gd", function() fzf.lsp_definitions({ jump_to_single_result = true }) end, "Goto definition")
 						map("gr", fzf.lsp_references, "Goto references")
-						map(
-							"gi",
-							fzf.lsp_implementations,
-							"Goto implementation"
-						)
-						map(
-							"<leader>ls",
-							fzf.lsp_document_symbols,
-							"Document symbols"
-						)
+						map( "gi", fzf.lsp_implementations, "Goto implementation")
+						map( "<leader>ls", fzf.lsp_document_symbols, "Document symbols")
 						map("<leader>la", fzf.lsp_code_actions, "Code action")
 					end
 
-					map(
-						"<leader>ld",
-						vim.diagnostic.open_float,
-						"Show diagnostic"
-					)
+					-- stylua: ignore
+					map( "<leader>ld", vim.diagnostic.open_float, "Show diagnostic")
 					map("<leader>lr", vim.lsp.buf.rename, "Rename")
 					map("K", vim.lsp.buf.hover, "Hover Documentation")
 					map("gD", vim.lsp.buf.declaration, "Goto declaration")
