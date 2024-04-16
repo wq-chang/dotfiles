@@ -8,4 +8,5 @@ done
 
 cd ${curdir}
 unset curdir
+unset d
 echo "Updated all dotfiles"
