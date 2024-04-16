@@ -55,6 +55,17 @@ local get_ensure_installed_functions = {
 			mappings.nvimlint_to_mason
 		)
 	end,
+	get_dap_ensure_installed = function()
+		local dap = module_utils.try_require("dap")
+		if not dap then
+			return {}
+		end
+		local daps = vim.tbl_keys(dap.adapters)
+		local filtered_daps = vim.tbl_filter(function(v)
+			return v ~= "debugpy"
+		end, daps)
+		return map_to_mason_packages(filtered_daps, mappings.dap_to_mason)
+	end,
 }
 
 M.ensure_installed = {}
