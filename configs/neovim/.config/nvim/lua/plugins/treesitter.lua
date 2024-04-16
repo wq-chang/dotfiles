@@ -52,6 +52,7 @@ return {
 				"python",
 				"regex",
 				"sql",
+				"terraform",
 				"tsx",
 				"typescript",
 				"vim",

@@ -124,12 +124,13 @@ return {
 						},
 					},
 				},
-				pyright = {},
 				jsonls = {
 					init_options = {
 						provideFormatter = false,
 					},
 				},
+				pyright = {},
+				terraformls = {},
 			}
 			mapper.add_all_ensure_installed(vim.tbl_keys(servers))
 

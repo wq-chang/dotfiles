@@ -3,7 +3,9 @@ return {
 		"mfussenegger/nvim-lint",
 		opts = {
 			events = { "BufWritePost", "BufReadPost", "InsertLeave" },
-			linters_by_ft = {},
+			linters_by_ft = {
+				terraform = { "tflint" },
+			},
 		},
 		config = function(_, opts)
 			local lint = require("lint")
