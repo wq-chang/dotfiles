@@ -49,10 +49,10 @@ local function open_or_switch_to_lazygit(win, pane)
 				XDG_CONFIG_HOME = wezterm.home_dir .. "/.config",
 			},
 		})
-		active_tab_index = active_tab_index + 1
+		lazygit_tab_index = active_tab_index + 1
 	end
 
-	if active_tab_index == 0 then
+	if lazygit_tab_index > active_tab_index then
 		win:perform_action(act.MoveTab(active_tab_index), pane)
 	else
 		win:perform_action(act.MoveTab(active_tab_index - 1), pane)
@@ -62,11 +62,9 @@ end
 config.leader = { key = "Space", mods = "SHIFT" }
 config.keys = {
 	{
-		key = "g",
+		key = "c",
 		mods = "LEADER",
-		action = wezterm.action_callback(function(win, pane)
-			open_or_switch_to_lazygit(win, pane)
-		end),
+		action = act.CloseCurrentPane({ confirm = true }),
 	},
 	{
 		key = "h",
@@ -89,14 +87,26 @@ config.keys = {
 		action = act.ActivatePaneDirection("Right"),
 	},
 	{
-		key = "c",
+		key = "f",
 		mods = "LEADER",
-		action = act.CloseCurrentPane({ confirm = true }),
+		action = act.QuickSelect,
+	},
+	{
+		key = "g",
+		mods = "LEADER",
+		action = wezterm.action_callback(function(win, pane)
+			open_or_switch_to_lazygit(win, pane)
+		end),
 	},
 	{
 		key = "s",
 		mods = "LEADER",
 		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
+	},
+	{
+		key = "t",
+		mods = "LEADER",
+		action = act.SpawnTab("CurrentPaneDomain"),
 	},
 	{
 		key = "v",
@@ -106,9 +116,9 @@ config.keys = {
 		}),
 	},
 	{
-		key = "f",
+		key = "w",
 		mods = "LEADER",
-		action = act.QuickSelect,
+		action = act.CloseCurrentTab({ confirm = true }),
 	},
 }
 
