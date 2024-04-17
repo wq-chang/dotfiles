@@ -20,7 +20,7 @@ return {
 			local function open_from_cur_file_dir()
 				local cwd = vim.api.nvim_buf_get_name(0)
 				if vim.fn.filereadable(cwd) == 0 then
-					cwd = git_utils.get_git_root()
+					cwd = vim.fn.getcwd()
 				end
 				files.open(cwd)
 			end
@@ -36,7 +36,7 @@ return {
 				"n",
 				"<leader>fg",
 				open_from_root,
-				{ desc = "Open file explorer" }
+				{ desc = "Open file explorer from git root" }
 			)
 		end,
 	},

@@ -2,23 +2,37 @@ return {
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = { "nvim-neotest/nvim-nio" },
-		-- stylua: ignore
-		keys = {
-			{ "<leader>du", function() require("dapui").toggle() end, desc = "Dap UI", },
-			{ "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = { "n", "v" }, },
-			{ "<leader>df", function() require("dapui").float_element("scopes") end, desc = "Float scopes" }
-		},
+
+		keys = function()
+			local float_opts = {
+				position = "center",
+				width = math.ceil(
+					math.min(vim.o.columns, math.max(80, vim.o.columns - 55))
+				),
+				height = math.ceil(
+					math.min(vim.o.lines, math.max(20, vim.o.lines - 10))
+				),
+				enter = true,
+			}
+			-- stylua: ignore
+			return {
+				{ "<leader>du", function() require("dapui").toggle() end, desc = "Dap ui", },
+				{ "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = { "n", "v" }, },
+				{ "<leader>df", function() require("dapui").float_element("repl", float_opts) end, desc = "Repl" },
+			}
+		end,
 		opts = {
 			layouts = {
 				{
 					elements = {
-						"repl",
-						"console",
+						{ id = "scopes", size = 0.25 },
+						{ id = "console", size = 0.75 },
 					},
 					size = 20,
 					position = "bottom",
 				},
 			},
+			floating = { border = "rounded" },
 		},
 		config = function(_, opts)
 			local dap = require("dap")
@@ -43,12 +57,12 @@ return {
 		},
 		-- stylua: ignore
 		keys = {
-			{ "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-			{ "<F8>", function() require("dap").step_over() end, desc = "Step Over" },
-			{ "<F9>", function() require("dap").step_out() end, desc = "Step Out" },
+			{ "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
+			{ "<F8>", function() require("dap").step_over() end, desc = "Step over" },
+			{ "<F9>", function() require("dap").step_out() end, desc = "Step out" },
 			{ "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
-			{ "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-			{ "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+			{ "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to cursor" },
+			{ "<leader>di", function() require("dap").step_into() end, desc = "Step into" },
 			{ "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
 			{ "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
 			{ "<leader>dT", function() require("dap").terminate() end, desc = "Terminate" },
