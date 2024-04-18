@@ -23,7 +23,10 @@ chpwd_hook() {
 	local root_dir
 
 	if git rev-parse --is-inside-work-tree &>/dev/null; then
-		root_dir=$(git rev-parse --show-toplevel)
+		root_dir=$(git rev-parse --show-toplevel 2>/dev/null)
+		if [ $? -ne 0 ]; then
+			root_dir=$(pwd)
+		fi
 	else
 		root_dir=$(pwd)
 	fi
