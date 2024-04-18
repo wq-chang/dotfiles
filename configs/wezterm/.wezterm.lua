@@ -61,11 +61,7 @@ end
 
 config.leader = { key = "Space", mods = "SHIFT" }
 config.keys = {
-	{
-		key = "c",
-		mods = "LEADER",
-		action = act.CloseCurrentPane({ confirm = true }),
-	},
+	{ key = "d", mods = "CTRL|SHIFT", action = act.ScrollByLine(1) },
 	{
 		key = "h",
 		mods = "CTRL|SHIFT",
@@ -85,6 +81,12 @@ config.keys = {
 		key = "l",
 		mods = "CTRL|SHIFT",
 		action = act.ActivatePaneDirection("Right"),
+	},
+	{ key = "u", mods = "CTRL|SHIFT", action = act.ScrollByLine(-1) },
+	{
+		key = "c",
+		mods = "LEADER",
+		action = act.CloseCurrentPane({ confirm = true }),
 	},
 	{
 		key = "f",
