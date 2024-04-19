@@ -10,6 +10,8 @@ return {
 			local hl = function(name, val)
 				vim.api.nvim_set_hl(0, name, val)
 			end
+			hl("BqfPreviewTitle", { fg = c.border_highlight, bg = c.bg_float })
+
 			hl("DapUIScope", { fg = c.border_highlight })
 			hl("DapUIModifiedValue", { fg = c.border_highlight })
 			hl("DapUIDecoration", { fg = c.border_highlight })
