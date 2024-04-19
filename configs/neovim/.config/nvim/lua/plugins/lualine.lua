@@ -18,11 +18,7 @@ return {
 						readonly = "󰗚 ",
 					},
 				},
-				{
-					"diagnostics",
-					sources = { "nvim_lsp", "nvim_diagnostic" },
-					sections = { "error", "warn", "info", "hint" },
-				},
+				"diagnostics",
 			}
 			return {
 				options = {
