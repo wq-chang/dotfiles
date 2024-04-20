@@ -2,7 +2,6 @@ return {
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = { "nvim-neotest/nvim-nio" },
-
 		keys = function()
 			local float_opts = {
 				position = "center",

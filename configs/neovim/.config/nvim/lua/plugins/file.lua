@@ -7,7 +7,7 @@ return {
 			local function select_or_preview()
 				local entry = oil.get_cursor_entry()
 				if entry and entry.type == "file" then
-					oil.select({ preview = true })
+					oil.open_preview()
 					return
 				end
 				oil.select()

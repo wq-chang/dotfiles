@@ -3,6 +3,9 @@ return {
 		"folke/which-key.nvim",
 		opts = {
 			plugins = { spelling = true },
+			window = {
+				border = "single",
+			},
 			defaults = {
 				mode = { "n", "v" },
 				["g"] = { name = "+goto" },
