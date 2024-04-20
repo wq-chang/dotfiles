@@ -6,6 +6,13 @@ local colors = wezterm.color.load_scheme(
 	wezterm.home_dir .. "/dotfiles/extras/wezterm/tokyonight_night.toml"
 )
 
+config.window_background_image = wezterm.home_dir
+	.. "/dotfiles/extras/wezterm/bg.jpeg"
+config.window_background_image_hsb = {
+	brightness = 0.015,
+	hue = 1.0,
+	saturation = 1.0,
+}
 config.colors = colors
 config.enable_wayland = false
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
@@ -59,6 +66,18 @@ local function open_or_switch_to_lazygit(win, pane)
 	end
 end
 
+local function toggle_background_image(win, _)
+	local overrides = win:get_config_overrides() or {}
+	if not overrides.window_background_image then
+		overrides.window_background_image = ""
+		overrides.window_background_opacity = 0.95
+	else
+		overrides.window_background_image = nil
+		overrides.window_background_opacity = nil
+	end
+	win:set_config_overrides(overrides)
+end
+
 config.leader = { key = "Space", mods = "SHIFT" }
 config.keys = {
 	{ key = "d", mods = "CTRL|SHIFT", action = act.ScrollByLine(1) },
@@ -98,6 +117,13 @@ config.keys = {
 		mods = "LEADER",
 		action = wezterm.action_callback(function(win, pane)
 			open_or_switch_to_lazygit(win, pane)
+		end),
+	},
+	{
+		key = "i",
+		mods = "LEADER",
+		action = wezterm.action_callback(function(win, pane)
+			toggle_background_image(win, pane)
 		end),
 	},
 	{
