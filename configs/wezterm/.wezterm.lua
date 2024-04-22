@@ -6,6 +6,10 @@ local colors = wezterm.color.load_scheme(
 	wezterm.home_dir .. "/dotfiles/extras/wezterm/tokyonight_night.toml"
 )
 
+config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
+config.window_padding = {
+	bottom = 0,
+}
 config.window_background_image = wezterm.home_dir
 	.. "/dotfiles/extras/wezterm/bg.jpeg"
 config.window_background_image_hsb = {
