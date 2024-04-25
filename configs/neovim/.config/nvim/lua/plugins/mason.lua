@@ -1,6 +1,6 @@
 local mason_mapper = require("customs/mason-mapper")
 return {
-	{ "williamboman/mason.nvim", opts = {} },
+	{ "williamboman/mason.nvim", opts = { ui = { border = "rounded" } } },
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		priority = 1,
