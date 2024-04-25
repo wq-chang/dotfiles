@@ -16,4 +16,4 @@ def handle_result(args: List[str], stdin_data: str, target_window_id: int, boss:
         if tab.title == app_name:
             tab.make_active()
             return
-    boss.launch("--type=tab", app_name)
+    boss.launch("--type=tab", "--cwd=current", app_name)
