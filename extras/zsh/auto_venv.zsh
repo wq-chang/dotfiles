@@ -34,7 +34,7 @@ chpwd_hook() {
 	if contains_venv "$root_dir"; then
 		if is_venv_activated; then
 			# Check if the activated venv is the same as the current folder venv
-			if [[ "$VIRTUAL_ENV" != "$(realpath "$root_dir/venv")" && "$VIRTUAL_ENV" != "$(realpath "$root_dir/.venv")" ]]; then
+			if [[ "$VIRTUAL_ENV" != "$(realpath "$root_dir/venv" 2>/dev/null)" && "$VIRTUAL_ENV" != "$(realpath "$root_dir/.venv" 2>/dev/null)" ]]; then
 				deactivate_venv
 				activate_venv "$root_dir"
 			fi
@@ -51,3 +51,5 @@ chpwd_hook() {
 # Activate hook function
 autoload -U add-zsh-hook
 add-zsh-hook chpwd chpwd_hook
+
+chpwd_hook
