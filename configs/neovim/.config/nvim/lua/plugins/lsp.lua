@@ -3,7 +3,7 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"williamboman/mason.nvim",
-			{ "williamboman/mason-lspconfig.nvim" },
+			"williamboman/mason-lspconfig.nvim",
 			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
@@ -42,15 +42,15 @@ return {
 					local fzf = module_utils.try_require("fzf-lua")
 					-- stylua: ignore
 					if fzf then
-						map("gd", function() fzf.lsp_definitions({ jump_to_single_result = true }) end, "Goto definition")
-						map("gr", fzf.lsp_references, "Goto references")
-						map( "gi", fzf.lsp_implementations, "Goto implementation")
-						map( "<leader>ls", fzf.lsp_document_symbols, "Document symbols")
+						map("gd", fzf.lsp_definitions, "Goto definition")
+						map("gi", fzf.lsp_implementations , "Goto implementation")
+						map("gr", function() fzf.lsp_references({ includeDeclaration = false }) end, "Goto references")
+						map("<leader>ls", fzf.lsp_document_symbols, "Document symbols")
 						map("<leader>la", fzf.lsp_code_actions, "Code action")
 					end
 
 					-- stylua: ignore
-					map( "<leader>ld", vim.diagnostic.open_float, "Show diagnostic")
+					map("<leader>ld", vim.diagnostic.open_float, "Show diagnostic")
 					map("<leader>lr", vim.lsp.buf.rename, "Rename")
 					map("K", vim.lsp.buf.hover, "Hover Documentation")
 					map("gD", vim.lsp.buf.declaration, "Goto declaration")

@@ -18,6 +18,7 @@ return {
 					previewer = "codeaction_native",
 					preview_pager = "delta -s --width=$COLUMNS --hunk-header-style='omit' --file-style='omit'",
 				},
+				jump_to_single_result = true,
 			},
 			fzf_opts = {
 				["--layout"] = "reverse-list",
