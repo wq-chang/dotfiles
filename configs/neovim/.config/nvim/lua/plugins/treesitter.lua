@@ -111,6 +111,7 @@ return {
 	},
 	{
 		"m-demare/hlargs.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			vim.api.nvim_create_augroup("LspAttach_hlargs", { clear = true })
 			vim.api.nvim_create_autocmd("LspAttach", {

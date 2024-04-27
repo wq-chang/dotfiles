@@ -57,13 +57,11 @@ return {
 		-- stylua: ignore
 		keys = {
 			{ "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
+			{ "<F7>", function() require("dap").step_into() end, desc = "Step into" },
 			{ "<F8>", function() require("dap").step_over() end, desc = "Step over" },
-			{ "<F9>", function() require("dap").step_out() end, desc = "Step out" },
-			{ "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
-			{ "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to cursor" },
-			{ "<leader>di", function() require("dap").step_into() end, desc = "Step into" },
-			{ "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
-			{ "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+			{ "<F9>", function() require("dap").continue() end, desc = "Continue" },
+			{ "<F21>", function() require("dap").run_to_cursor() end, desc = "Run to cursor" },
+			{ "<leader>dR", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
 			{ "<leader>dT", function() require("dap").terminate() end, desc = "Terminate" },
 		},
 		config = function()
@@ -113,7 +111,7 @@ return {
 				-- stylua: ignore
 				callback = function(_)
 					map( "<leader>dm", "<cmd>lua require('dap-python').test_method()<cr>", { desc = "Test method" })
-					map( "<leader>dt", "<cmd>lua require('dap-python').test_class()<cr>", { desc = "Test class" })
+					map( "<leader>da", "<cmd>lua require('dap-python').test_class()<cr>", { desc = "Test class" })
 					map( "<leader>ds", "<cmd>lua require('dap-python').debug_selection()<cr>", { desc = "Debug selection" })
 				end,
 				group = group,
