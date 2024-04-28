@@ -6,6 +6,7 @@ local colors = wezterm.color.load_scheme(
 	wezterm.home_dir .. "/dotfiles/extras/wezterm/tokyonight_night.toml"
 )
 
+config.term = "wezterm"
 config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
 config.window_padding = {
 	bottom = 0,
@@ -52,7 +53,7 @@ local function open_or_switch_to_lazygit(win, pane)
 		win:perform_action(act.ActivateTab(lazygit_tab_index), pane)
 	else
 		mux_win:spawn_tab({
-			args = { "lazygit" },
+			args = { "env", "TERM=xterm-256color", "lazygit" },
 			set_environment_variables = {
 				PATH = wezterm.home_dir
 					.. "/go/bin:/opt/homebrew/bin:"
