@@ -35,10 +35,6 @@ return {
 					["<C-u>"] = "preview-page-up",
 					["<C-d>"] = "preview-page-down",
 				},
-				fzf = {
-					["ctrl-k"] = "kill-line",
-					["alt-a"] = "toggle-all",
-				},
 			},
 		},
 		config = function(_, opts)

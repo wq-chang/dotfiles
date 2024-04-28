@@ -25,14 +25,19 @@ if command -v aws_completer &>/dev/null; then
 fi
 # End completion setting
 
-# FZF color
+# FZF default command
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden'
+# FZF default opts
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 --color=fg:#c0caf5,bg:-1,hl:#ff9e64 \
 --color=fg+:#c0caf5,bg+:#292e42,hl+:#ff9e64 \
 --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
 --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a \
 --color=scrollbar:#3b4261,border:#27a1b9 \
---color=gutter:-1"
+--color=gutter:-1 \
+--layout=reverse \
+--bind='ctrl-k:kill-line','tab:toggle+down' \
+--bind='shift-tab:toggle+up'"
 
 # ZSH completion color
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -51,6 +56,7 @@ path=(
 plugin_dir=$HOME/.zsh_plugins
 # assumes github and slash separated plugin names
 github_plugins=(
+	Aloxaf/fzf-tab
 	romkatv/powerlevel10k
 	zsh-users/zsh-autosuggestions
 	zsh-users/zsh-completions
@@ -95,13 +101,16 @@ eval "$(zoxide init zsh)"
 alias zshpull="find $plugin_dir -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull"
 alias restow="source $HOME/dotfiles/restow.sh"
 
-#load completion module, to fix menuselect not found
+# load completion module, to fix menuselect not found
 zmodload zsh/complist
 # keybinding
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 bindkey '^H' backward-kill-word
+# fzf tab keybinding
+zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down' 'shift-tab:toggle+up' \
+	'alt-a:toggle-all'
 
 # clean up
 unset extra_dir
