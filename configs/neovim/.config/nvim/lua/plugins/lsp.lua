@@ -130,6 +130,7 @@ return {
 						)
 						require("lspconfig")[server_name].setup(server)
 					end,
+					jdtls = function() end,
 				},
 			})
 		end,

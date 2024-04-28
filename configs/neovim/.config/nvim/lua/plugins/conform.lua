@@ -9,6 +9,7 @@ return {
 				lsp_fallback = true,
 			},
 			formatters_by_ft = {
+				java = { "google-java-format" },
 				lua = { "stylua" },
 				json = { "prettierd" },
 				sh = { "shfmt" },

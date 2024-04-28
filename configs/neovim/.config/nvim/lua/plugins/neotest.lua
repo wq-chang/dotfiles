@@ -6,6 +6,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
+			"rcasia/neotest-java",
 			"nvim-neotest/neotest-python",
 		},
 		-- stylua: ignore
@@ -21,6 +22,7 @@ return {
 		opts = function()
 			return {
 				adapters = {
+					require("neotest-java")({}),
 					require("neotest-python")({}),
 				},
 			}
