@@ -68,6 +68,22 @@ local function jdtls_setup()
 			},
 		},
 	}
+	local m2_settings_file = "/.m2/settings.xml"
+	local user_m2_settings_path = vim.fn.glob(
+		require("utils.file").find_marker_in_parent(root_markers)
+			.. m2_settings_file
+	)
+	local global_m2_settings_path = vim.fn.glob(home .. m2_settings_file)
+	if user_m2_settings_path ~= "" or global_m2_settings_path ~= "" then
+		local configuration = { maven = {} }
+		if user_m2_settings_path ~= "" then
+			configuration.maven.userSettings = user_m2_settings_path
+		end
+		if global_m2_settings_path ~= "" then
+			configuration.maven.globalSettings = global_m2_settings_path
+		end
+		config.settings.java.configuration = configuration
+	end
 
 	local extendedClientCapabilities =
 		require("jdtls").extendedClientCapabilities
