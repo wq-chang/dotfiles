@@ -34,79 +34,85 @@ return {
 				end,
 			},
 		},
-		opts = {
-			highlight = { enable = true },
-			indent = { enable = true },
-			ensure_installed = {
-				"bash",
-				"html",
-				"java",
-				"javascript",
-				"jsdoc",
-				"json",
-				"jsonc",
-				"lua",
-				"luadoc",
-				"markdown",
-				"markdown_inline",
-				"python",
-				"regex",
-				"sql",
-				"terraform",
-				"tsx",
-				"typescript",
-				"vim",
-				"xml",
-				"yaml",
-			},
-			incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = "<C-space>",
-					node_incremental = "<C-space>",
-					scope_incremental = false,
-					node_decremental = "<bs>",
+		opts = function()
+			local goto_next_start = {}
+			local goto_next_end = {}
+			local goto_previous_start = {}
+			local goto_previous_end = {}
+			local select_keymaps = {}
+			local text_objects = {
+				a = "parameter",
+				c = "conditional",
+				f = "function",
+				l = "loop",
+			}
+			for key, text_object in pairs(text_objects) do
+				local upper_key = string.upper(key)
+				local inner_text_object = "@" .. text_object .. ".inner"
+				local outer_text_object = "@" .. text_object .. ".outer"
+				goto_next_start["]" .. key] = outer_text_object
+				goto_next_end["]" .. upper_key] = outer_text_object
+				goto_previous_start["[" .. key] = outer_text_object
+				goto_previous_end["[" .. upper_key] = outer_text_object
+				select_keymaps["i" .. key] = inner_text_object
+				select_keymaps["a" .. key] = outer_text_object
+			end
+			return {
+				highlight = { enable = true },
+				indent = { enable = true },
+				ensure_installed = {
+					"bash",
+					"html",
+					"java",
+					"javascript",
+					"jsdoc",
+					"json",
+					"jsonc",
+					"kotlin",
+					"lua",
+					"luadoc",
+					"markdown",
+					"markdown_inline",
+					"python",
+					"regex",
+					"sql",
+					"terraform",
+					"tsx",
+					"typescript",
+					"vim",
+					"xml",
+					"yaml",
 				},
-			},
-			textobjects = {
-				move = {
-					enable = true,
-					goto_next_start = {
-						["]a"] = "@parameter.outer",
-						["]c"] = "@class.outer",
-						["]f"] = "@function.outer",
-					},
-					goto_next_end = {
-						["]A"] = "@parameter.outer",
-						["]C"] = "@class.outer",
-						["]F"] = "@function.outer",
-					},
-					goto_previous_start = {
-						["[a"] = "@parameter.outer",
-						["[c"] = "@class.outer",
-						["[f"] = "@function.outer",
-					},
-					goto_previous_end = {
-						["[A"] = "@parameter.outer",
-						["[C"] = "@class.outer",
-						["[F"] = "@function.outer",
-					},
-				},
-				select = {
+				incremental_selection = {
 					enable = true,
 					keymaps = {
-						["aa"] = "@parameter.outer",
-						["ia"] = "@parameter.inner",
-						["ac"] = "@class.outer",
-						["ic"] = "@class.inner",
-						["af"] = "@function.outer",
-						["if"] = "@function.inner",
+						init_selection = "<C-space>",
+						node_incremental = "<C-space>",
+						scope_incremental = false,
+						node_decremental = "<bs>",
 					},
 				},
-			},
-		},
+				textobjects = {
+					move = {
+						enable = true,
+						goto_next_start = goto_next_start,
+						goto_next_end = goto_next_end,
+						goto_previous_start = goto_previous_start,
+						goto_previous_end = goto_previous_end,
+					},
+					select = {
+						enable = true,
+						keymaps = select_keymaps,
+					},
+				},
+			}
+		end,
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
+			local opt = vim.opt
+			opt.foldmethod = "expr"
+			opt.foldexpr = "nvim_treesitter#foldexpr()"
+			opt.foldenable = false
 		end,
 	},
 	{
