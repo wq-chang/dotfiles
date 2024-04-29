@@ -22,6 +22,7 @@ upcmp() {
 	urls=(
 		"https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/terraform/_terraform"
 		"https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker"
+		"https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/docker-compose/_docker-compose"
 	)
 
 	local url
