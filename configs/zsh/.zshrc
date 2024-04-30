@@ -14,6 +14,7 @@ bindkey -e
 # Completion setting
 zstyle :compinstall filename $HOME/.zshrc
 fpath=(
+	$HOME/.zsh_plugins/zsh-users/zsh-completions/src
 	$fpath
 	$HOME/.zsh_plugins/.cache/completions
 )
