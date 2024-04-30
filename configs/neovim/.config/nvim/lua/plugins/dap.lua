@@ -110,9 +110,9 @@ return {
 				pattern = { "python" },
 				-- stylua: ignore
 				callback = function(_)
-					map( "<leader>dm", "<cmd>lua require('dap-python').test_method()<cr>", { desc = "Test method" })
-					map( "<leader>da", "<cmd>lua require('dap-python').test_class()<cr>", { desc = "Test class" })
-					map( "<leader>ds", "<cmd>lua require('dap-python').debug_selection()<cr>", { desc = "Debug selection" })
+					map("<leader>dm", "<cmd>lua require('dap-python').test_method()<cr>", { desc = "Test method" })
+					map("<leader>da", "<cmd>lua require('dap-python').test_class()<cr>", { desc = "Test class" })
+					map("<leader>ds", "<cmd>lua require('dap-python').debug_selection()<cr>", { desc = "Debug selection" })
 				end,
 				group = group,
 			})

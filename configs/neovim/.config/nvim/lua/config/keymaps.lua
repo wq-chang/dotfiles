@@ -6,7 +6,7 @@ map("i", "jk", "<esc>", {})
 
 -- Clear search with <esc>
 -- stylua: ignore
-map( { "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 -- Ctrl + Backspace to delete word
 map("i", "<C-H>", "<C-W>", { noremap = true })
