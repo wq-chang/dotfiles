@@ -38,7 +38,7 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 --color=gutter:-1 \
 --layout=reverse \
 --bind='ctrl-k:kill-line','tab:toggle+down' \
---bind='shift-tab:toggle+up'"
+--bind='shift-tab:toggle+up','alt-a:toggle-all'"
 
 # ZSH completion color
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
