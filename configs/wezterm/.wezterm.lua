@@ -56,6 +56,8 @@ local function open_or_switch_to_lazygit(win, pane)
 			args = { "env", "TERM=xterm-256color", "lazygit" },
 			set_environment_variables = {
 				PATH = wezterm.home_dir
+					.. "/.nix-profile/bin:"
+					.. wezterm.home_dir
 					.. "/go/bin:/opt/homebrew/bin:"
 					.. os.getenv("PATH"),
 				XDG_CONFIG_HOME = wezterm.home_dir .. "/.config",

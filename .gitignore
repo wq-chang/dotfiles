@@ -1,4 +1,2 @@
 .git/
-__pycache__/
-configs/bat/.config/bat/themes/
-configs/lazygit/.config/lazygit/state.yml
+result
