@@ -117,7 +117,7 @@ def update_dependencies():
         sparse_checkout = (
             data[item]["sparseCheckout"] if "sparseCheckout" in data[item] else None
         )
-        hash_value = get_hash(url, branch, rev, sparse_checkout)
+        hash_value = get_hash(url, branch, latest_rev, sparse_checkout)
         data[item]["rev"] = latest_rev
         data[item]["hash"] = hash_value
 
