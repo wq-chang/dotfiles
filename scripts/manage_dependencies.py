@@ -4,7 +4,7 @@ import os
 import subprocess
 import sys
 
-deps_file = f"{os.path.expanduser('~')}/dotfiles/deps.json"
+deps_file = f"{os.path.expanduser('~')}/dotfiles/deps-lock.json"
 
 
 def get_latest_rev(url, branch=None):

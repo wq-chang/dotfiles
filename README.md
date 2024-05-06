@@ -12,7 +12,7 @@ python scripts/create_dotfiles_config.py
 ### Switch
 
 ```
-home-manager switch --flake ./.#<host>
+home-manager switch --flake ./.#<user>@<host>
 ```
 
 ### Add Github Dependencies

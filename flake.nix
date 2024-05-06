@@ -8,13 +8,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    dotfilesConfigs = {
+      url = "git+ssh://git@github.com/wq-chang/dotfiles-configs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { dotfilesConfigs, nixpkgs, home-manager, ... }:
     let
-      dotfilesConfig = builtins.fromJSON (builtins.readFile ./dotfiles.json);
-      deps = builtins.fromJSON (builtins.readFile ./deps.json);
-      withArch = arch: host:
+      deps = builtins.fromJSON (builtins.readFile ./deps-lock.json);
+      withArch = arch: user: host:
+        let
+          dotfilesConfig = dotfilesConfigs."${user}@${host}";
+        in
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${arch};
           modules = [ ./hosts/${host}/home.nix { _module.args = { inherit dotfilesConfig deps; }; } ];
@@ -26,7 +32,7 @@
         x86_64-linux = home-manager.defaultPackage.x86_64-linux;
       };
       homeConfigurations = {
-        "linux" = withArch "x86_64-linux" "linux";
+        "dev@linux" = withArch "x86_64-linux" "dev" "linux";
       };
     };
 }

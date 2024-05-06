@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "dotfilesConfigs": {
+      "locked": {
+        "lastModified": 1714996148,
+        "narHash": "sha256-LluB760+DKHQRnR1/mYBJc5wNutcHGlR8zs7+wvIP3w=",
+        "ref": "refs/heads/master",
+        "rev": "c7ec43d38f8f8e8bf8af236c201f5a4bd7e97476",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/wq-chang/dotfiles-configs"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/wq-chang/dotfiles-configs"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -38,6 +53,7 @@
     },
     "root": {
       "inputs": {
+        "dotfilesConfigs": "dotfilesConfigs",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
       }
