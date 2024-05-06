@@ -1,7 +1,7 @@
 upcmp() {
-	local cacheDir=$HOME/.zsh_plugins/.cache
+	local cacheDir=$HOME/.zsh/plugins
 	local fishDir=$cacheDir/fish
-	local cacheCmpDir=$cacheDir/completions
+	local cacheCmpDir=$cacheDir/generated-completions
 	local cmcpy=$cacheDir/create_manpage_completions.py
 	local drpy=$cacheDir/deroff.py
 
@@ -16,23 +16,7 @@ upcmp() {
 	python $cmcpy --manpath --cleanup-in $fishDir -d $fishDir --progress
 	zsh-manpage-completion-generator -clean -src $fishDir -dst $cacheCmpDir
 	rm -rf $fishDir
+	rm -rf $cacheDir/__pycache__
 	rm $cmcpy
 	rm $drpy
-
-	urls=(
-		"https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/terraform/_terraform"
-		"https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker"
-		"https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/docker-compose/_docker-compose"
-	)
-
-	local url
-	for url in "${urls[@]}"; do
-		filename=$(basename "$url")
-		curl -s -o "$cacheCmpDir/$filename" "$url"
-		if [ $? -eq 0 ]; then
-			echo "Completion script '$filename' downloaded successfully."
-		else
-			echo "Failed to download completion script '$filename'."
-		fi
-	done
 }

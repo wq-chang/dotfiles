@@ -1,4 +1,9 @@
-{ pkgs, dotfilesConfig, ... }: {
+{ deps, dotfilesConfig, pkgs, ... }:
+let
+  zsh-manpage-completion-generator =
+    pkgs.callPackage ../../packages/zsh-manpage-completion-generator.nix { inherit deps; };
+in
+{
   home.username = dotfilesConfig.username;
   home.homeDirectory = "/home/${dotfilesConfig.username}";
   home.stateVersion = "24.05";
@@ -21,6 +26,7 @@
     fd
     nurl
     ripgrep
+    zsh-manpage-completion-generator
 
     # fedora only
     wl-clipboard

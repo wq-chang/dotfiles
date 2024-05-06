@@ -31,10 +31,6 @@ in
         };
       }
     ];
-    completionInit = ''
-      autoload bashcompinit && bashcompinit
-      autoload -Uz compinit && compinit
-    '';
     initExtraFirst = ''
       if [[ -r "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
       	source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
@@ -42,11 +38,26 @@ in
     '';
     initExtraBeforeCompInit = ''
       fpath+="$HOME/.zsh/plugins/zsh-completions"
+      fpath+="$HOME/.zsh/plugins/generated-completions"
+    '';
+    completionInit = ''
+      autoload bashcompinit && bashcompinit
+      autoload -Uz compinit && compinit
     '';
     initExtra = ''
       if command -v aws_completer &>/dev/null; then
       	complete -C "$(command -v aws_completer)" aws
       fi
+
+      directory="$HOME/dotfiles/scripts"
+      for file in $directory/*.zsh; do
+      	if [[ -f $file ]]; then
+      		source $file
+      	fi
+      done
+      unset directory
+      unset file
+
       bindkey -e
       bindkey '^H' backward-kill-word
       zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down' 'shift-tab:toggle+up' 'alt-a:toggle-all'

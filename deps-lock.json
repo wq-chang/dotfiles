@@ -27,8 +27,8 @@
   "powerlevel10k": {
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "b28d68f44b42f25703673fac514d0777f0af9d8a",
-    "hash": "sha256-25le1SCbId+oDeOc/oIOFn4mA5Y2vobyyXjfghFTRq0="
+    "rev": "3395c828b27f2cf528b3cec6e48f97a986c5f086",
+    "hash": "sha256-wrtr9A2CRxfh1F41aLUC1xJmr3EJT30bCTnlD5vAWjg="
   },
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
@@ -44,5 +44,11 @@
     "branchName": "master",
     "rev": "b1cf65187047a83e27a0847bd565dcf28b5be465",
     "hash": "sha256-eqpZp61qCrdp6yrexQJWgEl9Efjk/aTj/AImplpl6gg="
+  },
+  "zsh-manpage-completion-generator": {
+    "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",
+    "branchName": "main",
+    "rev": "9deb58cdefb11e808c77256873d96e2501adf1fc",
+    "hash": "sha256-0CtUafPFt0OxnwdtMSxm/1jcYmDyacj9OoSvfJchixE="
   }
 }

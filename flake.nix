@@ -9,9 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dotfilesConfigs = {
-      url = "git+ssh://git@github.com/wq-chang/dotfiles-configs";
-    };
+    dotfilesConfigs.url = "git+ssh://git@github.com/wq-chang/dotfiles-configs";
   };
 
   outputs = { dotfilesConfigs, nixpkgs, home-manager, ... }:
@@ -23,7 +21,7 @@
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${arch};
-          modules = [ ./hosts/${host}/home.nix { _module.args = { inherit dotfilesConfig deps; }; } ];
+          modules = [ ./hosts/${host}/home.nix { _module.args = { inherit deps dotfilesConfig; }; } ];
         };
     in
     {
