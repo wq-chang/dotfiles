@@ -14,23 +14,26 @@
 
   outputs = { dotfilesConfigs, nixpkgs, home-manager, ... }:
     let
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
+      toHomeManagerPackages = sys: { name = sys; value = { default = home-manager.defaultPackage.${sys}; }; };
       deps = builtins.fromJSON (builtins.readFile ./deps-lock.json);
-      withArch = arch: user: host:
+      withArch = system: user:
         let
-          dotfilesConfig = dotfilesConfigs."${user}@${host}";
+          dotfilesConfig = dotfilesConfigs."${user}";
         in
         home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${arch};
-          modules = [ ./hosts/${host}/home.nix { _module.args = { inherit deps dotfilesConfig; }; } ];
+          pkgs = nixpkgs.legacyPackages.${system};
+          modules = [
+            ./hosts/${user}/home.nix
+            { _module.args = { inherit deps dotfilesConfig; }; }
+          ];
         };
     in
     {
-      defaultPackage = {
-        aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
-        x86_64-linux = home-manager.defaultPackage.x86_64-linux;
-      };
-      homeConfigurations = {
-        "dev@linux" = withArch "x86_64-linux" "dev" "linux";
-      };
+      packages = builtins.listToAttrs (map toHomeManagerPackages systems);
+      homeConfigurations =
+        {
+          "linux" = withArch "x86_64-linux" "linux";
+        };
     };
 }
