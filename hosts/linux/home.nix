@@ -22,7 +22,7 @@ in
   ];
 
   home.packages = with pkgs; [
-    awscli
+    awscli2
     fd
     nurl
     ripgrep
