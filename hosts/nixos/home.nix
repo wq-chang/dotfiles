@@ -27,6 +27,7 @@ in
     fd
     gcc
     nurl
+    python3
     ripgrep
     zsh-manpage-completion-generator
 

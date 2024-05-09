@@ -26,13 +26,13 @@
           pkgs = nixpkgs.legacyPackages.${system};
           modules = [
             ./hosts/${user}/home.nix
-            { _module.args = { inherit deps dotfilesConfig; }; }
+            { _module.args = { inherit deps dotfilesConfig; isNixOs = false; }; }
           ];
         };
 
       mkNixOsConfig = user:
         let
-          dotfilesConfig = dotfilesConfigs."${user}";
+          dotfilesConfig = dotfilesConfigs.${user};
         in
         {
           "${user}" = nixpkgs.lib.nixosSystem {
@@ -45,10 +45,10 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   users.${dotfilesConfig.username} = import ./hosts/${user}/home.nix;
-                  extraSpecialArgs = { inherit deps dotfilesConfig; };
+                  extraSpecialArgs = { inherit deps dotfilesConfig; isNixOs = true; };
                 };
               }
-              { _module.args = { inherit deps dotfilesConfig; }; }
+              { _module.args = { inherit deps dotfilesConfig; isNixOs = true; }; }
             ];
           };
 
