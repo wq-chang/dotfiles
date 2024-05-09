@@ -15,11 +15,12 @@
   outputs = { dotfilesConfigs, nixpkgs, home-manager, ... }:
     let
       systems = [ "x86_64-linux" "aarch64-darwin" ];
-      toHomeManagerPackages = sys: { name = sys; value = { default = home-manager.defaultPackage.${sys}; }; };
       deps = builtins.fromJSON (builtins.readFile ./deps-lock.json);
-      withArch = system: user:
+
+      toHomeManagerPackages = sys: { name = sys; value = { default = home-manager.defaultPackage.${sys}; }; };
+      mkHomeManagerConfig = system: user:
         let
-          dotfilesConfig = dotfilesConfigs."${user}";
+          dotfilesConfig = dotfilesConfigs.${user};
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
@@ -28,12 +29,37 @@
             { _module.args = { inherit deps dotfilesConfig; }; }
           ];
         };
+
+      mkNixOsConfig = user:
+        let
+          dotfilesConfig = dotfilesConfigs."${user}";
+        in
+        {
+          "${user}" = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ./hosts/${user}/configuration.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.${dotfilesConfig.username} = import ./hosts/${user}/home.nix;
+                _module.args = { inherit deps dotfilesConfig; };
+              }
+              { _module.args = { inherit deps dotfilesConfig; }; }
+            ];
+          };
+
+        };
     in
     {
       packages = builtins.listToAttrs (map toHomeManagerPackages systems);
+
       homeConfigurations =
         {
-          "linux" = withArch "x86_64-linux" "linux";
+          "linux" = mkHomeManagerConfig "x86_64-linux" "linux";
         };
+
+      nixosConfigurations = mkNixOsConfig "nixos";
     };
 }
