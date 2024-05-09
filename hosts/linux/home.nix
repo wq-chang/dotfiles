@@ -18,7 +18,7 @@ in
     ../../modules/lazygit.nix
     ../../modules/neovim.nix
     ../../modules/zoxide.nix
-    ../../modules/zsh.nix
+    ../../modules/zsh/zsh.nix
   ];
 
   home.packages = with pkgs; [

@@ -41,10 +41,12 @@
               ./hosts/${user}/configuration.nix
               home-manager.nixosModules.home-manager
               {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.${dotfilesConfig.username} = import ./hosts/${user}/home.nix;
-                _module.args = { inherit deps dotfilesConfig; };
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users.${dotfilesConfig.username} = import ./hosts/${user}/home.nix;
+                  extraSpecialArgs = { inherit deps dotfilesConfig; };
+                };
               }
               { _module.args = { inherit deps dotfilesConfig; }; }
             ];

@@ -1,6 +1,6 @@
 { deps, pkgs, ... }:
 let
-  completions = import ./utils/zsh-completions.nix { inherit deps pkgs; };
+  completions = import ./zsh-completions.nix { inherit deps pkgs; };
 in
 {
   programs.zsh = {
@@ -22,7 +22,7 @@ in
         name = "p10k-config";
         file = ".p10k.zsh";
         # TODO: change to mkOutOfStoreSymlink
-        src = ../configs/zsh;
+        src = ../../configs/zsh;
       }
       {
         name = "fzf-tab";
@@ -63,6 +63,9 @@ in
       zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down' 'shift-tab:toggle+up' 'alt-a:toggle-all'
       export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#7aa2f7,fg=#16161e,bold'
       export DIRENV_LOG_FORMAT=
+
+      bindkey "$terminfo[kcuu1]" history-substring-search-up
+      bindkey "$terminfo[kcud1]" history-substring-search-down
     '';
   };
 

@@ -17,13 +17,15 @@ in
     ../../modules/git.nix
     ../../modules/lazygit.nix
     ../../modules/neovim.nix
+    ../../modules/wezterm.nix
     ../../modules/zoxide.nix
-    ../../modules/zsh.nix
+    ../../modules/zsh/zsh.nix
   ];
 
   home.packages = with pkgs; [
     awscli2
     fd
+    gcc
     nurl
     ripgrep
     zsh-manpage-completion-generator

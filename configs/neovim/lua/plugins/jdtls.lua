@@ -133,8 +133,8 @@ return {
 		config = function()
 			local mapper = require("customs/mason-mapper")
 			mapper.add_all_ensure_installed({
-				"java-debug-adapter",
-				"java-test",
+				-- "java-debug-adapter",
+				-- "java-test",
 				"jdtls",
 			})
 
