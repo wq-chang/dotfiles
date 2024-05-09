@@ -26,6 +26,7 @@ in
     awscli2
     fd
     gcc
+    google-chrome
     nurl
     python3
     ripgrep
