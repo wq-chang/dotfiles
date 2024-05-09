@@ -2,8 +2,6 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
 			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
@@ -97,7 +95,6 @@ return {
 				)
 			end
 
-			local mapper = require("customs/mason-mapper")
 			local servers = {
 				lua_ls = {
 					settings = {
@@ -117,23 +114,17 @@ return {
 				pyright = {},
 				terraformls = {},
 			}
-			mapper.add_all_ensure_installed(vim.tbl_keys(servers))
 
-			require("mason-lspconfig").setup({
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						server.capabilities = vim.tbl_deep_extend(
-							"force",
-							{},
-							capabilities,
-							server.capabilities or {}
-						)
-						require("lspconfig")[server_name].setup(server)
-					end,
-					jdtls = function() end,
-				},
-			})
+			for server_name in pairs(servers) do
+				local server = servers[server_name] or {}
+				server.capabilities = vim.tbl_deep_extend(
+					"force",
+					{},
+					capabilities,
+					server.capabilities or {}
+				)
+				require("lspconfig")[server_name].setup(server)
+			end
 		end,
 	},
 }

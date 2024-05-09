@@ -9,7 +9,7 @@ return {
 		},
 		config = function()
 			local opts = {
-				ensure_installed = mason_mapper.get_ensure_installed(),
+				ensure_installed = mason_mapper.ensure_installed,
 			}
 			require("mason-tool-installer").setup(opts)
 		end,

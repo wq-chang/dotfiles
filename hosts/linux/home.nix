@@ -28,6 +28,23 @@ in
     ripgrep
     zsh-manpage-completion-generator
 
+    # formatter
+    black
+    google-java-format
+    isort
+    nixpkgs-fmt
+    prettierd
+    shfmt
+    stylua
+    tflint
+
+    # lsp
+    lua-language-server
+    nil
+    pyright
+    terraform-ls
+    vscode-langservers-extracted #jsonls
+
     # fedora only
     wl-clipboard
   ];

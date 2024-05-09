@@ -75,10 +75,12 @@ function M.add_all_ensure_installed(packages)
 end
 
 function M.get_ensure_installed()
+	local all_ensure_installed = {}
+	vim.list_extend(all_ensure_installed, M.ensure_installed)
 	for _, v in pairs(get_ensure_installed_functions) do
-		vim.list_extend(M.ensure_installed, v())
+		vim.list_extend(all_ensure_installed, v())
 	end
-	return M.ensure_installed
+	return all_ensure_installed
 end
 
 return M

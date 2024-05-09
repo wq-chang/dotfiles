@@ -2,11 +2,11 @@
   "nodes": {
     "dotfilesConfigs": {
       "locked": {
-        "lastModified": 1715101315,
-        "narHash": "sha256-26lFeZkVvgMlRRi/+IMKJW7pBO+lIR8/D5xucCrEp2s=",
+        "lastModified": 1715190273,
+        "narHash": "sha256-jJLQp3jQsHQek2ifxOz4bXKqUHyuHXFTrgtmXSfWKL8=",
         "ref": "refs/heads/master",
-        "rev": "0eed9444df33fc13a052f0a002fb50118113b1a9",
-        "revCount": 2,
+        "rev": "ab9f45c180a46844222ef14a7b0d40e0bf2d46b1",
+        "revCount": 3,
         "type": "git",
         "url": "ssh://git@github.com/wq-chang/dotfiles-configs"
       },
