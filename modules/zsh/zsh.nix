@@ -9,7 +9,11 @@ in
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     history.ignoreDups = true;
-    historySubstringSearch.enable = true;
+    historySubstringSearch = {
+      enable = true;
+      searchDownKey = "$terminfo[kcud1]";
+      searchUpKey = "$terminfo[kcuu1]";
+    };
     plugins = with pkgs; [
       {
         name = "p10k";
@@ -63,9 +67,9 @@ in
       zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down' 'shift-tab:toggle+up' 'alt-a:toggle-all'
       export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#7aa2f7,fg=#16161e,bold'
       export DIRENV_LOG_FORMAT=
-
-      bindkey "$terminfo[kcuu1]" history-substring-search-up
-      bindkey "$terminfo[kcud1]" history-substring-search-down
+      export LOMBOK=${pkgs.lombok}/share/java/lombok.jar
+      export JAVA_DEBUG=${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server
+      export JAVA_TEST=${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server
     '';
   };
 

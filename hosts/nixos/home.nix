@@ -15,6 +15,7 @@ in
     ../../modules/eza.nix
     ../../modules/fzf.nix
     ../../modules/git.nix
+    ../../modules/jdtls.nix
     ../../modules/lazygit.nix
     ../../modules/neovim.nix
     ../../modules/wezterm.nix
@@ -27,6 +28,7 @@ in
     fd
     gcc
     google-chrome
+    maven
     nurl
     python3
     ripgrep
@@ -49,4 +51,9 @@ in
     terraform-ls
     vscode-langservers-extracted #jsonls
   ];
+
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk17;
+  };
 }

@@ -2,22 +2,10 @@ local function jdtls_setup()
 	local home = os.getenv("HOME")
 	local root_markers =
 		{ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
-	local root_dir = require("jdtls.setup").find_root(root_markers)
-	local project_name = vim.fn.fnamemodify(root_dir, ":p:h:t")
-	local workspace_dir = home .. "/.cache/jdtls/workspace" .. project_name
-	local mason_packages_path = vim.fn.stdpath("data") .. "/mason/packages"
-	local jdtls_path = mason_packages_path .. "/jdtls"
-	local lombok_path = jdtls_path .. "/lombok.jar"
-	local config_path
-	if vim.fn.has("mac") == 1 then
-		config_path = jdtls_path .. "/config_mac"
-	elseif vim.fn.has("unix") == 1 then
-		config_path = jdtls_path .. "/config_linux"
-	elseif vim.fn.has("win32") == 1 then
-		config_path = jdtls_path .. "/config_win"
-	end
-	local path_to_jar =
-		vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
+	local workspace_root = require("jdtls.setup").find_root(root_markers)
+	local project_name = vim.fn.fnamemodify(workspace_root, ":p:h:t")
+	local workspace_dir = home .. "/.cache/jdtls/workspace/" .. project_name
+	local lombok_path = os.getenv("LOMBOK")
 
 	local config = {
 		flags = {
@@ -26,23 +14,8 @@ local function jdtls_setup()
 	}
 
 	config.cmd = {
-		"java",
-		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
-		"-Dosgi.bundles.defaultStartLevel=4",
-		"-Declipse.product=org.eclipse.jdt.ls.core.product",
-		"-Dlog.protocol=true",
-		"-Dlog.level=ALL",
-		"-Xmx1g",
-		"-javaagent:" .. lombok_path,
-		"--add-modules=ALL-SYSTEM",
-		"--add-opens",
-		"java.base/java.util=ALL-UNNAMED",
-		"--add-opens",
-		"java.base/java.lang=ALL-UNNAMED",
-		"-jar",
-		path_to_jar,
-		"-configuration",
-		config_path,
+		"jdtls",
+		"--jvm-arg=-javaagent:" .. lombok_path,
 		"-data",
 		workspace_dir,
 	}
@@ -91,21 +64,17 @@ local function jdtls_setup()
 
 	local bundles = {}
 
-	local jdebug_path = mason_packages_path .. "/java-debug-adapter"
+	local jdebug_path = os.getenv("JAVA_DEBUG")
 	local jdebug_bundle = vim.split(
-		vim.fn.glob(
-			jdebug_path
-				.. "/extension/server/com.microsoft.java.debug.plugin-*.jar"
-		),
+		vim.fn.glob(jdebug_path .. "/com.microsoft.java.debug.plugin-*.jar"),
 		"\n"
 	)
 	if jdebug_bundle[1] ~= "" then
 		vim.list_extend(bundles, jdebug_bundle)
 	end
 
-	local jtest_path = mason_packages_path .. "/java-test"
-	local jtest_bundle =
-		vim.split(vim.fn.glob(jtest_path .. "/extension/server/*.jar"), "\n")
+	local jtest_path = os.getenv("JAVA_TEST")
+	local jtest_bundle = vim.split(vim.fn.glob(jtest_path .. "/*.jar"), "\n")
 	if jtest_bundle[1] ~= "" then
 		vim.list_extend(bundles, jtest_bundle)
 	end
@@ -131,13 +100,6 @@ return {
 	{
 		"mfussenegger/nvim-jdtls",
 		config = function()
-			local mapper = require("customs/mason-mapper")
-			mapper.add_all_ensure_installed({
-				-- "java-debug-adapter",
-				-- "java-test",
-				"jdtls",
-			})
-
 			local group =
 				vim.api.nvim_create_augroup("java_jdtls", { clear = true })
 			local function map(lhs, rhx, opts)
