@@ -19,9 +19,11 @@ in
     ../../modules/bat.nix
     ../../modules/direnv.nix
     ../../modules/eza.nix
+    ../../modules/fonts.nix
     ../../modules/fzf.nix
     ../../modules/git.nix
     ../../modules/jdtls.nix
+    ../../modules/kitty.nix
     ../../modules/lazygit.nix
     ../../modules/neovim.nix
     ../../modules/wezterm.nix
