@@ -1,4 +1,10 @@
-{ pkgs, lib, dotfilesConfig, ... }: {
+{
+  pkgs,
+  lib,
+  dotfilesConfig,
+  ...
+}:
+{
   programs.git = {
     enable = true;
     userName = dotfilesConfig.gitName;

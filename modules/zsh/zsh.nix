@@ -18,9 +18,16 @@ in
       {
         name = "p10k";
         file = "powerlevel10k.zsh-theme";
-        src = with deps.powerlevel10k; pkgs.fetchgit {
-          inherit url branchName rev hash;
-        };
+        src =
+          with deps.powerlevel10k;
+          pkgs.fetchgit {
+            inherit
+              url
+              branchName
+              rev
+              hash
+              ;
+          };
       }
       {
         name = "p10k-config";
@@ -30,9 +37,16 @@ in
       }
       {
         name = "fzf-tab";
-        src = with deps.fzf-tab; pkgs.fetchgit {
-          inherit url branchName rev hash;
-        };
+        src =
+          with deps.fzf-tab;
+          pkgs.fetchgit {
+            inherit
+              url
+              branchName
+              rev
+              hash
+              ;
+          };
       }
     ];
     initExtraFirst = ''

@@ -13,7 +13,7 @@ return {
 				lua = { "stylua" },
 				json = { "prettierd" },
 				markdown = { "prettierd" },
-				nix = { "nixpkgs_fmt" },
+				nix = { "nixfmt" },
 				python = { "black", "isort" },
 				sh = { "shfmt" },
 				zsh = { "shfmt" },

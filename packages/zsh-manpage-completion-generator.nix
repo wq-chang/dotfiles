@@ -3,9 +3,16 @@ pkgs.buildGoModule rec {
   pname = "zsh-manpage-completion-generator";
   version = "1.0.2";
 
-  src = with deps.zsh-manpage-completion-generator; pkgs.fetchgit {
-    inherit url branchName rev hash;
-  };
+  src =
+    with deps.zsh-manpage-completion-generator;
+    pkgs.fetchgit {
+      inherit
+        url
+        branchName
+        rev
+        hash
+        ;
+    };
 
   vendorHash = "sha256-Wb00v363VjrRKMRQ2beA1pxRYB7LY9yTHPdiXIDdLQA=";
 

@@ -1,7 +1,13 @@
-{ deps, dotfilesConfig, pkgs, ... }:
+{
+  deps,
+  dotfilesConfig,
+  pkgs,
+  ...
+}:
 let
   zsh-manpage-completion-generator =
-    pkgs.callPackage ../../packages/zsh-manpage-completion-generator.nix { inherit deps; };
+    pkgs.callPackage ../../packages/zsh-manpage-completion-generator.nix
+      { inherit deps; };
 in
 {
   home.username = dotfilesConfig.username;
@@ -38,7 +44,8 @@ in
     black
     google-java-format
     isort
-    nixpkgs-fmt
+    nixfmt-rfc-style
+
     prettierd
     shfmt
     stylua
@@ -49,7 +56,7 @@ in
     nil
     pyright
     terraform-ls
-    vscode-langservers-extracted #jsonls
+    vscode-langservers-extracted # jsonls
   ];
 
   programs.java = {

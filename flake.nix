@@ -12,13 +12,28 @@
     dotfilesConfigs.url = "git+ssh://git@github.com/wq-chang/dotfiles-configs";
   };
 
-  outputs = { dotfilesConfigs, nixpkgs, home-manager, ... }:
+  outputs =
+    {
+      dotfilesConfigs,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
     let
-      systems = [ "x86_64-linux" "aarch64-darwin" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
       deps = builtins.fromJSON (builtins.readFile ./deps-lock.json);
 
-      toHomeManagerPackages = sys: { name = sys; value = { default = home-manager.defaultPackage.${sys}; }; };
-      mkHomeManagerConfig = system: user:
+      toHomeManagerPackages = sys: {
+        name = sys;
+        value = {
+          default = home-manager.defaultPackage.${sys};
+        };
+      };
+      mkHomeManagerConfig =
+        system: user:
         let
           dotfilesConfig = dotfilesConfigs.${user};
         in
@@ -26,11 +41,17 @@
           pkgs = nixpkgs.legacyPackages.${system};
           modules = [
             ./hosts/${user}/home.nix
-            { _module.args = { inherit deps dotfilesConfig; isNixOs = false; }; }
+            {
+              _module.args = {
+                inherit deps dotfilesConfig;
+                isNixOs = false;
+              };
+            }
           ];
         };
 
-      mkNixOsConfig = user:
+      mkNixOsConfig =
+        user:
         let
           dotfilesConfig = dotfilesConfigs.${user};
         in
@@ -45,22 +66,28 @@
                   useGlobalPkgs = true;
                   useUserPackages = true;
                   users.${dotfilesConfig.username} = import ./hosts/${user}/home.nix;
-                  extraSpecialArgs = { inherit deps dotfilesConfig; isNixOs = true; };
+                  extraSpecialArgs = {
+                    inherit deps dotfilesConfig;
+                    isNixOs = true;
+                  };
                 };
               }
-              { _module.args = { inherit deps dotfilesConfig; isNixOs = true; }; }
+              {
+                _module.args = {
+                  inherit deps dotfilesConfig;
+                  isNixOs = true;
+                };
+              }
             ];
           };
-
         };
     in
     {
       packages = builtins.listToAttrs (map toHomeManagerPackages systems);
 
-      homeConfigurations =
-        {
-          "linux" = mkHomeManagerConfig "x86_64-linux" "linux";
-        };
+      homeConfigurations = {
+        "linux" = mkHomeManagerConfig "x86_64-linux" "linux";
+      };
 
       nixosConfigurations = mkNixOsConfig "nixos";
     };
