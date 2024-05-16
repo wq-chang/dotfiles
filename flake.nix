@@ -44,7 +44,6 @@
             {
               _module.args = {
                 inherit deps dotfilesConfig;
-                isNixOs = false;
               };
             }
           ];
@@ -68,14 +67,12 @@
                   users.${dotfilesConfig.username} = import ./hosts/${user}/home.nix;
                   extraSpecialArgs = {
                     inherit deps dotfilesConfig;
-                    isNixOs = true;
                   };
                 };
               }
               {
                 _module.args = {
                   inherit deps dotfilesConfig;
-                  isNixOs = true;
                 };
               }
             ];

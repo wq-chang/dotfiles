@@ -1,4 +1,9 @@
-{ deps, pkgs, ... }:
+{
+  config,
+  deps,
+  pkgs,
+  ...
+}:
 let
   completions = pkgs.callPackage ../packages/zsh-completions.nix { inherit deps; };
 in
@@ -32,8 +37,7 @@ in
       {
         name = "p10k-config";
         file = ".p10k.zsh";
-        # TODO: change to mkOutOfStoreSymlink
-        src = ../configs/zsh;
+        src = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/zsh";
       }
       {
         name = "fzf-tab";

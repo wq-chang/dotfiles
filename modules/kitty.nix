@@ -1,16 +1,6 @@
-{
-  pkgs,
-  config,
-  isNixOs,
-  ...
-}:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [ kitty ];
 
-  xdg.configFile.kitty.source =
-    if isNixOs then
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/kitty"
-    else
-      # TODO: enable after update nix
-      ../configs/kitty;
+  xdg.configFile.kitty.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/kitty";
 }
