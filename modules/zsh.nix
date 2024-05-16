@@ -84,6 +84,7 @@ in
       export LOMBOK=${pkgs.lombok}/share/java/lombok.jar
       export JAVA_DEBUG=${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server
       export JAVA_TEST=${pkgs.vscode-extensions.vscjava.vscode-java-test}/share/vscode/extensions/vscjava.vscode-java-test/server
+      export PYTHON=${pkgs.python3}/bin/python
     '';
   };
 

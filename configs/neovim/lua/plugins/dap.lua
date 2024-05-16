@@ -95,8 +95,7 @@ return {
 			"mfussenegger/nvim-dap",
 		},
 		config = function()
-			local debugpy_path = vim.fn.stdpath("data")
-				.. "/mason/packages/debugpy/venv/bin/python"
+			local debugpy_path = os.getenv("PYTHON")
 			require("dap-python").setup(debugpy_path)
 
 			local group = vim.api.nvim_create_augroup(

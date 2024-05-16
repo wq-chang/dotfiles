@@ -38,7 +38,7 @@ in
     google-chrome
     maven
     nurl
-    python3
+    (python3.withPackages (p: with p; [ debugpy ]))
     ripgrep
     zsh-manpage-completion-generator
 
@@ -47,7 +47,6 @@ in
     google-java-format
     isort
     nixfmt-rfc-style
-
     prettierd
     shfmt
     stylua
