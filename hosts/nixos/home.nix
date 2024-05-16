@@ -28,7 +28,7 @@ in
     ../../modules/neovim.nix
     ../../modules/wezterm.nix
     ../../modules/zoxide.nix
-    ../../modules/zsh/zsh.nix
+    ../../modules/zsh.nix
   ];
 
   home.packages = with pkgs; [

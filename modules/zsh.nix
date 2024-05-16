@@ -1,6 +1,6 @@
 { deps, pkgs, ... }:
 let
-  completions = import ./zsh-completions.nix { inherit deps pkgs; };
+  completions = pkgs.callPackage ../packages/zsh-completions.nix { inherit deps; };
 in
 {
   programs.zsh = {
@@ -33,7 +33,7 @@ in
         name = "p10k-config";
         file = ".p10k.zsh";
         # TODO: change to mkOutOfStoreSymlink
-        src = ../../configs/zsh;
+        src = ../configs/zsh;
       }
       {
         name = "fzf-tab";
@@ -87,5 +87,8 @@ in
     '';
   };
 
-  home.file.".zsh/plugins/zsh-completions".source = completions.out;
+  home = {
+    packages = [ completions ];
+    file.".zsh/plugins/zsh-completions".source = completions;
+  };
 }
