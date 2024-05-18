@@ -55,7 +55,7 @@ in
     ];
     initExtraFirst = ''
       if [[ -r "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-      	source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+        source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
       fi
     '';
     initExtraBeforeCompInit = ''
@@ -68,14 +68,14 @@ in
     '';
     initExtra = ''
       if command -v aws_completer &>/dev/null; then
-      	complete -C "$(command -v aws_completer)" aws
+        complete -C "$(command -v aws_completer)" aws
       fi
 
       directory="$HOME/dotfiles/scripts"
       for file in $directory/*.zsh; do
-      	if [[ -f $file ]]; then
-      		source $file
-      	fi
+        if [[ -f $file ]]; then
+      	  source $file
+        fi
       done
       unset directory
       unset file
