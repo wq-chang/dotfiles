@@ -8,6 +8,7 @@ let
   zsh-manpage-completion-generator =
     pkgs.callPackage ../../packages/zsh-manpage-completion-generator.nix
       { inherit deps; };
+  fdm = pkgs.callPackage ../../packages/free-download-manager.nix { };
 in
 {
   home.username = dotfilesConfig.username;
@@ -34,12 +35,15 @@ in
   home.packages = with pkgs; [
     awscli2
     fd
+    fdm
     gcc
     google-chrome
     maven
+    nix-index
     nurl
     (python3.withPackages (p: with p; [ debugpy ]))
     ripgrep
+    wl-clipboard
     zsh-manpage-completion-generator
 
     # formatter
