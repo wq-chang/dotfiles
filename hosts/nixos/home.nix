@@ -26,6 +26,7 @@ in
     ../../modules/jdtls.nix
     ../../modules/kitty.nix
     ../../modules/lazygit.nix
+    ../../modules/mpv.nix
     ../../modules/neovim.nix
     ../../modules/wezterm.nix
     ../../modules/zoxide.nix
@@ -39,7 +40,6 @@ in
     gcc
     google-chrome
     maven
-    (mpv.override { scripts = with mpvScripts; [ autoload ]; })
     nix-index
     nurl
     (python3.withPackages (p: with p; [ debugpy ]))
