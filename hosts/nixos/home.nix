@@ -39,11 +39,14 @@ in
     gcc
     google-chrome
     maven
+    (mpv.override { scripts = with mpvScripts; [ autoload ]; })
     nix-index
     nurl
     (python3.withPackages (p: with p; [ debugpy ]))
     ripgrep
     wl-clipboard
+    # TODO: remove after moved to hyprland
+    xsel
     zsh-manpage-completion-generator
 
     # formatter
