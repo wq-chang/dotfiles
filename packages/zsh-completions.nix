@@ -14,7 +14,7 @@ let
     };
 in
 pkgs.stdenv.mkDerivation {
-  name = "completions";
+  name = "zsh-completions";
   srcs = map toSource [
     deps.docker-cli
     deps.ohmyzsh

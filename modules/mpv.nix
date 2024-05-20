@@ -1,14 +1,26 @@
-{ config, pkgs, ... }:
+{ deps, pkgs, ... }:
+let
+  simpleHistory = pkgs.callPackage ../packages/mpv-scripts-simple-history.nix { inherit deps; };
+in
 {
-  home.packages = with pkgs; [
-    (mpv.override {
-      scripts = with mpvScripts; [
-        autoload
-        modernx
-        thumbfast
-      ];
-    })
-  ];
 
-  xdg.configFile.mpv.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/mpv";
+  programs.mpv = {
+    enable = true;
+    config = {
+      osc = "no";
+      gpu-api = "vulkan";
+    };
+    scripts = with pkgs.mpvScripts; [
+      autoload
+      modernx
+      simpleHistory
+      thumbfast
+    ];
+    scriptOpts = {
+      SimpleHistory = {
+        auto_run_list_idle = "distinct";
+        resume_option = "force";
+      };
+    };
+  };
 }
