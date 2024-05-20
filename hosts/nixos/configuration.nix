@@ -31,6 +31,19 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  nix = {
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    optimise.automatic = true;
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 1d";
+    };
+  };
+
   # Set your time zone.
   time.timeZone = "Asia/Singapore";
 
@@ -57,11 +70,8 @@
     ];
   };
 
-  # Enable flake command
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  # Auto start fcitx5
+  services.xserver.desktopManager.runXdgAutostartIfNone = true;
 
   # Enable OpenGL
   hardware.opengl = {
