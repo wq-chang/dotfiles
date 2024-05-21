@@ -11,12 +11,12 @@ in
   programs.mpv = {
     enable = true;
     config = {
-      osc = "no";
+      osd-bar = "no";
       gpu-api = "vulkan";
     };
     scripts = with pkgs.mpvScripts; [
       autoload
-      modernx
+      uosc
       simpleHistory
       thumbfast
     ];
