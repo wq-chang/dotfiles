@@ -5,13 +5,7 @@
     defaultCommand = "fd --type f --strip-cwd-prefix --hidden";
     defaultOptions = [
       "--layout reverse"
-      (
-        "--bind "
-        + "ctrl-k:kill-line,"
-        + "tab:toggle+down,"
-        + "shift-tab:toggle+up,"
-        + "alt-a:toggle-all"
-      )
+      ("--bind " + "ctrl-k:kill-line," + "tab:toggle+down," + "shift-tab:toggle+up," + "alt-a:toggle-all")
     ];
     colors = {
       fg = "#c0caf5";

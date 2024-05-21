@@ -71,4 +71,15 @@ in
     enable = true;
     package = pkgs.jdk17;
   };
+
+  home.sessionVariables = {
+    LOMBOK = "${pkgs.lombok}/share/java/lombok.jar";
+    JAVA_DEBUG =
+      pkgs.vscode-extensions.vscjava.vscode-java-debug
+      + "/share/vscode/extensions/vscjava.vscode-java-debug/server";
+    JAVA_TEST =
+      pkgs.vscode-extensions.vscjava.vscode-java-test
+      + "/share/vscode/extensions/vscjava.vscode-java-test/server";
+    PYTHON = "$(which python)";
+  };
 }
