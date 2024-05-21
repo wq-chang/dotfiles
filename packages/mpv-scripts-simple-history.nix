@@ -17,8 +17,12 @@ pkgs.stdenv.mkDerivation {
     };
   unpackPhase = "true";
   installPhase = ''
+    runHook preInstall
+
     mkdir -p ${scriptsDir}
     cp $src/scripts/${scriptName} ${scriptsDir}/${scriptName}
+
+    runHook postInstall
   '';
 
   passthru = {

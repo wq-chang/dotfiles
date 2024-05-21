@@ -33,6 +33,8 @@ pkgs.stdenv.mkDerivation rec {
 
   unpackPhase = "dpkg-deb -x $src .";
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
     cp -r opt/freedownloadmanager $out
     cp -r usr/share $out
@@ -41,6 +43,8 @@ pkgs.stdenv.mkDerivation rec {
     substituteInPlace $out/share/applications/freedownloadmanager.desktop \
       --replace 'Exec=/opt/freedownloadmanager/fdm' 'Exec=${name}' \
       --replace "Icon=/opt/freedownloadmanager/icon.png" "Icon=$out/freedownloadmanager/icon.png"
+
+    runHook postInstall
   '';
 
   meta = with pkgs.lib; {

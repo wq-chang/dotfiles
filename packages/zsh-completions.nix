@@ -22,6 +22,8 @@ pkgs.stdenv.mkDerivation {
   ];
   unpackPhase = "true";
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out
     read -r -a src_array <<< "$srcs"
     docker="''${src_array[0]}"
@@ -32,5 +34,7 @@ pkgs.stdenv.mkDerivation {
     cp $ohmyzsh/plugins/terraform/_terraform $out
     cp $ohmyzsh/plugins/docker-compose/_docker-compose $out
     cp -r $zshcompletions/src/* $out
+
+    runHook postInstall
   '';
 }
