@@ -13,7 +13,7 @@
       core.pager = lib.mkForce "${pkgs.delta}/bin/delta -s --line-numbers";
     };
     extraConfig = {
-      include.path = "~/dotfiles/configs/git/themes.gitconfig";
+      include.path = "~/dotfiles/config/git/themes.gitconfig";
       merge.conflictstyle = "diff3";
     };
     delta = {

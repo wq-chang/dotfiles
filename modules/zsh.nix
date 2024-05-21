@@ -37,7 +37,7 @@ in
       {
         name = "p10k-config";
         file = ".p10k.zsh";
-        src = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/configs/zsh";
+        src = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/zsh";
       }
       {
         name = "fzf-tab";

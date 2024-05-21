@@ -2,7 +2,7 @@
 
 curdir=$(pwd)
 
-extraswez=$HOME/dotfiles/configs/wezterm
+extraswez=$HOME/dotfiles/config/wezterm
 echo "Pulling Wezterm themes"
 mkdir -p $extraswez
 cd $extraswez

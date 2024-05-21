@@ -3,7 +3,7 @@ local config = {}
 local act = wezterm.action
 
 local colors = wezterm.color.load_scheme(
-	wezterm.home_dir .. "/dotfiles/configs/wezterm/tokyonight_night.toml"
+	wezterm.home_dir .. "/dotfiles/config/wezterm/tokyonight_night.toml"
 )
 
 config.term = "wezterm"
@@ -12,7 +12,7 @@ config.window_padding = {
 	bottom = 0,
 }
 config.window_background_image = wezterm.home_dir
-	.. "/dotfiles/configs/wezterm/bg.jpeg"
+	.. "/dotfiles/config/wezterm/bg.jpeg"
 config.window_background_image_hsb = {
 	brightness = 0.015,
 	hue = 1.0,

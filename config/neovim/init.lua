@@ -11,7 +11,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("configs.autocmds")
-require("configs.options")
-require("configs.keymaps")
+require("config.autocmds")
+require("config.options")
+require("config.keymaps")
 require("lazy").setup("plugins", { ui = { border = "rounded" } })
