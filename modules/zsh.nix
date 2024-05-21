@@ -70,19 +70,12 @@ in
       if command -v aws_completer &>/dev/null; then
         complete -C "$(command -v aws_completer)" aws
       fi
-
-      directory="$HOME/dotfiles/scripts"
-      for file in $directory/*.zsh; do
-        if [[ -f $file ]]; then
-      	  source $file
-        fi
-      done
-      unset directory
-      unset file
+      eval "$(register-python-argcomplete $HOME/dotfiles/bin/mdep)"
 
       bindkey -e
       bindkey '^H' backward-kill-word
       zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down' 'shift-tab:toggle+up' 'alt-a:toggle-all'
+
       export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#7aa2f7,fg=#16161e,bold'
     '';
   };

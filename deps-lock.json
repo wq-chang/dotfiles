@@ -1,9 +1,18 @@
 {
+  "argcomplete": {
+    "url": "https://github.com/kislyuk/argcomplete",
+    "branchName": "develop",
+    "rev": "6c9e540fdbdf331129a0100c3ed1a88730871634",
+    "hash": "sha256-/pNGyVdFAGDRCddJsR1idrB88ZD2YQwux6wf0mBhjz4=",
+    "sparseCheckout": [
+      "argcomplete/bash_completion.d/_python-argcomplete"
+    ]
+  },
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "49c0e1996a9d39c1571265810c87dce6b668a8a7",
-    "hash": "sha256-hJLRF13SpOqy9bMtkObFHF2XJkr/QJwp0oOHLpaJ9kc=",
+    "rev": "57a1180c52ad7633dcf2fe1515ec2601ffb01944",
+    "hash": "sha256-lyIWPdGEyoJeNcFPCHfuew/Vh6d+tWGTqT55h28xJ9k=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -23,7 +32,7 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "a779d6563ffb2f0093b4b74c8d5ff0982fa3e930",
+    "rev": "dfb436b54a10c84156a548dded0506d474050a43",
     "hash": "sha256-LOy7rMARhWykSJ6Mql6OEMG2C5AUZT0MDL0BOgebyrQ=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -33,14 +42,14 @@
   "powerlevel10k": {
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "16e58484262de745723ed114e09217094655eaaa",
-    "hash": "sha256-3grB3psh134qZOKOzWhJTaLdPpBQHjVC6y6dS/hJEYE="
+    "rev": "bde5ca4c2aa6e0c52dd7f15cf216dffdb1ec788c",
+    "hash": "sha256-IA2pPW8WT/9/jz/+5zDwedkYz+rzyCy0DRnIvDh9zac="
   },
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
-    "rev": "7fc18e82575f5b482b758b6dddfe97b606819a20",
-    "hash": "sha256-VIVJV3nmjts/xqsMgIPDHoyzkxA7QZViLhW7L8p8GqQ=",
+    "rev": "b9b494fa7f7bbf2fe0747b47fa290fb7a4eddcc7",
+    "hash": "sha256-oief+E1SdOVAsJ22UhWolTJBaJdsSd4d2TTxnS/0rvY=",
     "sparseCheckout": [
       "extras/sublime/tokyonight_night.tmTheme"
     ]
@@ -48,8 +57,8 @@
   "zsh-completions": {
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "b1cf65187047a83e27a0847bd565dcf28b5be465",
-    "hash": "sha256-eqpZp61qCrdp6yrexQJWgEl9Efjk/aTj/AImplpl6gg="
+    "rev": "978e79e12c44b5b1d3e1e2920c537002087b82c2",
+    "hash": "sha256-J2L/jO8lWNGC4Bob+2mH7OEJ+U2g+NVkbPA1OdnIrp0="
   },
   "zsh-manpage-completion-generator": {
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",

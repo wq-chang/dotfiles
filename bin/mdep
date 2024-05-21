@@ -1,10 +1,16 @@
+#!/usr/bin/env python
+# PYTHON_ARGCOMPLETE_OK
+
 import argparse
 import json
 import os
 import subprocess
 import sys
 
+import argcomplete
+
 deps_file = f"{os.path.expanduser('~')}/dotfiles/deps-lock.json"
+actions = ["add", "update", "delete"]
 
 
 def get_latest_rev(url, branch=None):
@@ -48,31 +54,12 @@ def get_hash(url, branch, rev, sparse_checkout):
     return hash
 
 
-def add_dependency():
-    if len(sys.argv) < 4:
-        raise ValueError("Usage: python manage_dependencies.py add <name> <url>")
-
-    name = sys.argv[2]
-    url = sys.argv[3]
-    branch = None
-    sparse_checkout = None
-    rev = None
-
-    if len(sys.argv) >= 5:
-        parser = argparse.ArgumentParser(description="Add dependency")
-        parser.add_argument("-b", "--branch", type=str, help="branch name")
-        parser.add_argument("-r", "--rev", type=str, help="rev")
-        parser.add_argument(
-            "-s", "--sparse-checkout", nargs="+", type=str, help="sparse checkout"
-        )
-        args, _ = parser.parse_known_args()
-
-        if args.branch:
-            branch = args.branch
-        if args.sparse_checkout:
-            sparse_checkout = args.sparse_checkout
-        if args.rev:
-            rev = args.rev
+def add_dependency(args):
+    name = args.name
+    url = args.url
+    branch = args.branch
+    sparse_checkout = args.sparse_checkout
+    rev = args.rev
 
     if not rev or not branch:
         latest_rev, branch_ref = get_latest_rev(url, branch)
@@ -100,7 +87,7 @@ def add_dependency():
     print(f"Dependency {name} added successfully!")
 
 
-def update_dependencies():
+def update_dependencies(_):
     with open(deps_file, "r") as file:
         data = json.load(file)
 
@@ -129,17 +116,28 @@ def update_dependencies():
 
 
 def main():
-    if len(sys.argv) < 2:
-        raise ValueError("Usage: python manage_dependencies.py <add|update|remove>")
+    parser = argparse.ArgumentParser(description="Manage Nix dependency")
+    subparsers = parser.add_subparsers(dest="action", help="Choose an action")
 
-    action = sys.argv[1]
+    parser_add = subparsers.add_parser("add", help="Add dependency")
+    parser_add.add_argument("name", type=str, help="Dependency name")
+    parser_add.add_argument("url", type=str, help="Dependency url")
+    parser_add.add_argument("-b", "--branch", type=str, help="Branch name")
+    parser_add.add_argument("-r", "--rev", type=str, help="Rev")
+    parser_add.add_argument(
+        "-s", "--sparse-checkout", nargs="+", type=str, help="Sparse checkout"
+    )
+    parser_add.set_defaults(func=add_dependency)
 
-    if action == "add":
-        add_dependency()
-    elif action == "update":
-        update_dependencies()
+    parser_update = subparsers.add_parser("update", help="Update all dependencies")
+    parser_update.set_defaults(func=update_dependencies)
+
+    argcomplete.autocomplete(parser)
+    args = parser.parse_args()
+    if "func" in args:
+        args.func(args)
     else:
-        raise ValueError("Invalid action. Available options: <add|update>")
+        parser.print_help()
 
 
 if __name__ == "__main__":

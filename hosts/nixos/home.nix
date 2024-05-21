@@ -42,7 +42,12 @@ in
     maven
     nix-index
     nurl
-    (python3.withPackages (p: with p; [ debugpy ]))
+    (python3.withPackages (
+      p: with p; [
+        argcomplete
+        debugpy
+      ]
+    ))
     ripgrep
     wl-clipboard
     # TODO: remove after moved to hyprland
@@ -82,4 +87,6 @@ in
       + "/share/vscode/extensions/vscjava.vscode-java-test/server";
     PYTHON = "$(which python)";
   };
+
+  home.sessionPath = [ "$HOME/dotfiles/bin" ];
 }

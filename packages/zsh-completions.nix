@@ -16,6 +16,7 @@ in
 pkgs.stdenv.mkDerivation {
   name = "zsh-completions";
   srcs = map toSource [
+    deps.argcomplete
     deps.docker-cli
     deps.ohmyzsh
     deps.zsh-completions
@@ -25,11 +26,13 @@ pkgs.stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p $out
+    var_array=("argcomplete" "docker" "ohmyzsh" "zshcompletions")
     read -r -a src_array <<< "$srcs"
-    docker="''${src_array[0]}"
-    ohmyzsh="''${src_array[1]}"
-    zshcompletions="''${src_array[2]}"
+    for i in "''${!src_array[@]}"; do
+        eval "''${var_array[$i]}=\"\''${src_array[$i]}\""
+    done
 
+    cp $argcomplete/argcomplete/bash_completion.d/_python-argcomplete $out
     cp $docker/contrib/completion/zsh/_docker $out
     cp $ohmyzsh/plugins/terraform/_terraform $out
     cp $ohmyzsh/plugins/docker-compose/_docker-compose $out
