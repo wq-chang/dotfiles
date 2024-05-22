@@ -1,6 +1,9 @@
 { pkgs, config, ... }:
+with pkgs;
 {
-  home.packages = with pkgs; [ kitty ];
+  home.packages = [ kitty ];
 
-  xdg.configFile.kitty.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/kitty";
+  xdg.configFile.kitty.source =
+    with config;
+    lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/kitty";
 }

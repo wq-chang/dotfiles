@@ -4,11 +4,12 @@
   pkgs,
   ...
 }:
+with pkgs;
 let
-  zsh-manpage-completion-generator =
-    pkgs.callPackage ../../packages/zsh-manpage-completion-generator.nix
-      { inherit deps; };
-  fdm = pkgs.callPackage ../../packages/free-download-manager.nix { };
+  zsh-manpage-completion-generator = callPackage ../../packages/zsh-manpage-completion-generator.nix {
+    inherit deps;
+  };
+  fdm = callPackage ../../packages/free-download-manager.nix { };
 in
 {
   home.username = dotfilesConfig.username;
@@ -33,7 +34,7 @@ in
     ../../modules/zsh.nix
   ];
 
-  home.packages = with pkgs; [
+  home.packages = [
     awscli2
     fd
     fdm
@@ -74,17 +75,10 @@ in
 
   programs.java = {
     enable = true;
-    package = pkgs.jdk17;
+    package = jdk17;
   };
 
   home.sessionVariables = {
-    LOMBOK = "${pkgs.lombok}/share/java/lombok.jar";
-    JAVA_DEBUG =
-      pkgs.vscode-extensions.vscjava.vscode-java-debug
-      + "/share/vscode/extensions/vscjava.vscode-java-debug/server";
-    JAVA_TEST =
-      pkgs.vscode-extensions.vscjava.vscode-java-test
-      + "/share/vscode/extensions/vscjava.vscode-java-test/server";
     PYTHON = "$(which python)";
   };
 

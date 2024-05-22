@@ -1,10 +1,11 @@
 { deps, pkgs, ... }:
+with pkgs;
 let
   icon = {
     clock = "  ";
     checked = "  ";
   };
-  simpleHistory = pkgs.callPackage ../packages/mpv-scripts-simple-history.nix { inherit deps; };
+  simpleHistory = callPackage ../packages/mpv-scripts-simple-history.nix { inherit deps; };
 in
 {
 
@@ -14,7 +15,7 @@ in
       osd-bar = "no";
       gpu-api = "vulkan";
     };
-    scripts = with pkgs.mpvScripts; [
+    scripts = with mpvScripts; [
       autoload
       uosc
       simpleHistory

@@ -4,8 +4,9 @@
   pkgs,
   ...
 }:
+with pkgs;
 let
-  completions = pkgs.callPackage ../packages/zsh-completions.nix { inherit deps; };
+  completions = callPackage ../packages/zsh-completions.nix { inherit deps; };
 in
 {
   programs.zsh = {
@@ -19,38 +20,35 @@ in
       searchDownKey = "$terminfo[kcud1]";
       searchUpKey = "$terminfo[kcuu1]";
     };
-    plugins = with pkgs; [
+    plugins = [
       {
         name = "p10k";
         file = "powerlevel10k.zsh-theme";
-        src =
-          with deps.powerlevel10k;
-          pkgs.fetchgit {
-            inherit
-              url
-              branchName
-              rev
-              hash
-              ;
-          };
+        src = fetchgit {
+
+          inherit (deps.powerlevel10k)
+            url
+            branchName
+            rev
+            hash
+            ;
+        };
       }
       {
         name = "p10k-config";
         file = ".p10k.zsh";
-        src = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/zsh";
+        src = with config; lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/zsh";
       }
       {
         name = "fzf-tab";
-        src =
-          with deps.fzf-tab;
-          pkgs.fetchgit {
-            inherit
-              url
-              branchName
-              rev
-              hash
-              ;
-          };
+        src = fetchgit {
+          inherit (deps.fzf-tab)
+            url
+            branchName
+            rev
+            hash
+            ;
+        };
       }
     ];
     initExtraFirst = ''

@@ -1,6 +1,9 @@
 { pkgs, config, ... }:
+with pkgs;
 {
-  home.packages = with pkgs; [ wezterm ];
+  home.packages = [ wezterm ];
 
-  xdg.configFile.wezterm.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/wezterm";
+  xdg.configFile.wezterm.source =
+    with config;
+    lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/wezterm";
 }

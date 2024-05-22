@@ -1,18 +1,18 @@
 { pkgs, ... }:
-pkgs.stdenv.mkDerivation rec {
+with pkgs;
+stdenv.mkDerivation rec {
   name = "fdm";
   version = "6.22";
-  src = pkgs.fetchurl {
+  src = fetchurl {
     url = "https://files2.freedownloadmanager.org/6/latest/freedownloadmanager.deb";
     hash = "sha256-JDltgnbvEu2Io0NJ48Og25XNAocc/dIbV5MmUE+0gQs=";
   };
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     autoPatchelfHook
     dpkg
   ];
 
   buildInputs =
-    with pkgs;
     [
       gtk3
       libpulseaudio
@@ -47,7 +47,7 @@ pkgs.stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "A smart and fast internet download manager";
     homepage = "https://www.freedownloadmanager.org";
     license = licenses.unfree;

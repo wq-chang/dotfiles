@@ -1,10 +1,10 @@
 { deps, pkgs, ... }:
+with pkgs;
 let
   toSource =
     dep:
-    with dep;
-    pkgs.fetchgit {
-      inherit
+    fetchgit {
+      inherit (dep)
         url
         branchName
         rev
@@ -13,7 +13,7 @@ let
       sparseCheckout = dep.sparseCheckout or [ ];
     };
 in
-pkgs.stdenv.mkDerivation {
+stdenv.mkDerivation {
   name = "zsh-completions";
   srcs = map toSource [
     deps.argcomplete

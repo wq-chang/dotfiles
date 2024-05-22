@@ -8,7 +8,7 @@
   pkgs,
   ...
 }:
-
+with pkgs;
 {
   imports = [
     # Include the results of the hardware scan.
@@ -68,7 +68,7 @@
 
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
+    fcitx5.addons = [
       fcitx5-chinese-addons
       fcitx5-mozc
     ];
@@ -82,7 +82,7 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [ vaapiVdpau ];
+    extraPackages = [ vaapiVdpau ];
   };
   hardware.nvidia = {
     # Modesetting is required.
@@ -163,7 +163,7 @@
       "networkmanager"
       "wheel"
     ];
-    shell = pkgs.zsh;
+    shell = zsh;
     packages = [
       #  thunderbird
     ];

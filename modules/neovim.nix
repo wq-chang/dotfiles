@@ -5,5 +5,7 @@
     defaultEditor = true;
   };
 
-  xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/neovim";
+  xdg.configFile.nvim.source =
+    with config;
+    lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/neovim";
 }
