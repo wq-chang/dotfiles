@@ -130,9 +130,13 @@ return {
 					end
 
 					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if not client then
+						return
+					end
 					local caps = client.server_capabilities
 					if
-						caps.semanticTokensProvider
+						caps
+						and caps.semanticTokensProvider
 						and caps.semanticTokensProvider.full
 					then
 						require("hlargs").disable_buf(args.buf)

@@ -73,13 +73,12 @@ return {
 
 			local dap = {
 				Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
-				Breakpoint = " ",
-				BreakpointCondition = " ",
+				Breakpoint = { " " },
+				BreakpointCondition = { " " },
 				BreakpointRejected = { " ", "DiagnosticError" },
-				LogPoint = ".>",
+				LogPoint = { ".>" },
 			}
 			for name, sign in pairs(dap) do
-				sign = type(sign) == "table" and sign or { sign }
 				vim.fn.sign_define("Dap" .. name, {
 					text = sign[1],
 					texthl = sign[2] or "DiagnosticInfo",

@@ -17,7 +17,7 @@ return {
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 			end
 			vim.diagnostic.config({
-				float = { source = "always", border = "rounded" },
+				float = { source = "if_many", border = "rounded" },
 			})
 			-- stylua: ignore
 			vim.keymap.set( "n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Lsp info" })

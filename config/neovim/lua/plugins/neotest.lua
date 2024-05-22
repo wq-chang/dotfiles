@@ -13,6 +13,7 @@ return {
 		keys = {
 			{ "<leader>ns", "<cmd>Neotest summary<cr>", desc = "Neotest summary" },
 			{ "<leader>nS", "<cmd>Neotest stop<cr>", desc = "Stop" },
+			---@diagnostic disable-next-line: missing-fields
 			{ "<leader>nd", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Dubeg test" },
 			{ "<leader>nm", "<cmd>Neotest run<cr>", desc = "Run test" },
 			{ "<leader>na", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run all tests" },
