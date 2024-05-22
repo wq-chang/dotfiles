@@ -24,15 +24,7 @@ in
       {
         name = "p10k";
         file = "powerlevel10k.zsh-theme";
-        src = fetchgit {
-
-          inherit (deps.powerlevel10k)
-            url
-            branchName
-            rev
-            hash
-            ;
-        };
+        src = deps.powerlevel10k;
       }
       {
         name = "p10k-config";
@@ -41,14 +33,7 @@ in
       }
       {
         name = "fzf-tab";
-        src = fetchgit {
-          inherit (deps.fzf-tab)
-            url
-            branchName
-            rev
-            hash
-            ;
-        };
+        src = deps.fzf-tab;
       }
     ];
     initExtraFirst = ''

@@ -1,5 +1,4 @@
-{ deps, pkgs, ... }:
-with pkgs;
+{ deps, ... }:
 {
   programs.bat = {
     enable = true;
@@ -10,15 +9,7 @@ with pkgs;
     themes = {
       tokyonight_night = {
         file = "extras/sublime/tokyonight_night.tmTheme";
-        src = fetchgit {
-          inherit (deps.tokyonight)
-            url
-            branchName
-            rev
-            hash
-            sparseCheckout
-            ;
-        };
+        src = deps.tokyonight;
       };
     };
   };

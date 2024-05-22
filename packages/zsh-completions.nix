@@ -1,25 +1,12 @@
 { deps, pkgs, ... }:
 with pkgs;
-let
-  toSource =
-    dep:
-    fetchgit {
-      inherit (dep)
-        url
-        branchName
-        rev
-        hash
-        ;
-      sparseCheckout = dep.sparseCheckout or [ ];
-    };
-in
 stdenv.mkDerivation {
   name = "zsh-completions";
-  srcs = map toSource [
-    deps.argcomplete
-    deps.docker-cli
-    deps.ohmyzsh
-    deps.zsh-completions
+  srcs = with deps; [
+    argcomplete
+    docker-cli
+    ohmyzsh
+    zsh-completions
   ];
   unpackPhase = "true";
   installPhase = ''

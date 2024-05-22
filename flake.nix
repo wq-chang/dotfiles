@@ -24,7 +24,21 @@
         "x86_64-linux"
         "aarch64-darwin"
       ];
-      deps = builtins.fromJSON (builtins.readFile ./deps-lock.json);
+
+      mkDeps =
+        system:
+        nixpkgs.lib.attrsets.mapAttrs (
+          name: value:
+          nixpkgs.legacyPackages.${system}.fetchgit {
+            inherit (value)
+              url
+              branchName
+              rev
+              hash
+              ;
+            sparseCheckout = value.sparseCheckout or [ ];
+          }
+        ) (builtins.fromJSON (builtins.readFile ./deps-lock.json));
 
       toHomeManagerPackages = sys: {
         name = sys;
@@ -32,6 +46,7 @@
           default = home-manager.defaultPackage.${sys};
         };
       };
+
       mkHomeManagerConfig =
         system: user:
         let
@@ -43,7 +58,8 @@
             ./hosts/${user}/home.nix
             {
               _module.args = {
-                inherit deps dotfilesConfig;
+                inherit dotfilesConfig;
+                deps = mkDeps system;
               };
             }
           ];
@@ -52,11 +68,13 @@
       mkNixOsConfig =
         user:
         let
+          system = "x86_64-linux";
           dotfilesConfig = dotfilesConfigs.${user};
+          deps = mkDeps system;
         in
         {
           "${user}" = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
+            inherit system;
             modules = [
               ./hosts/${user}/configuration.nix
               home-manager.nixosModules.home-manager

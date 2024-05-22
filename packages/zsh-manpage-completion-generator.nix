@@ -4,14 +4,7 @@ buildGoModule rec {
   pname = "zsh-manpage-completion-generator";
   version = "1.0.2";
 
-  src = fetchgit {
-    inherit (deps.zsh-manpage-completion-generator)
-      url
-      branchName
-      rev
-      hash
-      ;
-  };
+  src = deps.zsh-manpage-completion-generator;
 
   vendorHash = "sha256-Wb00v363VjrRKMRQ2beA1pxRYB7LY9yTHPdiXIDdLQA=";
 

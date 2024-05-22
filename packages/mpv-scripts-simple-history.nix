@@ -6,16 +6,7 @@ let
 in
 stdenv.mkDerivation {
   name = "mpv-simple-history";
-  src =
-    with deps.mpv-scripts;
-    fetchgit {
-      inherit
-        url
-        branchName
-        rev
-        hash
-        ;
-    };
+  src = deps.mpv-scripts;
   unpackPhase = "true";
   installPhase = ''
     runHook preInstall
