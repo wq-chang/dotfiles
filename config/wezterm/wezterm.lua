@@ -3,7 +3,7 @@ local config = {}
 local act = wezterm.action
 
 local colors = wezterm.color.load_scheme(
-	wezterm.home_dir .. "/dotfiles/config/wezterm/tokyonight_night.toml"
+	wezterm.home_dir .. "/.local/share/wezterm/tokyonight_night.toml"
 )
 
 config.term = "wezterm"
