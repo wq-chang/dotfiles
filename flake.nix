@@ -27,7 +27,7 @@
 
       mkDeps =
         system:
-        nixpkgs.lib.attrsets.mapAttrs (
+        builtins.mapAttrs (
           name: value:
           nixpkgs.legacyPackages.${system}.fetchgit {
             inherit (value)
