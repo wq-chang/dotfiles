@@ -38,9 +38,9 @@ return {
 						{
 							"diff",
 							symbols = {
-								added = " ",
-								modified = " ",
-								removed = " ",
+								added = " ",
+								modified = " ",
+								removed = " ",
 							},
 						},
 					},
