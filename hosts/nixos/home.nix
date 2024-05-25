@@ -9,7 +9,6 @@ let
   zsh-manpage-completion-generator = callPackage ../../packages/zsh-manpage-completion-generator.nix {
     inherit deps;
   };
-  fdm = callPackage ../../packages/free-download-manager.nix { };
 in
 {
   home.username = dotfilesConfig.username;
@@ -37,7 +36,6 @@ in
   home.packages = [
     awscli2
     fd
-    fdm
     gcc
     google-chrome
     maven
@@ -50,6 +48,7 @@ in
       ]
     ))
     ripgrep
+    transmission_4-gtk
     wl-clipboard
     # TODO: remove after moved to hyprland
     xsel
