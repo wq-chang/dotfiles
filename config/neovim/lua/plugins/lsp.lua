@@ -98,18 +98,13 @@ return {
 			local servers = {
 				lua_ls = {
 					settings = {
-						Lua = {
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
+						Lua = { completion = { callSnippet = "Replace" } },
 					},
 				},
-				jsonls = {
-					init_options = {
-						provideFormatter = false,
-					},
+				eslint = {
+					settings = { workingDirectory = { mode = "auto" } },
 				},
+				jsonls = { init_options = { provideFormatter = false } },
 				nil_ls = {},
 				pyright = {},
 				terraformls = {},
@@ -123,6 +118,15 @@ return {
 					capabilities,
 					server.capabilities or {}
 				)
+
+				if server_name == "eslint" then
+					server.on_attach = function(_, bufnr)
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = bufnr,
+							command = "EslintFixAll",
+						})
+					end
+				end
 				require("lspconfig")[server_name].setup(server)
 			end
 		end,
