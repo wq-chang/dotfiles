@@ -77,9 +77,5 @@ in
     package = jdk17;
   };
 
-  home.sessionVariables = {
-    PYTHON = "$(which python)";
-  };
-
   home.sessionPath = [ "$HOME/dotfiles/bin" ];
 }

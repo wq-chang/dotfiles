@@ -94,8 +94,7 @@ return {
 			"mfussenegger/nvim-dap",
 		},
 		config = function()
-			local debugpy_path = os.getenv("PYTHON")
-			require("dap-python").setup(debugpy_path)
+			require("dap-python").setup("python")
 
 			local group = vim.api.nvim_create_augroup(
 				"python_dap_keymap",
