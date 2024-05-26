@@ -58,7 +58,10 @@ return {
 				select_keymaps["a" .. key] = outer_text_object
 			end
 			return {
-				highlight = { enable = true },
+				highlight = {
+					enable = true,
+					additional_vim_regex_highlighting = false,
+				},
 				indent = { enable = true },
 				ensure_installed = {
 					"bash",

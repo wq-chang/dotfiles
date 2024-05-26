@@ -74,7 +74,7 @@ return {
 			local dap = {
 				Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
 				Breakpoint = { " " },
-				BreakpointCondition = { " " },
+				BreakpointCondition = { " ", "DapBreakpointCondition" },
 				BreakpointRejected = { " ", "DiagnosticError" },
 				LogPoint = { ".>" },
 			}
