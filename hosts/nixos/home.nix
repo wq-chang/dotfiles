@@ -37,7 +37,7 @@ in
     awscli2
     fd
     gcc
-    google-chrome
+    (google-chrome.override { commandLineArgs = "--enable-wayland-ime"; })
     maven
     nix-index
     nurl

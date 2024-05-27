@@ -68,12 +68,15 @@ with pkgs;
 
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = [
-      fcitx5-chinese-addons
-      fcitx5-mozc
-    ];
+    fcitx5 = {
+      waylandFrontend = true;
+      addons = [
+        fcitx5-chinese-addons
+        fcitx5-mozc
+        fcitx5-gtk
+      ];
+    };
   };
-
   # Auto start fcitx5
   services.xserver.desktopManager.runXdgAutostartIfNone = true;
 
@@ -189,12 +192,6 @@ with pkgs;
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];
-
-  environment.variables = {
-    GTK_IM_MODULE = "fcitx";
-    QT_IM_MODULE = "fcitx";
-    XMODIFIERS = "@im=fcitx";
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
