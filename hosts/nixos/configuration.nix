@@ -21,6 +21,12 @@ with pkgs;
     efi.canTouchEfiVariables = true;
   };
 
+  console = {
+    earlySetup = true;
+    font = "${terminus_font}/share/consolefonts/ter-114b.psf.gz";
+    packages = [ terminus_font ];
+  };
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

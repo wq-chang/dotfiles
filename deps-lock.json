@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "421e3b5e91d08e46fb0c3ad93fce24bc4e02b83f",
-    "hash": "sha256-lyIWPdGEyoJeNcFPCHfuew/Vh6d+tWGTqT55h28xJ9k=",
+    "rev": "8ed44f916fa908a04f03f69369bc2a16e0db7cc9",
+    "hash": "sha256-FEBWNJBAtAiADkDIR5wEymbuXV/DeX91zna+k+bLM34=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -32,7 +32,7 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "1b29fd3a460e43d4a7581d6a6a7e5a1877a39068",
+    "rev": "071b8f8921cb2bbb1fcabbf3d271e77af0b12a7d",
     "hash": "sha256-LOy7rMARhWykSJ6Mql6OEMG2C5AUZT0MDL0BOgebyrQ=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -48,7 +48,7 @@
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
-    "rev": "b9b494fa7f7bbf2fe0747b47fa290fb7a4eddcc7",
+    "rev": "0fae425aaab04a5f97666bd431b96f2f19c36935",
     "hash": "sha256-681o0MFMTIKNr3abKwS0JcK8oohYkf50Vyy8ZkbGXmk=",
     "sparseCheckout": [
       "extras/sublime/tokyonight_night.tmTheme",
