@@ -1,8 +1,12 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
+with pkgs;
 {
-  wayland.windowManager.hyprland = {
-    enable = true;
-  };
+  home.packages = [
+    hypridle
+    hyprland
+  ];
 
-  programs.qt.enable = true;
+  xdg.configFile.hypr.source =
+    with config;
+    lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/hypr";
 }

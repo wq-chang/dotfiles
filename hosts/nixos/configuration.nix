@@ -9,6 +9,10 @@
   ...
 }:
 with pkgs;
+let
+  tuigreet = "${greetd.tuigreet}/bin/tuigreet";
+  session = "${hyprland}/bin/Hyprland";
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -36,6 +40,8 @@ with pkgs;
 
   # Enable networking
   networking.networkmanager.enable = true;
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
 
   nix = {
     settings.experimental-features = [
@@ -137,10 +143,22 @@ with pkgs;
     videoDrivers = [ "nvidia" ];
   };
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
   programs.hyprland.enable = true;
+  security.pam.services.gtklock = { };
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      initial_session = {
+        command = "${session}";
+        user = "${dotfilesConfig.username}";
+      };
+      default_session = {
+        command = "${tuigreet} --greeting 'Welcome to NixOS!' --asterisks --remember --remember-user-session --time --cmd ${session}";
+        user = "greeter";
+      };
+    };
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -198,6 +216,12 @@ with pkgs;
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];
+
+  environment.sessionVariables = {
+    # TODO: refactor with home manager gtk module
+    GTK_THEME = "WhiteSur-Dark";
+    NIXOS_OZONE_WL = "1";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
