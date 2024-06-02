@@ -9,6 +9,8 @@ with pkgs;
     # Include the results of the hardware scan.
     ./${dotfilesConfig.user}/configuration.nix
     ./${dotfilesConfig.user}/hardware-configuration.nix
+    ./${dotfilesConfig.user}/module-configuration.nix
+    ../modules
   ];
 
   # Bootloader.
@@ -104,13 +106,10 @@ with pkgs;
       "networkmanager"
       "wheel"
     ];
-    shell = zsh;
     packages = [
       #  thunderbird
     ];
   };
-
-  programs.zsh.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

@@ -105,10 +105,4 @@ in
     GTK_THEME = "WhiteSur-Dark";
     NIXOS_OZONE_WL = "1";
   };
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 51413 ];
-  networking.firewall.allowedUDPPorts = [ 51413 ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 }

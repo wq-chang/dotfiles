@@ -19,17 +19,13 @@ in
 
   imports = [
     ./${dotfilesConfig.user}/home.nix
+    ./${dotfilesConfig.user}/module-configuration.nix
+    ../modules
   ];
 
   home.packages = [
     fd
     (google-chrome.override { commandLineArgs = "--enable-wayland-ime"; })
-    (python3.withPackages (
-      p: with p; [
-        argcomplete
-        debugpy
-      ]
-    ))
     nurl
     ripgrep
     wl-clipboard

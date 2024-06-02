@@ -61,6 +61,7 @@
                 dotfilesConfig = dotfilesConfig // {
                   inherit user;
                   isHm = true;
+                  isNixOs = false;
                 };
                 deps = mkDeps system;
               };
@@ -91,12 +92,14 @@
                   extraSpecialArgs = {
                     inherit deps dotfilesConfig;
                     isHm = true;
+                    isNixOs = false;
                   };
                 };
               }
             ];
             specialArgs = {
               inherit deps dotfilesConfig;
+              isHm = false;
               isNixOs = true;
             };
           };
