@@ -55,10 +55,13 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           modules = [
-            ./hosts/${user}/home.nix
+            ./hosts/home-core.nix
             {
               _module.args = {
-                inherit dotfilesConfig;
+                dotfilesConfig = dotfilesConfig // {
+                  inherit user;
+                  isHm = true;
+                };
                 deps = mkDeps system;
               };
             }
@@ -69,31 +72,33 @@
         user:
         let
           system = "x86_64-linux";
-          dotfilesConfig = dotfilesConfigs.${user};
+          dotfilesConfig = dotfilesConfigs.${user} // {
+            inherit user;
+          };
           deps = mkDeps system;
         in
         {
           "${user}" = nixpkgs.lib.nixosSystem {
             inherit system;
             modules = [
-              ./hosts/${user}/configuration.nix
+              ./hosts/configuration-core.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
                   useGlobalPkgs = true;
                   useUserPackages = true;
-                  users.${dotfilesConfig.username} = import ./hosts/${user}/home.nix;
+                  users.${dotfilesConfig.username} = import ./hosts/home-core.nix;
                   extraSpecialArgs = {
                     inherit deps dotfilesConfig;
+                    isHm = true;
                   };
                 };
               }
-              {
-                _module.args = {
-                  inherit deps dotfilesConfig;
-                };
-              }
             ];
+            specialArgs = {
+              inherit deps dotfilesConfig;
+              isNixOs = true;
+            };
           };
         };
     in

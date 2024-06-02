@@ -1,21 +1,6 @@
-{
-  deps,
-  dotfilesConfig,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 with pkgs;
-let
-  zsh-manpage-completion-generator = callPackage ../../packages/zsh-manpage-completion-generator.nix {
-    inherit deps;
-  };
-in
 {
-  home.username = dotfilesConfig.username;
-  home.homeDirectory = "/home/${dotfilesConfig.username}";
-  home.stateVersion = "24.05";
-  programs.home-manager.enable = true;
-  # xdg.mimeApps.enable = true;
 
   imports = [
     ../../modules/bat.nix
@@ -37,24 +22,9 @@ in
 
   home.packages = [
     awscli2
-    fd
     gcc
-    (google-chrome.override { commandLineArgs = "--enable-wayland-ime"; })
     maven
-    nix-index
-    nurl
-    (python3.withPackages (
-      p: with p; [
-        argcomplete
-        debugpy
-      ]
-    ))
-    ripgrep
     transmission_4-gtk
-    wl-clipboard
-    # TODO: remove after moved to hyprland
-    xsel
-    zsh-manpage-completion-generator
 
     # formatter
     black
@@ -78,6 +48,4 @@ in
     enable = true;
     package = jdk17;
   };
-
-  home.sessionPath = [ "$HOME/dotfiles/bin" ];
 }

@@ -1,21 +1,6 @@
-{
-  deps,
-  dotfilesConfig,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 with pkgs;
-let
-  zsh-manpage-completion-generator = callPackage ../../packages/zsh-manpage-completion-generator.nix {
-    inherit deps;
-  };
-in
 {
-  home.username = dotfilesConfig.username;
-  home.homeDirectory = "/home/${dotfilesConfig.username}";
-  home.stateVersion = "24.05";
-  programs.home-manager.enable = true;
-
   imports = [
     ../../modules/bat.nix
     ../../modules/direnv.nix
@@ -30,10 +15,6 @@ in
 
   home.packages = [
     awscli2
-    fd
-    nurl
-    ripgrep
-    zsh-manpage-completion-generator
 
     # formatter
     black
