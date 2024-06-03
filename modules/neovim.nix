@@ -53,7 +53,6 @@ let
       with config;
       config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/neovim";
 
-    # TODO: use write file to generate lua instead
     home.sessionVariables = {
       LOMBOK = "${lombok}/share/java/lombok.jar";
       JAVA_DEBUG =

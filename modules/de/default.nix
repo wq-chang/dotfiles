@@ -3,16 +3,15 @@ with pkgs;
 {
   imports = [
     ./ags.nix
-    ./gtk.nix
     ./hyprland.nix
     ./waybar.nix
   ];
 
   home.packages = [
     blueman
-    gnome.nautilus
     gtklock
     rofi-wayland
+    yazi
   ];
 
   services.swaync.enable = true;

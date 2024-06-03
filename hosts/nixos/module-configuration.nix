@@ -7,6 +7,7 @@
     fonts.enable = true;
     fzf.enable = true;
     git.enable = true;
+    gtk.enable = true;
     kitty.enable = true;
     lazygit.enable = true;
     mpv.enable = true;

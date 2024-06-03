@@ -7,6 +7,7 @@
     ./fonts.nix
     ./fzf.nix
     ./git.nix
+    ./gtk.nix
     ./kitty.nix
     ./lazygit.nix
     ./mpv.nix

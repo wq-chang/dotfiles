@@ -101,8 +101,6 @@ in
   hardware.xpadneo.enable = true;
 
   environment.sessionVariables = {
-    # TODO: refactor with home manager gtk module
-    GTK_THEME = "WhiteSur-Dark";
     NIXOS_OZONE_WL = "1";
   };
 }
