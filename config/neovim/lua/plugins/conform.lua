@@ -13,6 +13,7 @@ return {
 				javascript = { "prettierd" },
 				lua = { "stylua" },
 				json = { "prettierd" },
+				jsonc = { "prettierd" },
 				markdown = { "prettierd" },
 				nix = { "nixfmt" },
 				python = { "black", "isort" },

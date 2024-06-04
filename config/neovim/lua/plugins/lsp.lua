@@ -102,12 +102,20 @@ return {
 					},
 				},
 				eslint = {
-					settings = { workingDirectory = { mode = "auto" } },
+					settings = {
+						codeActionOnSave = {
+							enable = true,
+						},
+						experimental = {
+							useFlatConfig = true,
+						},
+					},
 				},
 				jsonls = { init_options = { provideFormatter = false } },
 				nil_ls = {},
 				pyright = {},
 				terraformls = {},
+				tsserver = {},
 			}
 
 			for server_name in pairs(servers) do
@@ -118,15 +126,6 @@ return {
 					capabilities,
 					server.capabilities or {}
 				)
-
-				if server_name == "eslint" then
-					server.on_attach = function(_, bufnr)
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							buffer = bufnr,
-							command = "EslintFixAll",
-						})
-					end
-				end
 				require("lspconfig")[server_name].setup(server)
 			end
 		end,
