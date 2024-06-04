@@ -15,6 +15,7 @@ in
   home.homeDirectory = "/home/${dotfilesConfig.username}";
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
+  programs.bash.enable = true;
   # xdg.mimeApps.enable = true;
 
   imports = [
