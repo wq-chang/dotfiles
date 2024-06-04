@@ -11,28 +11,6 @@ let
   homeConfig = {
     fonts.fontconfig = {
       enable = true;
-      defaultFonts = {
-        emoji = [
-          "Symbols Nerd Font"
-          "Noto Color Emoji"
-        ];
-        monospace = [
-          "Noto Sans Mono"
-          "Monospace"
-        ];
-        sansSerif = [
-          "Noto Sans CJK SC"
-          "Noto Sans CJK TC"
-          "Noto Sans CJK JP"
-          "Noto Sans"
-        ];
-        serif = [
-          "Noto Serif CJK SC"
-          "Noto Serif CJK TC"
-          "Noto Serif CJK JP"
-          "Noto Serif"
-        ];
-      };
     };
 
     home.packages = with pkgs; [
