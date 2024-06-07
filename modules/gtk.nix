@@ -22,6 +22,10 @@ let
         gtk-application-prefer-dark-theme = true;
         gtk-im-module = "fcitx";
       };
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = papirus-icon-theme;
+      };
       theme = {
         name = "WhiteSur-Dark";
         package = whitesur-gtk-theme;

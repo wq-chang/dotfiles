@@ -2,12 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{
-  config,
-  dotfilesConfig,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 with pkgs;
 let
   tuigreet = "${greetd.tuigreet}/bin/tuigreet";
@@ -86,13 +81,8 @@ in
   services.greetd = {
     enable = true;
     settings = {
-      initial_session = {
-        command = "${session}";
-        user = "${dotfilesConfig.username}";
-      };
       default_session = {
         command = "${tuigreet} --greeting 'Welcome to NixOS!' --asterisks --remember --remember-user-session --time --cmd ${session}";
-        user = "greeter";
       };
     };
   };
