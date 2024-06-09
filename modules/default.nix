@@ -1,5 +1,6 @@
 { ... }:
 {
+  # TODO: add de
   imports = [
     ./bat.nix
     ./direnv.nix

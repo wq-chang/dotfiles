@@ -9,11 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ags.url = "github:Aylur/ags";
+
     dotfilesConfigs.url = "git+ssh://git@github.com/wq-chang/dotfiles-configs";
   };
 
   outputs =
     {
+      ags,
       dotfilesConfigs,
       nixpkgs,
       home-manager,
@@ -90,7 +93,7 @@
                   useUserPackages = true;
                   users.${dotfilesConfig.username} = import ./hosts/home-core.nix;
                   extraSpecialArgs = {
-                    inherit deps dotfilesConfig;
+                    inherit ags deps dotfilesConfig;
                     isHm = true;
                     isNixOs = false;
                   };
