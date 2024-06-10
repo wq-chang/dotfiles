@@ -4,14 +4,7 @@
 
 { config, pkgs, ... }:
 with pkgs;
-let
-  tuigreet = "${greetd.tuigreet}/bin/tuigreet";
-  session = "${hyprland}/bin/Hyprland";
-in
 {
-  # Enable bluetooth
-  hardware.bluetooth.enable = true;
-
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5 = {
@@ -31,6 +24,7 @@ in
     driSupport32Bit = true;
     extraPackages = [ vaapiVdpau ];
   };
+
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
@@ -73,18 +67,6 @@ in
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];
-  };
-
-  programs.hyprland.enable = true;
-  security.pam.services.gtklock = { };
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${tuigreet} --greeting 'Welcome to NixOS!' --asterisks --remember --remember-user-session --time --cmd ${session}";
-      };
-    };
   };
 
   programs.steam.enable = true;

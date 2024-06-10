@@ -4,6 +4,7 @@
   imports = [
     ./bat.nix
     ./direnv.nix
+    ./desktop-environment
     ./eza.nix
     ./fonts.nix
     ./fzf.nix
