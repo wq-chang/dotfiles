@@ -15,6 +15,7 @@ const adjustVolume = (action: 'increase' | 'decrease') =>
 
 const VolumeIcon = Widget.Icon().hook(audio.speaker, (self) => {
     const vol = Math.ceil(audio.speaker.volume * 100);
+    const isMuted = audio.speaker.is_muted;
     const thresholds: VolumeThreshold[] = [
         { volume: 101, name: 'overamplified' },
         { volume: 67, name: 'high' },
@@ -25,15 +26,19 @@ const VolumeIcon = Widget.Icon().hook(audio.speaker, (self) => {
     const icon =
         thresholds.find((threshold) => threshold.volume <= vol)?.name ?? '';
 
-    self.icon = `audio-volume-${icon}-symbolic`;
+    self.icon = `audio-volume-${isMuted ? 'muted' : icon}-symbolic`;
     self.tooltip_text = `Volume: ${String(vol)}%`;
 });
 
-const VolumeIndicator = Widget.Button({
-    onClicked: toggleMute,
+const VolumeButton = Widget.Button({
+    onSecondaryClick: toggleMute,
     onScrollUp: () => adjustVolume('increase'),
     onScrollDown: () => adjustVolume('decrease'),
     child: VolumeIcon,
+});
+
+const VolumeIndicator = Widget.Box({
+    child: VolumeButton,
 });
 
 export default VolumeIndicator;
