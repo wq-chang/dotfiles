@@ -1,5 +1,6 @@
 import VolumeIndicator from './buttons/Audio';
 import BluetoothIndicator from './buttons/Bluetooth';
+import Clock from './buttons/Clock';
 import NetworkIndicator from './buttons/Network';
 import SystemTray from './buttons/SystemTray';
 import WorkspacesIndicator from './buttons/Workspace';
@@ -15,9 +16,9 @@ const Bar = (monitor: number) =>
                 hpack: 'start',
                 children: [WorkspacesIndicator],
             }),
-            centerWidget: Widget.Label({
+            centerWidget: Widget.Box({
                 hpack: 'center',
-                label: 'WTF',
+                child: Clock,
             }),
             endWidget: Widget.Box({
                 hpack: 'end',
