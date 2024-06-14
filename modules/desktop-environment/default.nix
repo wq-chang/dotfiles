@@ -34,15 +34,14 @@ let
     programs.nm-applet.enable = true;
     security.pam.services.gtklock = { };
 
-    # TODO: fix applet not show in ags tray
-    # systemd.user.services.blueman-applet = {
-    #   description = "Blueman applet";
-    #   partOf = [ "graphical-session.target" ];
-    #   wantedBy = [ "graphical-session.target" ];
-    #   serviceConfig = {
-    #     ExecStart = "${pkgs.blueman}/bin/blueman-applet";
-    #   };
-    # };
+    systemd.user.services.blueman-applet = {
+      description = "Blueman applet";
+      partOf = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.blueman}/bin/blueman-applet";
+      };
+    };
   };
 in
 with lib;
