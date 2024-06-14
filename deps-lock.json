@@ -2,8 +2,8 @@
   "argcomplete": {
     "url": "https://github.com/kislyuk/argcomplete",
     "branchName": "develop",
-    "rev": "6c9e540fdbdf331129a0100c3ed1a88730871634",
-    "hash": "sha256-/pNGyVdFAGDRCddJsR1idrB88ZD2YQwux6wf0mBhjz4=",
+    "rev": "80e5cb610de023caef2b12e583eb2b7be9015de6",
+    "hash": "sha256-NfW4R5mBmQTzh9EaBvT6m7YTE647p3Q/2Izx2S+mFNs=",
     "sparseCheckout": [
       "argcomplete/bash_completion.d/_python-argcomplete"
     ]
@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "28836375b3a943503f3e7406f6a9bf859277eb22",
-    "hash": "sha256-Qn939BhLYk4l1XlrfMGuOQtXkumux8BEJuo6ZRKqUKk=",
+    "rev": "925e7d687045ea0c5a674c830762b7787c3253b1",
+    "hash": "sha256-+agiKNKcf0OhjU5yucqS5yCjF+sSbN2ZX7xegj05O44=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -20,8 +20,8 @@
   "fzf-tab": {
     "url": "https://github.com/Aloxaf/fzf-tab",
     "branchName": "master",
-    "rev": "c7fb028ec0bbc1056c51508602dbd61b0f475ac3",
-    "hash": "sha256-Qv8zAiMtrr67CbLRrFjGaPzFZcOiMVEFLg1Z+N6VMhg="
+    "rev": "14e16f0d36ae9938e28b2f6efdb7344cd527a1a6",
+    "hash": "sha256-o8hgnTl84nI7jMVfA5jEcDXkMFFlnxKbRva+l/Fx4jI="
   },
   "mpv-scripts": {
     "url": "https://github.com/Eisa01/mpv-scripts",
@@ -32,8 +32,8 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "cedbb9e22846eb4b1fff0c47c3c4dbafb73601f0",
-    "hash": "sha256-VEGF+x/cgjTmbfC2c7divsuLcG9t5KV2DG4ilgf9aMw=",
+    "rev": "0c9b42a863778d67aee22bbd43f296110fe1f047",
+    "hash": "sha256-PoSynewWaVSi0p+AFvKiqzDMRDwsa9q+lDC647901kA=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
       "plugins/docker-compose/_docker-compose"
@@ -48,8 +48,8 @@
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
-    "rev": "f9e738e2dc78326166f11c021171b2e66a2ee426",
-    "hash": "sha256-2J+0DuiiCzZekxQdPJYozM8lNX0PnO0w0as9Fqzw2ww=",
+    "rev": "81c867c5f638597a82c82094dcb90ed42444dabc",
+    "hash": "sha256-N5XOug73Wxlxce0BDire8QpYyGrcKfpM2c4vzFdLmO8=",
     "sparseCheckout": [
       "extras/sublime/tokyonight_night.tmTheme",
       "extras/wezterm/tokyonight_night.toml"
