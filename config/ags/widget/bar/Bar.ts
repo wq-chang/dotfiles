@@ -1,5 +1,8 @@
 import VolumeIndicator from './buttons/Audio';
+import BluetoothIndicator from './buttons/Bluetooth';
+import NetworkIndicator from './buttons/Network';
 import SystemTray from './buttons/SystemTray';
+import WorkspacesIndicator from './buttons/Workspace';
 
 const Bar = (monitor: number) =>
     Widget.Window({
@@ -8,9 +11,9 @@ const Bar = (monitor: number) =>
         anchor: ['top', 'left', 'right'],
         exclusivity: 'exclusive',
         child: Widget.CenterBox({
-            startWidget: Widget.Label({
+            startWidget: Widget.Box({
                 hpack: 'start',
-                label: 'Welcome to AGS!',
+                children: [WorkspacesIndicator],
             }),
             centerWidget: Widget.Label({
                 hpack: 'center',
@@ -18,7 +21,12 @@ const Bar = (monitor: number) =>
             }),
             endWidget: Widget.Box({
                 hpack: 'end',
-                children: [SystemTray, VolumeIndicator],
+                children: [
+                    SystemTray,
+                    VolumeIndicator,
+                    BluetoothIndicator,
+                    NetworkIndicator,
+                ],
             }),
         }),
     });

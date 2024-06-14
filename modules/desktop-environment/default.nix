@@ -63,7 +63,6 @@ with lib;
     ./ags.nix
     ./display-manager.nix
     ./hyprland.nix
-    ./waybar.nix
   ];
 
   config = mkIf cfg.enable (
