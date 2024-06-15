@@ -96,11 +96,7 @@ return {
 			end
 
 			local servers = {
-				lua_ls = {
-					settings = {
-						Lua = { completion = { callSnippet = "Replace" } },
-					},
-				},
+				cssls = {},
 				eslint = {
 					settings = {
 						codeActionOnSave = {
@@ -112,6 +108,11 @@ return {
 					},
 				},
 				jsonls = { init_options = { provideFormatter = false } },
+				lua_ls = {
+					settings = {
+						Lua = { completion = { callSnippet = "Replace" } },
+					},
+				},
 				nil_ls = {},
 				pyright = {},
 				terraformls = {},

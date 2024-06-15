@@ -1,26 +1,46 @@
 return {
 	{
 		"stevearc/conform.nvim",
-		opts = {
-			format_on_save = {
-				timeout_ms = 3000,
-				async = false,
-				quiet = false,
-				lsp_fallback = true,
-			},
-			formatters_by_ft = {
+		opts = function()
+			local formatter_ft = {
+				prettierd = {
+					"css",
+					"scss",
+					"javascript",
+					"json",
+					"markdown",
+					"typescript",
+				},
+				shfmt = { "sh", "zsh" },
+			}
+			local ft_formatter = {
 				java = { "google-java-format" },
-				javascript = { "prettierd" },
 				lua = { "stylua" },
-				json = { "prettierd" },
-				jsonc = { "prettierd" },
-				markdown = { "prettierd" },
 				nix = { "nixfmt" },
 				python = { "black", "isort" },
-				sh = { "shfmt" },
-				typescript = { "prettierd" },
-				zsh = { "shfmt" },
-			},
-		},
+			}
+			local function formatter_ft_to_ft_formmater(formatter_filetype)
+				local tbl = {}
+				for formatter, filetypes in pairs(formatter_filetype) do
+					for _, filetype in ipairs(filetypes) do
+						tbl[filetype] = { formatter }
+					end
+				end
+				return tbl
+			end
+			return {
+				format_on_save = {
+					timeout_ms = 3000,
+					async = false,
+					quiet = false,
+					lsp_fallback = true,
+				},
+				formatters_by_ft = vim.tbl_extend(
+					"error",
+					ft_formatter,
+					formatter_ft_to_ft_formmater(formatter_ft)
+				),
+			}
+		end,
 	},
 }
