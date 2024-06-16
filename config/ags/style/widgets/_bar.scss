@@ -1,0 +1,13 @@
+.bar-component {
+    background-color: transparentize($bg-color, $bg-transparent);
+    border-radius: $border-radius;
+    padding: 2px;
+
+    .workspace-btn {
+        border-radius: $border-radius;
+    }
+
+    .active {
+        background-color: purple;
+    }
+}

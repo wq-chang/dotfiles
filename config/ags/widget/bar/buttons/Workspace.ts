@@ -10,8 +10,10 @@ const dispatch = (arg: string | number) => {
 
 const Workspaces = (ws: number) =>
     Widget.Box({
+        className: 'bar-component',
         children: Array.from({ length: ws }, (_, i) => i + 1).map((i) =>
             Widget.Button({
+                className: 'workspace-btn',
                 onPrimaryClick: () => {
                     dispatch(i);
                 },
@@ -25,18 +27,18 @@ const Workspaces = (ws: number) =>
                     attribute: i,
                     vpack: 'center',
                     label: String(i),
-                    setup: (self) =>
-                        self.hook(hyprland, () => {
-                            self.toggleClassName(
-                                'active',
-                                hyprland.active.workspace.id === i,
-                            );
-                            self.toggleClassName(
-                                'occupied',
-                                (hyprland.getWorkspace(i)?.windows ?? 0) > 0,
-                            );
-                        }),
                 }),
+                setup: (self) =>
+                    self.hook(hyprland, () => {
+                        self.toggleClassName(
+                            'active',
+                            hyprland.active.workspace.id === i,
+                        );
+                        self.toggleClassName(
+                            'occupied',
+                            (hyprland.getWorkspace(i)?.windows ?? 0) > 0,
+                        );
+                    }),
             }),
         ),
         setup: (box) => {

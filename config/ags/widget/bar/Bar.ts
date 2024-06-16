@@ -7,6 +7,7 @@ import WorkspacesIndicator from './buttons/Workspace';
 
 const Bar = (monitor: number) =>
     Widget.Window({
+        className: 'transparent',
         monitor,
         name: `bar${monitor.toString()}`,
         anchor: ['top', 'left', 'right'],
