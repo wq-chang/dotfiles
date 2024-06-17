@@ -1,3 +1,6 @@
+import { workspace } from 'options';
+import { OVERVIEW_WINDOW_NAME } from 'widget/overview/Overview';
+
 const hyprland = await Service.import('hyprland');
 
 const dispatch = (arg: string | number) => {
@@ -8,38 +11,44 @@ const dispatch = (arg: string | number) => {
     );
 };
 
+const WorkspaceButton = (workspaceNumber: number) =>
+    Widget.Button({
+        className: 'workspace-btn',
+        onPrimaryClick: () => {
+            dispatch(workspaceNumber);
+        },
+        onSecondaryClick: () => {
+            App.toggleWindow(OVERVIEW_WINDOW_NAME);
+        },
+        onScrollUp: () => {
+            dispatch('m-1');
+        },
+        onScrollDown: () => {
+            dispatch('m+1');
+        },
+        child: Widget.Label({
+            attribute: workspaceNumber,
+            vpack: 'center',
+            label: String(workspaceNumber),
+        }),
+        setup: (self) =>
+            self.hook(hyprland, () => {
+                self.toggleClassName(
+                    'active',
+                    hyprland.active.workspace.id === workspaceNumber,
+                );
+                self.toggleClassName(
+                    'occupied',
+                    (hyprland.getWorkspace(workspaceNumber)?.windows ?? 0) > 0,
+                );
+            }),
+    });
+
 const Workspaces = (ws: number) =>
     Widget.Box({
         className: 'bar-component',
         children: Array.from({ length: ws }, (_, i) => i + 1).map((i) =>
-            Widget.Button({
-                className: 'workspace-btn',
-                onPrimaryClick: () => {
-                    dispatch(i);
-                },
-                onScrollUp: () => {
-                    dispatch('m-1');
-                },
-                onScrollDown: () => {
-                    dispatch('m+1');
-                },
-                child: Widget.Label({
-                    attribute: i,
-                    vpack: 'center',
-                    label: String(i),
-                }),
-                setup: (self) =>
-                    self.hook(hyprland, () => {
-                        self.toggleClassName(
-                            'active',
-                            hyprland.active.workspace.id === i,
-                        );
-                        self.toggleClassName(
-                            'occupied',
-                            (hyprland.getWorkspace(i)?.windows ?? 0) > 0,
-                        );
-                    }),
-            }),
+            WorkspaceButton(i),
         ),
         setup: (box) => {
             if (ws === 0) {
@@ -55,7 +64,7 @@ const Workspaces = (ws: number) =>
     });
 
 const WorkspacesIndicator = Widget.Box({
-    child: Workspaces(10),
+    child: Workspaces(workspace.workspaceNum),
 });
 
 export default WorkspacesIndicator;
