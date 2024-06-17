@@ -1,11 +1,6 @@
 import Bar from 'widget/bar/Bar';
 import OverviewWindow from 'widget/overview/Overview';
 
-const apps = await Service.import('applications');
-apps.list.forEach((app) => {
-    console.log(app.icon_name);
-});
-
 const scss = `${App.configDir}/style/style.scss`;
 const css = '/tmp/ags/style.css';
 const sasscLog = Utils.exec(`sassc ${scss} ${css}`);

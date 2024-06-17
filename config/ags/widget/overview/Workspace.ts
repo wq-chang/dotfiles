@@ -55,9 +55,7 @@ const Workspace = (id: number) => {
             min-height: ${String(minHeight)}px;
         `,
         setup(box) {
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             box.hook(hyprland, update, 'notify::clients');
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             box.hook(hyprland.active.client, update);
             box.hook(hyprland.active.workspace, () => {
                 box.toggleClassName(
@@ -80,9 +78,8 @@ const Workspace = (id: number) => {
                 );
                 eventbox.connect(
                     'drag-data-received',
-                    (_w, _c, _x, _y, data) => {
+                    (_self, _c, _x, _y, data: Gtk.SelectionData) => {
                         const address = new TextDecoder().decode(
-                            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
                             data.get_data(),
                         );
                         void dispatch(

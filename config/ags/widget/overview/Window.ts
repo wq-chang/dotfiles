@@ -20,22 +20,24 @@ const getAppIconName = (c: string) => {
     );
 };
 
-const AppIcon = (width: number, height: number, clientClass: string) =>
+const AppIcon = (width: number, height: number, iconName: string) =>
     Widget.Icon({
         css: `
             	min-width: ${String((workspace.scale / 100) * width)}px;
             	min-height: ${String((workspace.scale / 100) * height)}px;
 			`,
-        icon: getAppIconName(clientClass),
+        icon: getAppIconName(iconName),
     });
 
-const Window = ({ address, size: [w, h], class: c, title }: Client) =>
-    Widget.Button({
+const Window = ({ address, size: [w, h], class: c, title }: Client) => {
+    const iconName = getAppIconName(c);
+
+    return Widget.Button({
         className: 'client',
         attribute: { address },
         // tooltipText: `${c}: ${getAppIconName(c)}`,
         tooltipText: title,
-        child: AppIcon(w, h, c),
+        child: AppIcon(w, h, iconName),
         onClicked: () => {
             void dispatch(`focuswindow address:${address}`);
             App.closeWindow('overview');
@@ -47,16 +49,15 @@ const Window = ({ address, size: [w, h], class: c, title }: Client) =>
                 TARGET,
                 Gdk.DragAction.MOVE,
             );
-
+            btn.drag_source_set_icon_name(iconName);
             btn.on('drag-begin', () => {
                 btn.toggleClassName('hidden', true);
             });
-
-            btn.on('drag-data-get', (_w, _c, data) => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+            btn.on('drag-data-get', (_self, _c, data: Gtk.SelectionData) => {
                 data.set_text(address, address.length);
             });
         },
     });
+};
 
 export default Window;
