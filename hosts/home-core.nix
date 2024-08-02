@@ -16,7 +16,6 @@ in
   home.stateVersion = "24.05";
   programs.home-manager.enable = true;
   programs.bash.enable = true;
-  # xdg.mimeApps.enable = true;
 
   imports = [
     ./${dotfilesConfig.user}/home.nix
@@ -26,7 +25,6 @@ in
 
   home.packages = [
     fd
-    (google-chrome.override { commandLineArgs = "--enable-wayland-ime"; })
     nurl
     ripgrep
     wl-clipboard

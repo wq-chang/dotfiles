@@ -4,13 +4,13 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ags = {
-      url = "github:Aylur/ags";
+    home-manager = {
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -19,8 +19,8 @@
 
   outputs =
     {
-      ags,
       dotfilesConfigs,
+      nixos-wsl,
       nixpkgs,
       home-manager,
       ...
@@ -88,7 +88,9 @@
           "${user}" = nixpkgs.lib.nixosSystem {
             inherit system;
             modules = [
-              ./hosts/configuration-core.nix
+              ./hosts/${user}/configuration.nix
+
+              nixos-wsl.nixosModules.default
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
@@ -96,7 +98,7 @@
                   useUserPackages = true;
                   users.${dotfilesConfig.username} = import ./hosts/home-core.nix;
                   extraSpecialArgs = {
-                    inherit ags deps dotfilesConfig;
+                    inherit deps dotfilesConfig;
                     isHm = true;
                     isNixOs = false;
                   };
@@ -118,6 +120,6 @@
         "linux" = mkHomeManagerConfig "x86_64-linux" "linux";
       };
 
-      nixosConfigurations = mkNixOsConfig "nixos";
+      nixosConfigurations = mkNixOsConfig "wsl";
     };
 }
