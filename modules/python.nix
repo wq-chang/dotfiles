@@ -9,29 +9,26 @@ let
   cfg = config.modules.python;
 
   homeConfig = {
-    home.packages = with pkgs; [
-      (python3.withPackages (p: with p; [ argcomplete ] ++ cfg.packages p))
-    ];
+    home.packages = [ (pkgs.python3.withPackages (p: [ p.argcomplete ] ++ cfg.packages p)) ];
   };
 in
-with lib;
 {
   options = {
     modules.python = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = ''
           Whether to enable python module
         '';
       };
-      packages = mkOption {
-        type = with types; functionTo (listOf package);
+      packages = lib.mkOption {
+        type = with lib.types; functionTo (listOf package);
         default = p: [ ];
         description = ''
           Packages to be added to Python
         '';
-        example = literalExpression ''
+        example = lib.literalExpression ''
           p: with p; [
             debugpy
           ]
@@ -40,5 +37,5 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable (if isHm then homeConfig else { });
+  config = lib.mkIf cfg.enable (if isHm then homeConfig else { });
 }

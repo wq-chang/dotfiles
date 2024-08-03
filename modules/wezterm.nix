@@ -9,24 +9,21 @@
 let
   cfg = config.modules.wezterm;
 
-  homeConfig = with pkgs; {
-    home.packages = [ wezterm ];
+  homeConfig = {
+    home.packages = [ pkgs.wezterm ];
 
-    xdg.configFile.wezterm.source =
-      with config;
-      config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/wezterm";
+    xdg.configFile.wezterm.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/wezterm";
 
     home.file.".local/share/wezterm/tokyonight_night.toml".source =
       with deps;
       "${tokyonight}/extras/wezterm/tokyonight_night.toml";
   };
 in
-with lib;
 {
   options = {
     modules.wezterm = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to enable wezterm module
@@ -35,5 +32,5 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable (if isHm then homeConfig else { });
+  config = lib.mkIf cfg.enable (if isHm then homeConfig else { });
 }

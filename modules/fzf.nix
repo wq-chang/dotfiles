@@ -35,12 +35,11 @@ let
     };
   };
 in
-with lib;
 {
   options = {
     modules.fzf = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to enable fzf module
@@ -49,5 +48,5 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable (if isHm then homeConfig else { });
+  config = lib.mkIf cfg.enable (if isHm then homeConfig else { });
 }

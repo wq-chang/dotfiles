@@ -34,7 +34,7 @@ let
         {
           name = "p10k-config";
           file = ".p10k.zsh";
-          src = with config; config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/zsh";
+          src = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/zsh";
         }
         {
           name = "fzf-tab";
@@ -79,19 +79,18 @@ let
     programs.zsh.enable = true;
   };
 in
-with lib;
 {
   options = {
     modules.zsh = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to enable zsh module
         '';
       };
-      defaultShell = mkOption {
-        type = types.bool;
+      defaultShell = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Set zsh as default shell
@@ -100,7 +99,7 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable (
+  config = lib.mkIf cfg.enable (
     if isHm then
       homeConfig
     else if isNixOs then

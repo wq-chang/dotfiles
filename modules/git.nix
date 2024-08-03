@@ -32,12 +32,11 @@ let
     };
   };
 in
-with lib;
 {
   options = {
     modules.git = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to enable git module
@@ -46,5 +45,5 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable (if isHm then homeConfig else { });
+  config = lib.mkIf cfg.enable (if isHm then homeConfig else { });
 }

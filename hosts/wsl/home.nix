@@ -1,7 +1,6 @@
 { pkgs, ... }:
-with pkgs;
 {
-  home.packages = [
+  home.packages = with pkgs; [
     awscli2
     maven
   ];

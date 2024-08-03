@@ -1,6 +1,5 @@
 { deps, pkgs, ... }:
-with pkgs;
-stdenv.mkDerivation {
+pkgs.stdenv.mkDerivation {
   name = "zsh-completions";
   srcs = with deps; [
     argcomplete

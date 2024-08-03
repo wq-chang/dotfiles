@@ -11,17 +11,14 @@ let
   homeConfig = {
     home.packages = [ pkgs.kitty ];
 
-    xdg.configFile.kitty.source =
-      with config;
-      config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/kitty";
+    xdg.configFile.kitty.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/kitty";
   };
 in
-with lib;
 {
   options = {
     modules.kitty = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to enable kitty module
@@ -30,5 +27,5 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable (if isHm then homeConfig else { });
+  config = lib.mkIf cfg.enable (if isHm then homeConfig else { });
 }

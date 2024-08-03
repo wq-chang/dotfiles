@@ -38,12 +38,11 @@ let
     };
   };
 in
-with lib;
 {
   options = {
     modules.lazygit = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to enable lazygit module
@@ -52,5 +51,5 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable (if isHm then homeConfig else { });
+  config = lib.mkIf cfg.enable (if isHm then homeConfig else { });
 }

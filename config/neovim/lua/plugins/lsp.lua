@@ -113,7 +113,7 @@ return {
 						Lua = { completion = { callSnippet = "Replace" } },
 					},
 				},
-				nil_ls = {},
+				nixd = {},
 				pyright = {},
 				terraformls = {},
 				tsserver = {},

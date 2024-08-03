@@ -5,7 +5,6 @@
   pkgs,
   ...
 }:
-with pkgs;
 let
   cfg = config.modules.neovim;
 
@@ -17,12 +16,12 @@ let
 
     programs.java = {
       enable = true;
-      package = jdk17;
+      package = pkgs.jdk17;
     };
 
     modules.python.packages = p: with p; [ debugpy ];
 
-    home.packages = [
+    home.packages = with pkgs; [
       gcc
 
       # formatter
@@ -37,7 +36,7 @@ let
 
       # lsp
       lua-language-server
-      nil
+      nixd
       nodePackages.typescript-language-server
       pyright
       terraform-ls
@@ -50,11 +49,9 @@ let
       vscode-extensions.vscjava.vscode-java-test
     ];
 
-    xdg.configFile.nvim.source =
-      with config;
-      config.lib.file.mkOutOfStoreSymlink "${home.homeDirectory}/dotfiles/config/neovim";
+    xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/neovim";
 
-    home.sessionVariables = {
+    home.sessionVariables = with pkgs; {
       LOMBOK = "${lombok}/share/java/lombok.jar";
       JAVA_DEBUG =
         vscode-extensions.vscjava.vscode-java-debug
@@ -65,12 +62,11 @@ let
     };
   };
 in
-with lib;
 {
   options = {
     modules.neovim = {
-      enable = mkOption {
-        type = types.bool;
+      enable = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = ''
           Whether to enable neovim module
@@ -79,5 +75,5 @@ with lib;
     };
   };
 
-  config = mkIf cfg.enable (if isHm then homeConfig else { });
+  config = lib.mkIf cfg.enable (if isHm then homeConfig else { });
 }

@@ -1,5 +1,4 @@
 { pkgs, ... }:
-with pkgs;
 {
   imports = [
     ../../modules/bat.nix
@@ -13,7 +12,7 @@ with pkgs;
     ../../modules/zsh.nix
   ];
 
-  home.packages = [
+  home.packages = with pkgs; [
     awscli2
 
     # formatter
