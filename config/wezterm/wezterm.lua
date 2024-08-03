@@ -19,7 +19,6 @@ config.window_background_image_hsb = {
 	saturation = 1.0,
 }
 config.colors = colors
-config.enable_wayland = false
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
 local function find_active_pane_by_title(mux_win, title)

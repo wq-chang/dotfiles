@@ -4,13 +4,13 @@
     bat.enable = true;
     direnv.enable = true;
     eza.enable = true;
-    fonts.enable = false;
+    fonts.enable = true;
     fzf.enable = true;
     git.enable = true;
-    kitty.enable = false;
+    kitty.enable = true;
     lazygit.enable = true;
     neovim.enable = true;
-    wezterm.enable = false;
+    wezterm.enable = true;
     zsh = {
       enable = true;
       defaultShell = true;
