@@ -3,29 +3,28 @@ return {
 		"folke/which-key.nvim",
 		opts = {
 			plugins = { spelling = true },
-			window = {
-				border = "single",
+			win = {
+				border = "rounded",
 			},
-			defaults = {
+			spec = {
 				mode = { "n", "v" },
-				["g"] = { name = "+goto" },
-				["z"] = { name = "+fold" },
-				["]"] = { name = "+next" },
-				["["] = { name = "+prev" },
-				["<leader>d"] = { name = "+debug" },
-				["<leader>f"] = { name = "+file/find" },
-				["<leader>g"] = { name = "+git" },
-				["<leader>gh"] = { name = "+hunks" },
-				["<leader>l"] = { name = "+lsp" },
-				["<leader>m"] = { name = "+mergetools" },
-				["<leader>n"] = { name = "+neotest" },
-				["<leader>w"] = { name = "+windows" },
+				{ "g", group = "+goto" },
+				{ "z", group = "+fold" },
+				{ "]", group = "+next" },
+				{ "[", group = "+prev" },
+				{ "<leader>d", group = "+debug" },
+				{ "<leader>f", group = "+file/find" },
+				{ "<leader>g", group = "+git" },
+				{ "<leader>gh", group = "+hunks" },
+				{ "<leader>l", group = "+lsp" },
+				{ "<leader>m", group = "+mergetools" },
+				{ "<leader>n", group = "+neotest" },
+				{ "<leader>w", group = "+windows" },
 			},
 		},
 		config = function(_, opts)
 			local wk = require("which-key")
 			wk.setup(opts)
-			wk.register(opts.defaults)
 		end,
 	},
 }
