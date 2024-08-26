@@ -89,7 +89,6 @@
             inherit system;
             modules = [
               ./hosts/${user}/configuration.nix
-
               nixos-wsl.nixosModules.default
               home-manager.nixosModules.home-manager
               {
