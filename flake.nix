@@ -53,28 +53,6 @@
         };
       };
 
-      mkHomeManagerConfig =
-        system: user:
-        let
-          dotfilesConfig = dotfilesConfigs.${user};
-        in
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
-          modules = [
-            ./hosts/home-core.nix
-            {
-              _module.args = {
-                dotfilesConfig = dotfilesConfig // {
-                  inherit user;
-                  isHm = true;
-                  isNixOs = false;
-                };
-                deps = mkDeps system;
-              };
-            }
-          ];
-        };
-
       mkNixOsConfig =
         user:
         let
@@ -114,10 +92,6 @@
     in
     {
       packages = builtins.listToAttrs (map toHomeManagerPackages systems);
-
-      homeConfigurations = {
-        "linux" = mkHomeManagerConfig "x86_64-linux" "linux";
-      };
 
       nixosConfigurations = mkNixOsConfig "wsl";
     };
