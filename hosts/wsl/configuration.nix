@@ -9,8 +9,11 @@
     ../../modules
   ];
 
-  wsl.enable = true;
-  wsl.defaultUser = dotfilesConfig.username;
+  wsl = {
+    enable = true;
+    defaultUser = dotfilesConfig.username;
+    wslConf.user.default = dotfilesConfig.username;
+  };
 
   nix = {
     settings.experimental-features = [
