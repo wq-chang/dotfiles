@@ -1,23 +1,50 @@
-## Non NixOs
+## WSL NixOs
 
 ### Installation
 
-```
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-git@github.com:wq-chang/dotfiles.git
-nix build
-python scripts/create_dotfiles_config.py
+1. Enable WSL and install NixOs, refer to the steps through the [NixOS-WSL](https://github.com/nix-community/NixOS-WSL)
+2. Build NixOs flake
+
+```bash
+sudo nixos-rebuild boot --flake github:wq-chang/dotfiles/master#wsl
 ```
 
-### Switch
+3. Follow the steps in [change username guide](https://github.com/nix-community/NixOS-WSL/blob/main/docs/src/how-to/change-username.md) to apply the username
 
-```
-home-manager switch --flake ./.#<user>@<host>
+### Update dotfiles config
+
+1. Clone dotfiles to home directory
+
+```bash
+git clone git@github.com:wq-chang/dotfiles.git ~/
 ```
 
-### Add Github Dependencies
+2. Modify dotfiles
+3. Build NixOs flake
 
+```bash
+cd ~/dotfiles
+sudo nixos-rebuild switch --flake .#wsl
 ```
-python scripts/manage_dependencies.py add <name> <url> -b <branch> -r <commit hash> -s <path 1> <path 2> <path n>
-python scripts/manage_dependencies.py update
+
+## Utils
+
+### mdep (Add/update Github Dependencies)
+
+```bash
+# Add dependencies to deps-lock.json
+# Flags are optional
+# -b / --branch - default to master/main
+# -r / --rev - default to latest commit revision
+# -s / --sparse-checkout -- Accept more than 1 arguments, separate by space
+mdep add <name> <dependency url> -b <branch> -r <commit revision> -s <sparse checkout1> <sparse checkout2>
+
+# Update dependencies in deps-lock.json
+mdep update
+```
+
+### upcmp (Parse man pages and convert to zsh completions)
+
+```bash
+upcmp
 ```
