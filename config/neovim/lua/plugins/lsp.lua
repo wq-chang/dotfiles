@@ -116,7 +116,7 @@ return {
 				nixd = {},
 				pyright = {},
 				terraformls = {},
-				tsserver = {},
+				ts_ls = {},
 			}
 
 			for server_name in pairs(servers) do
