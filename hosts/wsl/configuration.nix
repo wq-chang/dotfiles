@@ -12,14 +12,16 @@
   wsl = {
     enable = true;
     defaultUser = dotfilesConfig.username;
-    wslConf.user.default = dotfilesConfig.username;
   };
 
   nix = {
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
     optimise.automatic = true;
     gc = {
       automatic = true;
