@@ -23,12 +23,6 @@
     "rev": "7fed01afba9392b6392408b9a0cf888522ed7a10",
     "hash": "sha256-By6Bgc8Fu79eNTSfCusT57RP7P3XHeekjp4YhsKZS1Y="
   },
-  "mpv-scripts": {
-    "url": "https://github.com/Eisa01/mpv-scripts",
-    "branchName": "master",
-    "rev": "48d68283cea47ff8e904decc9003b3abc3e2123e",
-    "hash": "sha256-95CAKjBRELX2f7oWSHFWJnI0mikAoxhfUphe9k51Qf4="
-  },
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
