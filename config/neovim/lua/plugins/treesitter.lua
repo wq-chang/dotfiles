@@ -63,7 +63,6 @@ return {
 					"css",
 					"gitignore",
 					"html",
-					"hyprlang",
 					"java",
 					"javascript",
 					"jsdoc",
