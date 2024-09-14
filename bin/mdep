@@ -2,10 +2,9 @@
 # PYTHON_ARGCOMPLETE_OK
 
 import argparse
+import asyncio
 import json
 import os
-import subprocess
-import sys
 
 import argcomplete
 
@@ -13,16 +12,24 @@ deps_file = f"{os.path.expanduser('~')}/dotfiles/deps-lock.json"
 actions = ["add", "update", "delete"]
 
 
-def get_latest_rev(url, branch=None):
-    command = " ".join(
-        [
-            "git",
-            "ls-remote",
-            url,
-            f"refs/heads/{branch}" if branch else "| rg -e 'refs/heads/(main|master)$'",
-        ]
+async def get_latest_rev_async(url, branch=None):
+    command = [
+        "git",
+        "ls-remote",
+        url,
+        f"refs/heads/{branch}" if branch else "| rg -e 'refs/heads/(main|master)$'",
+    ]
+
+    process = await asyncio.create_subprocess_exec(
+        *command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
-    output = subprocess.check_output(command, shell=True, text=True)
+
+    stdout, stderr = await process.communicate()
+
+    if process.returncode != 0:
+        raise Exception(f"Command failed with error: {stderr.decode().strip()}")
+
+    output = stdout.decode().strip()
     output_parts = output.split()
     latest_commit_rev = output_parts[0]
     branch_ref = output_parts[1].split("/")[-1]
@@ -30,31 +37,50 @@ def get_latest_rev(url, branch=None):
     return latest_commit_rev, branch_ref
 
 
-def get_hash(url, branch, rev, sparse_checkout):
+async def get_hash_async(url, branch, rev, sparse_checkout):
     has_sparse_checkout = 1 if sparse_checkout else 0
     command = ["nurl", url, rev, "-f", "fetchgit", "-A", "branchName", branch]
+
     if has_sparse_checkout == 1:
-        sparse_checkout_str = "["
-        for sc in sparse_checkout:
-            sparse_checkout_str += f'"{sc}"'
-        sparse_checkout_str += "]"
+        sparse_checkout_str = "[" + "".join(f'"{sc}"' for sc in sparse_checkout) + "]"
         command.append("-a")
         command.append("sparseCheckout")
         command.append(sparse_checkout_str)
 
-    try:
-        output = subprocess.check_output(command, text=True)
-    except subprocess.CalledProcessError as e:
-        print("Command:", " ".join(command))
-        print("Error:", e)
-        sys.exit()
+    process = await asyncio.create_subprocess_exec(
+        *command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
 
-    lines = output.strip().split("\n")
+    stdout, stderr = await process.communicate()
+
+    if process.returncode != 0:
+        raise Exception(f"Command failed with error: {stderr.decode().strip()}")
+
+    output = stdout.decode().strip()
+    lines = output.split("\n")
     hash = lines[-3 - has_sparse_checkout].split(" ")[-1][1:-2]
     return hash
 
 
-def add_dependency(args):
+async def update_dependency_async(data, item):
+    url = data[item]["url"]
+    branch = data[item]["branchName"]
+    rev = data[item]["rev"]
+    latest_rev, _ = await get_latest_rev_async(url, branch)
+    hash = data[item]["hash"]
+
+    if rev == latest_rev and hash != "":
+        return
+
+    sparse_checkout = (
+        data[item]["sparseCheckout"] if "sparseCheckout" in data[item] else None
+    )
+    hash_value = await get_hash_async(url, branch, latest_rev, sparse_checkout)
+    data[item]["rev"] = latest_rev
+    data[item]["hash"] = hash_value
+
+
+async def add_dependency_async(args):
     name = args.name
     url = args.url
     branch = args.branch
@@ -62,12 +88,12 @@ def add_dependency(args):
     rev = args.rev
 
     if not rev or not branch:
-        latest_rev, branch_ref = get_latest_rev(url, branch)
+        latest_rev, branch_ref = await get_latest_rev_async(url, branch)
         if not rev:
             rev = latest_rev
         branch = branch_ref
 
-    hash = get_hash(url, branch, rev, sparse_checkout)
+    hash = await get_hash_async(url, branch, rev, sparse_checkout)
 
     with open(deps_file, "r") as file:
         data = json.load(file)
@@ -87,32 +113,26 @@ def add_dependency(args):
     print(f"Dependency {name} added successfully!")
 
 
-def update_dependencies(_):
+async def update_dependencies_async(_):
     with open(deps_file, "r") as file:
         data = json.load(file)
 
-    for item in data:
-        url = data[item]["url"]
-        branch = data[item]["branchName"]
-        rev = data[item]["rev"]
-        latest_rev, _ = get_latest_rev(url, branch)
-        hash = data[item]["hash"]
-
-        if rev == latest_rev and hash != "":
-            continue
-
-        sparse_checkout = (
-            data[item]["sparseCheckout"] if "sparseCheckout" in data[item] else None
-        )
-        hash_value = get_hash(url, branch, latest_rev, sparse_checkout)
-        data[item]["rev"] = latest_rev
-        data[item]["hash"] = hash_value
+    tasks = [update_dependency_async(data, item) for item in data]
+    await asyncio.gather(*tasks)
 
     with open(deps_file, "w") as file:
         sorted_data = dict(sorted(data.items()))
         json.dump(sorted_data, file, indent=2)
 
     print("Dependencies' hash and rev updated successfully!")
+
+
+def add_dependency(args):
+    asyncio.run(add_dependency_async(args))
+
+
+def update_dependencies(args):
+    asyncio.run(update_dependencies_async(args))
 
 
 def main():
