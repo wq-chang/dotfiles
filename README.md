@@ -1,26 +1,47 @@
-## WSL NixOs
+## WSL NixOS
 
 ### Installation
 
-1. Enable WSL and install NixOs, refer to the steps through the [NixOS-WSL](https://github.com/nix-community/NixOS-WSL)
-2. Build NixOs flake
+1. Create `%USERPROFILE%/.wslconfig` and paste the following into it
 
-```bash
-sudo nixos-rebuild boot --flake github:wq-chang/dotfiles/master#wsl
+```
+[wsl2]
+kernelCommandLine = cgroup_no_v1=all
 ```
 
-3. Follow the steps in [change username guide](https://github.com/nix-community/NixOS-WSL/blob/main/docs/src/how-to/change-username.md) to apply the username
+2. Enable WSL and install NixOS, refer to the steps through the [NixOS-WSL](https://github.com/nix-community/NixOS-WSL)
+3. Use curl to download `wsl_init.sh` and run it from the home directory
+
+```bash
+cd
+curl https://raw.githubusercontent.com/wq-chang/dotfiles/refs/heads/master/scripts/wsl_init.sh -o wsl_init.sh
+source wsl_init.sh
+```
+
+4. Run the following commands in Windows Terminal to apply the username change
+
+```bash
+wsl -t NixOS
+wsl -d NixOS --user root exit
+wsl -t NixOS
+```
+
+5. Move `dotfiles` to the home directory and clean up default user directory
+
+```bash
+curl -sSL https://raw.githubusercontent.com/wq-chang/dotfiles/refs/heads/master/scripts/wsl_post_init.sh | bash
+```
+
+6. Start the WSL and start using NixOS
+
+```bash
+wsl
+```
 
 ### Update dotfiles config
 
-1. Clone dotfiles to home directory
-
-```bash
-git clone git@github.com:wq-chang/dotfiles.git ~/
-```
-
-2. Modify dotfiles
-3. Build NixOs flake
+1. Modify dotfiles
+2. Build NixOS flake
 
 ```bash
 cd ~/dotfiles
