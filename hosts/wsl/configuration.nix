@@ -14,8 +14,11 @@
     defaultUser = dotfilesConfig.username;
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   nix = {
     settings = {
+      trusted-users = [ dotfilesConfig.username ];
       auto-optimise-store = true;
       experimental-features = [
         "nix-command"
@@ -33,7 +36,6 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${dotfilesConfig.username} = {
     isNormalUser = true;
-    description = dotfilesConfig.username;
     extraGroups = [ "wheel" ];
   };
 
