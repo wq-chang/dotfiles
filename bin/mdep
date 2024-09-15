@@ -9,7 +9,11 @@ import os
 import argcomplete
 
 deps_file = f"{os.path.expanduser('~')}/dotfiles/deps-lock.json"
-actions = ["add", "update", "delete"]
+url_att = "url"
+branch_name_att = "branchName"
+rev_att = "rev"
+hash_att = "hash"
+sparse_checkout_att = "sparseCheckout"
 
 
 async def get_latest_rev_async(url, branch=None):
@@ -62,26 +66,27 @@ async def get_hash_async(url, branch, rev, sparse_checkout):
     return hash
 
 
-async def update_dependency_async(data, item):
-    url = data[item]["url"]
-    branch = data[item]["branchName"]
-    rev = data[item]["rev"]
+async def update_dependency_async(data, dep_name):
+    dep = data[dep_name]
+    url = dep[url_att]
+    branch = dep[branch_name_att]
+    rev = dep[rev_att]
     latest_rev, _ = await get_latest_rev_async(url, branch)
-    hash = data[item]["hash"]
+    hash = dep[hash_att]
 
     if rev == latest_rev and hash != "":
         return
 
-    sparse_checkout = (
-        data[item]["sparseCheckout"] if "sparseCheckout" in data[item] else None
-    )
+    sparse_checkout = dep[sparse_checkout_att] if sparse_checkout_att in dep else None
     hash_value = await get_hash_async(url, branch, latest_rev, sparse_checkout)
-    data[item]["rev"] = latest_rev
-    data[item]["hash"] = hash_value
+    dep[rev_att] = latest_rev
+    dep[hash_att] = hash_value
+
+    print(f"Updated {dep_name}")
 
 
 async def add_dependency_async(args):
-    name = args.name
+    dep_name = args.name
     url = args.url
     branch = args.branch
     sparse_checkout = args.sparse_checkout
@@ -97,34 +102,34 @@ async def add_dependency_async(args):
 
     with open(deps_file, "r") as file:
         data = json.load(file)
-    data[name] = {
-        "url": url,
-        "branchName": branch,
-        "rev": rev,
-        "hash": hash,
+    data[dep_name] = {
+        url_att: url,
+        branch_name_att: branch,
+        rev_att: rev,
+        hash_att: hash,
     }
     if sparse_checkout:
-        data[name]["sparseCheckout"] = sparse_checkout
+        data[dep_name][sparse_checkout_att] = sparse_checkout
 
     with open(deps_file, "w") as file:
         sorted_data = dict(sorted(data.items()))
         json.dump(sorted_data, file, indent=2)
 
-    print(f"Dependency {name} added successfully!")
+    print(f"Dependency {dep_name} was added successfully!")
 
 
 async def update_dependencies_async(_):
     with open(deps_file, "r") as file:
         data = json.load(file)
 
-    tasks = [update_dependency_async(data, item) for item in data]
+    tasks = [update_dependency_async(data, dep_name) for dep_name in data]
     await asyncio.gather(*tasks)
 
     with open(deps_file, "w") as file:
         sorted_data = dict(sorted(data.items()))
         json.dump(sorted_data, file, indent=2)
 
-    print("Dependencies' hash and rev updated successfully!")
+    print("Dependencies' hash and rev were updated successfully!")
 
 
 def add_dependency(args):
@@ -143,7 +148,7 @@ def main():
     parser_add.add_argument("name", type=str, help="Dependency name")
     parser_add.add_argument("url", type=str, help="Dependency url")
     parser_add.add_argument("-b", "--branch", type=str, help="Branch name")
-    parser_add.add_argument("-r", "--rev", type=str, help="Rev")
+    parser_add.add_argument("-r", "--rev", type=str, help="Revision")
     parser_add.add_argument(
         "-s", "--sparse-checkout", nargs="+", type=str, help="Sparse checkout"
     )
