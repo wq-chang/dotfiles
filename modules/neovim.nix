@@ -16,7 +16,7 @@ let
 
     programs.java = {
       enable = true;
-      package = pkgs.jdk17;
+      package = pkgs.jdk21;
     };
 
     modules.python.packages = p: with p; [ debugpy ];
