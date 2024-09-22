@@ -3,6 +3,7 @@
   imports = [
     ./bat.nix
     ./direnv.nix
+    ./docker.nix
     ./eza.nix
     ./fonts.nix
     ./fzf.nix

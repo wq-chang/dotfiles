@@ -3,6 +3,7 @@
   modules = {
     bat.enable = true;
     direnv.enable = true;
+    docker.enable = true;
     eza.enable = true;
     fonts.enable = true;
     fzf.enable = true;
