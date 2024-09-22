@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "a5fb752ecf2e3d2489d3dc3c1c4407dfa55047e8",
-    "hash": "sha256-ye2Hy49iRk2+IqGtsYhju7I+3CJh1yMQ3b1R2rzZMBE=",
+    "rev": "baa7a9f7ad378204e8d3ca52121271402ed38a66",
+    "hash": "sha256-dH40005bOk6Y6jWMrTyNQ7ZgcHxO2iFQqtVcN8L3SSg=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -26,8 +26,8 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "3151c9c1a330cdea66dd7d1a24810fe805298711",
-    "hash": "sha256-0V8m9CrNHXSJY8uqXJzZ/yfAMXUs0mm/a6X21TE9EXg=",
+    "rev": "f11cc8fea190eb9a1638dc67877436d0b8475ff5",
+    "hash": "sha256-DKSt7nKWtAXODMSZEQqHawjL2l4CJP0WICCV2qVsq84=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
       "plugins/docker-compose/_docker-compose"
