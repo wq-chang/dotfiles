@@ -13,6 +13,38 @@ let
 
   completions = pkgs.callPackage ../packages/zsh-completions.nix { inherit deps; };
 
+  addEqualsToFlags = ''
+    add_equals_to_flags() {
+        # Split the input string into words
+        local input="$1"
+        local output=""
+        local flag=""
+
+        for word in ''${(z)input}; do
+            if [[ "$word" == --* ]]; then
+                # If the word starts with "--" (a flag), check if it has an "="
+                if [[ "$word" != *=* ]]; then
+                    # Store the flag for processing in the next iteration
+                    flag="$word"
+                else
+                    # Flag already contains "=", no need to modify
+                    output+="$word "
+                fi
+            elif [[ -n "$flag" ]]; then
+                # If we have a pending flag, append "=" and the value
+                output+="$flag=$word "
+                flag=""
+            else
+                # If it's not a flag, just append it as is
+                output+="$word "
+            fi
+        done
+
+        # Return the result
+        echo "''${output% }"
+    }
+  '';
+
   homeConfig = {
     programs.zsh = {
       enable = true;
@@ -60,9 +92,11 @@ let
         fi
         eval "$(register-python-argcomplete $HOME/dotfiles/bin/mdep)"
 
+        ${addEqualsToFlags}
+
         bindkey -e
         bindkey '^H' backward-kill-word
-        zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down' 'shift-tab:toggle+up' 'alt-a:toggle-all'
+        zstyle ':fzf-tab:*' fzf-flags $(add_equals_to_flags "$FZF_DEFAULT_OPTS")
 
         export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#7aa2f7,fg=#16161e,bold'
       '';

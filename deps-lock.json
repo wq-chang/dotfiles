@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "baa7a9f7ad378204e8d3ca52121271402ed38a66",
-    "hash": "sha256-dH40005bOk6Y6jWMrTyNQ7ZgcHxO2iFQqtVcN8L3SSg=",
+    "rev": "b1ae218f605181100bc1bf65aebe456e7d85928b",
+    "hash": "sha256-os6Mn/cJpy6uUb7mRuLDkqN9QBDppqSRZ/JwWntKi+A=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -20,13 +20,13 @@
   "fzf-tab": {
     "url": "https://github.com/Aloxaf/fzf-tab",
     "branchName": "master",
-    "rev": "7fed01afba9392b6392408b9a0cf888522ed7a10",
-    "hash": "sha256-By6Bgc8Fu79eNTSfCusT57RP7P3XHeekjp4YhsKZS1Y="
+    "rev": "cf57116eb2410139b8bd78fcb793dd84db79e28f",
+    "hash": "sha256-IA7JoauKkNOMETUTH4ekKIZWgwmGuEfu2ZN7BKhCXSA="
   },
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "f11cc8fea190eb9a1638dc67877436d0b8475ff5",
+    "rev": "a72a26406ad3aa9a47c3f5227291bad23494bed0",
     "hash": "sha256-DKSt7nKWtAXODMSZEQqHawjL2l4CJP0WICCV2qVsq84=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
