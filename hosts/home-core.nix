@@ -4,11 +4,12 @@
   pkgs,
   ...
 }:
-with pkgs;
 let
-  zsh-manpage-completion-generator = callPackage ../packages/zsh-manpage-completion-generator.nix {
-    inherit deps;
-  };
+  zsh-manpage-completion-generator =
+    pkgs.callPackage ../packages/zsh-manpage-completion-generator.nix
+      {
+        inherit deps;
+      };
 in
 {
   home.username = dotfilesConfig.username;
@@ -23,7 +24,7 @@ in
     ../modules
   ];
 
-  home.packages = [
+  home.packages = with pkgs; [
     fd
     nurl
     ripgrep
