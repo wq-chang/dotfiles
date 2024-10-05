@@ -2,8 +2,8 @@
   "argcomplete": {
     "url": "https://github.com/kislyuk/argcomplete",
     "branchName": "develop",
-    "rev": "4a60a7e7321954b679ed8338fbfb6446ab1c430d",
-    "hash": "sha256-NzLGnyxpcMPEkUq9djXIHgvuhtjw9Ptw313q8plRZlo=",
+    "rev": "e836d3664f5914df0aae7adef16e41086da2fd4f",
+    "hash": "sha256-xtpQDdhH5A7i1WPKT5wsJNgc3xfbhOTW00reHxuDN/w=",
     "sparseCheckout": [
       "argcomplete/bash_completion.d/_python-argcomplete"
     ]
@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "b1ae218f605181100bc1bf65aebe456e7d85928b",
-    "hash": "sha256-os6Mn/cJpy6uUb7mRuLDkqN9QBDppqSRZ/JwWntKi+A=",
+    "rev": "790898254307e216c2b7dae5f14621c6f6bed081",
+    "hash": "sha256-ygpCWTeAZU+uomJUD6imRiTopiC5NNLTBMsyme8bIYg=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -26,8 +26,8 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "a72a26406ad3aa9a47c3f5227291bad23494bed0",
-    "hash": "sha256-DKSt7nKWtAXODMSZEQqHawjL2l4CJP0WICCV2qVsq84=",
+    "rev": "62cf1201b031399e7251abeee859e895ee825a48",
+    "hash": "sha256-fo6zSOfyqoiXusY082U9+TkO3oZBDLZLh5MxrYBPR5A=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
       "plugins/docker-compose/_docker-compose"
@@ -36,13 +36,13 @@
   "powerlevel10k": {
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "087405df7838f4c3e835025699bd7b98b9731acc",
-    "hash": "sha256-cI7Nf+W02xfnarri7Dy+nXXpq5u+Ggh7HKk1++0Qq4Q="
+    "rev": "0996a9411824cbfe8fdd8cb17448c94ef891be34",
+    "hash": "sha256-yk2ajJ7ml8z1vIZ0gOp6RFrrRfd6p5P0RorZq9fPO5A="
   },
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
-    "rev": "817bb6ffff1b9ce72cdd45d9fcfa8c9cd1ad3839",
+    "rev": "2c85fad417170d4572ead7bf9fdd706057bd73d7",
     "hash": "sha256-LTUBlIQm7Ocf3D7aRjyZ1X/8x7k2GQJyONnRUxVGWDE=",
     "sparseCheckout": [
       "extras/sublime/tokyonight_night.tmTheme",
