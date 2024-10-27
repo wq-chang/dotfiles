@@ -12,6 +12,7 @@ return {
 				{ "z", group = "+fold" },
 				{ "]", group = "+next" },
 				{ "[", group = "+prev" },
+				{ "<leader>c", group = "+code" },
 				{ "<leader>d", group = "+debug" },
 				{ "<leader>f", group = "+file/find" },
 				{ "<leader>g", group = "+git" },

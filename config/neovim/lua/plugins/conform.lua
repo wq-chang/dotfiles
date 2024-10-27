@@ -10,6 +10,7 @@ return {
 					"json",
 					"markdown",
 					"typescript",
+					"typescriptreact",
 					"yaml",
 				},
 				shfmt = { "sh", "zsh" },

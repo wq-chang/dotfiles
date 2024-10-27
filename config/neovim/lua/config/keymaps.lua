@@ -31,3 +31,6 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 map("n", "<leader>wc", "<C-W>c", { desc = "Close window", remap = true })
 map("n", "<leader>ws", "<C-W>s", { desc = "Split window below", remap = true })
 map("n", "<leader>wv", "<C-W>v", { desc = "Split window right", remap = true })
+
+-- Codes
+map("n", "<leader>cm", ":%s/\\r//g<cr>", { desc = "Remove ^M character" })
