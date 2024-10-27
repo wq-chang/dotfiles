@@ -3,7 +3,7 @@ return {
 		"stevearc/conform.nvim",
 		opts = function()
 			local formatter_ft = {
-				prettierd = {
+				prettier = {
 					"css",
 					"scss",
 					"javascript",

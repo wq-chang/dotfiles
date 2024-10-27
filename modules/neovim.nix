@@ -29,7 +29,7 @@ let
       google-java-format
       isort
       nixfmt-rfc-style
-      prettierd
+      nodePackages.prettier
       shfmt
       stylua
       tflint
