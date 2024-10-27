@@ -80,6 +80,7 @@ return {
 					"sql",
 					"terraform",
 					"toml",
+					"tsx",
 					"typescript",
 					"vim",
 					"vimdoc",
