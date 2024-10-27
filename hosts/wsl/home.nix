@@ -10,6 +10,7 @@ in
     lazydocker
     localstack
     maven
+    nodejs_20
     terraform
     terraform-local
   ];

@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "31eeed7ca4c951ede2d18c73e4bd47e8189be221",
-    "hash": "sha256-DYFxFerYzeRBtJz4Yux53tyUzIw2V+hFwnz0L/w2/1k=",
+    "rev": "32ff200fe6d843843718709ffa94023eb7356108",
+    "hash": "sha256-lmo9fg6ieujZkrSFIJm2dNecPjN+wAe10UbFvleNeD0=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -26,8 +26,8 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "09a94672003b21b8a3d8d15d31098641e7f3a4db",
-    "hash": "sha256-QggV+wJYCt5ZTb0Sp8OPHdFGAzYCvAuibWdlVR+Y3AI=",
+    "rev": "eeb01c18c1d1edff0c2563764a998b2d30947844",
+    "hash": "sha256-09fQxlK4KBdlYzP7VZ7bJVa5sHvzFWvZwQaLVOojH0c=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
       "plugins/docker-compose/_docker-compose"
@@ -36,14 +36,14 @@
   "powerlevel10k": {
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "0996a9411824cbfe8fdd8cb17448c94ef891be34",
-    "hash": "sha256-yk2ajJ7ml8z1vIZ0gOp6RFrrRfd6p5P0RorZq9fPO5A="
+    "rev": "67a365b9dbf2c784ca8e655d681df10ef2d4a1a4",
+    "hash": "sha256-4g6L7ZL86QqrGnZ1F8dHbHlT9T80DR2FGsW1qQbk14k="
   },
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
-    "rev": "2c85fad417170d4572ead7bf9fdd706057bd73d7",
-    "hash": "sha256-LTUBlIQm7Ocf3D7aRjyZ1X/8x7k2GQJyONnRUxVGWDE=",
+    "rev": "2e1daa1d164ad8cc3e99b44ca68e990888a66038",
+    "hash": "sha256-G7pxySFvIBK9FUfvQeNNNUusYXH5TzTSjVs51MH9kBQ=",
     "sparseCheckout": [
       "extras/sublime/tokyonight_night.tmTheme",
       "extras/wezterm/tokyonight_night.toml"
@@ -52,8 +52,8 @@
   "zsh-completions": {
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "d24f58d2f187a72697aa2781a730f65732cb2f6b",
-    "hash": "sha256-+NWfTiiqZ7orLYRgpj7Qi1wktCHdR7mw5ohDGYleK0c="
+    "rev": "066b069150074d9ac3e9dfed0aa5657dd0c84eba",
+    "hash": "sha256-UQ4O0Nqa92BDnKw5UV72tXJsRIs2uCoXCELsnpZN3gE="
   },
   "zsh-manpage-completion-generator": {
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",
