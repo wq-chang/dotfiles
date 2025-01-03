@@ -1,9 +1,9 @@
 {
   "argcomplete": {
     "url": "https://github.com/kislyuk/argcomplete",
-    "branchName": "develop",
-    "rev": "67f559d3b9a56ac7c75ce5d9bd505560bfd6cebe",
-    "hash": "sha256-i5Ko23OGxZvrrptQNAMbJZfvq6tuFH3KGRVBmHtQd+o=",
+    "branchName": "main",
+    "rev": "017a5d6756928656230e8190a10abfbf0578ec6f",
+    "hash": "sha256-2MJaY17Uu5ZYyXKgGPGkRSm2l5uNfYa0QsC/PUwpX/c=",
     "sparseCheckout": [
       "argcomplete/bash_completion.d/_python-argcomplete"
     ]
@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "66dfe6d42840707fcdcff301359c016b7f92e8fa",
-    "hash": "sha256-XMwJdfdiMDvozJQsrbp716mBgj6wChUKW2JNQShX3Z4=",
+    "rev": "5be685e647ea3cc07e827d7a8d981fce7221d8af",
+    "hash": "sha256-niHPrY2MD//T02xs0mPe2GFQW6a0NtyeVqXYqOLi9RM=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -26,7 +26,7 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "69a6359f7cf8978d464573fb7b023ee3cd00181a",
+    "rev": "d82669199b5d900b50fd06dd3518c277f0def869",
     "hash": "sha256-K0hm24XacuA9iqE4PIlGgQ1O9jAC2n4gGIaDGG9iz9o=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -36,14 +36,14 @@
   "powerlevel10k": {
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "ef83e13c22cf8641f7ab2d50cd1338d01bb31cd2",
-    "hash": "sha256-0ORdl9kLhfaDPhUZU3bxd3oVqB7hsrZPZ2wUPVu48gY="
+    "rev": "c85cd0f02844ff2176273a450c955b6532a185dc",
+    "hash": "sha256-NQjXW/16KLotVGd1/c8MmZ9z455MiC365BQfzDMX3x8="
   },
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
-    "rev": "15d83cda572d7498b43bbdaa223bc75bf341183e",
-    "hash": "sha256-MtSaP33hGEArO/TmRVqLTv/hTpYOCqas5c8pfY2NuPU=",
+    "rev": "45d22cf0e1b93476d3b6d362d720412b3d34465c",
+    "hash": "sha256-74kwSHplYvZ929DIOrzeFq/y1zpJwOr1KvsKAT0oC78=",
     "sparseCheckout": [
       "extras/sublime/tokyonight_night.tmTheme",
       "extras/wezterm/tokyonight_night.toml"
@@ -52,8 +52,8 @@
   "zsh-completions": {
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "874917fa56828c19579f2deba6e0c1e79f18f477",
-    "hash": "sha256-m3C+njGAtXeJHo3uctBn/2WqcumXb6tFhUxtbNqx0Yo="
+    "rev": "c160d09fddd28ceb3af5cf80e9253af80e450d96",
+    "hash": "sha256-EG6bwbwZW9Cya/BGZ83J5YEAUdfJ0UAQC7bRG7cFL2k="
   },
   "zsh-manpage-completion-generator": {
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",
