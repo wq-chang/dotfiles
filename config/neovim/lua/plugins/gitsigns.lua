@@ -1,28 +1,27 @@
 return {
-	{
-		"lewis6991/gitsigns.nvim",
-		opts = {
-			signs = {
-				add = { text = "▎" },
-				change = { text = "▎" },
-				delete = { text = "" },
-				topdelete = { text = "" },
-				changedelete = { text = "▎" },
-				untracked = { text = "▎" },
-			},
-			on_attach = function(buffer)
-				local gs = package.loaded.gitsigns
+	"lewis6991/gitsigns.nvim",
+	opts = {
+		signs = {
+			add = { text = "▎" },
+			change = { text = "▎" },
+			delete = { text = "" },
+			topdelete = { text = "" },
+			changedelete = { text = "▎" },
+			untracked = { text = "▎" },
+		},
+		on_attach = function(buffer)
+			local gs = package.loaded.gitsigns
 
-				local function map(mode, l, r, desc)
-					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-				end
+			local function map(mode, l, r, desc)
+				vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+			end
 
-				local function toggle_inline_diff()
-					gs.toggle_numhl()
-					gs.toggle_deleted()
-					gs.toggle_word_diff()
-					gs.toggle_linehl()
-				end
+			local function toggle_inline_diff()
+				gs.toggle_numhl()
+				gs.toggle_deleted()
+				gs.toggle_word_diff()
+				gs.toggle_linehl()
+			end
 
 				-- stylua: ignore start
 				map("n", "]h", gs.next_hunk, "Next Hunk")
@@ -39,8 +38,7 @@ return {
 				map("n", "<leader>gD", gs.diffthis, "Diff This")
 				map("n", "<leader>gt", toggle_inline_diff, "Toggle inline diff")
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<cr>", "GitSigns Select Hunk")
-				-- stylua: ignore end
-			end,
-		},
+			-- stylua: ignore end
+		end,
 	},
 }

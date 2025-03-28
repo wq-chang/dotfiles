@@ -1,11 +1,9 @@
 return {
-	{
-		"folke/flash.nvim",
-		opts = {
-			modes = {
-				search = {
-					enabled = true,
-				},
+	"folke/flash.nvim",
+	opts = {
+		modes = {
+			search = {
+				enabled = true,
 			},
 		},
 	},

@@ -1,3 +1,4 @@
 return {
-	{ "dmmulroy/ts-error-translator.nvim", opts = {} },
+	"dmmulroy/ts-error-translator.nvim",
+	opts = {},
 }

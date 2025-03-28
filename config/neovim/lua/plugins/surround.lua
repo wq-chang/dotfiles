@@ -1,6 +1,4 @@
 return {
-	{
-		"kylechui/nvim-surround",
-		opts = { keymaps = { visual = "yS" } },
-	},
+	"kylechui/nvim-surround",
+	opts = { keymaps = { visual = "yS" } },
 }

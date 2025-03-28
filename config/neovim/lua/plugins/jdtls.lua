@@ -97,16 +97,15 @@ local function jdtls_setup()
 end
 
 return {
-	{
-		"mfussenegger/nvim-jdtls",
-		config = function()
-			local group =
-				vim.api.nvim_create_augroup("java_jdtls", { clear = true })
-			local function map(lhs, rhx, opts)
-				vim.api.nvim_buf_set_keymap(0, "n", lhs, rhx, opts)
-			end
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = { "java" },
+	"mfussenegger/nvim-jdtls",
+	config = function()
+		local group =
+			vim.api.nvim_create_augroup("java_jdtls", { clear = true })
+		local function map(lhs, rhx, opts)
+			vim.api.nvim_buf_set_keymap(0, "n", lhs, rhx, opts)
+		end
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = { "java" },
 				-- stylua: ignore
 				callback = function(_)
 					map("<leader>da", "<cmd>lua require('jdtls.dap').test_class()<cr>", { desc = "Test class" })
@@ -114,8 +113,7 @@ return {
 					map("<leader>nd", "<cmd>lua require('jdtls.dap').test_nearest_method()<cr>", { desc = "Debug method" })
 					jdtls_setup()
 				end,
-				group = group,
-			})
-		end,
-	},
+			group = group,
+		})
+	end,
 }
