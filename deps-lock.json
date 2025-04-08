@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "90b48f8eb5b87ed97440d08e20d05487b2dbec94",
-    "hash": "sha256-o61dOEYSkIDTvfH3T7YXzEr31ZhG1kl0FOOy0/nOl3g=",
+    "rev": "91cbde67c509c8702417ee1cd64cd5d845ccd254",
+    "hash": "sha256-QYpS1pIJ6CX67OIJwKgxAY0qiQSzW5oSh/myV9q+vXA=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
