@@ -26,11 +26,6 @@
       ...
     }:
     let
-      systems = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
-
       mkDeps =
         system:
         builtins.mapAttrs (
@@ -45,13 +40,6 @@
             sparseCheckout = value.sparseCheckout or [ ];
           }
         ) (builtins.fromJSON (builtins.readFile ./deps-lock.json));
-
-      toHomeManagerPackages = sys: {
-        name = sys;
-        value = {
-          default = home-manager.defaultPackage.${sys};
-        };
-      };
 
       mkNixOsConfig =
         user:
@@ -91,8 +79,6 @@
         };
     in
     {
-      packages = builtins.listToAttrs (map toHomeManagerPackages systems);
-
       nixosConfigurations = mkNixOsConfig "wsl";
     };
 }
