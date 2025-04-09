@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "91cbde67c509c8702417ee1cd64cd5d845ccd254",
-    "hash": "sha256-QYpS1pIJ6CX67OIJwKgxAY0qiQSzW5oSh/myV9q+vXA=",
+    "rev": "6714b502881d6213d0226da26761fb05b9026a20",
+    "hash": "sha256-pQTz9Pw84k8oaQIPnLpCMNjfx/l5crKk/LOCXoyzZAU=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -20,8 +20,8 @@
   "fzf-tab": {
     "url": "https://github.com/Aloxaf/fzf-tab",
     "branchName": "master",
-    "rev": "01dad759c4466600b639b442ca24aebd5178e799",
-    "hash": "sha256-q26XVS/LcyZPRqDNwKKA9exgBByE0muyuNb0Bbar2lY="
+    "rev": "2abe1f2f1cbcb3d3c6b879d849d683de5688111f",
+    "hash": "sha256-zc9Sc1WQIbJ132hw73oiS1ExvxCRHagi6vMkCLd4ZhI="
   },
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
