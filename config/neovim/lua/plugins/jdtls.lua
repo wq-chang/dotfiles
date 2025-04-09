@@ -85,7 +85,12 @@ local function jdtls_setup()
 	}
 
 	config.on_attach = function()
-		local timer = vim.loop.new_timer()
+		local timer = vim.uv.new_timer()
+		if timer == nil then
+			vim.notify("Failed to create timer", vim.log.levels.ERROR)
+			return
+		end
+
 		-- Delay 2000ms and 0 means "do not repeat"
 		timer:start(
 			3000,

@@ -14,8 +14,8 @@ local function config_lsp_keymap(event)
 	map("<leader>lr", vim.lsp.buf.rename, "Rename")
 	map("K", vim.lsp.buf.hover, "Hover Documentation")
 	map("gD", vim.lsp.buf.declaration, "Goto declaration")
-	map("[d", vim.diagnostic.goto_prev, "Prev diagnostic")
-	map("]d", vim.diagnostic.goto_next, "Next diagnostic")
+	map("[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Prev diagnostic")
+	map("]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
 	-- stylua: ignore end
 end
 
