@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ dotfilesConfig, ... }:
+{ dotfilesConfig, pkgs, ... }:
 {
   imports = [
     ./module-configuration.nix
@@ -37,6 +37,16 @@
   users.users.${dotfilesConfig.username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+  };
+
+  # Keep this until this is fixed: https://github.com/nix-community/NixOS-WSL/issues/650
+  # Prevent systemd from mounting a tmpfs over the runtime dir (and thus hiding the wayland socket)
+  systemd.services."user-runtime-dir@" = {
+    overrideStrategy = "asDropin";
+    serviceConfig.ExecStart = [
+      "" # unset old value
+      "${pkgs.coreutils}/bin/true"
+    ];
   };
 
   # Allow unfree packages
