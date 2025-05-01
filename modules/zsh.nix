@@ -73,32 +73,40 @@ let
           src = deps.fzf-tab;
         }
       ];
-      initExtraFirst = ''
-        if [[ -r "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
-      '';
-      initExtraBeforeCompInit = ''
-        fpath+="$HOME/.zsh/plugins/zsh-completions"
-        fpath+="$HOME/.zsh/plugins/generated-completions"
-      '';
+      initContent =
+        let
+          initExtraFirst = lib.mkBefore ''
+            if [[ -r "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+              source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+            fi
+          '';
+          initExtraBeforeCompInit = lib.mkOrder 550 ''
+            fpath+="$HOME/.zsh/plugins/zsh-completions"
+            fpath+="$HOME/.zsh/plugins/generated-completions"
+          '';
+          initExtra = ''
+            if command -v aws_completer &>/dev/null; then
+              complete -C "$(command -v aws_completer)" aws
+            fi
+            eval "$(register-python-argcomplete $HOME/dotfiles/bin/mdep)"
+
+            ${addEqualsToFlags}
+
+            bindkey -e
+            bindkey '^H' backward-kill-word
+            zstyle ':fzf-tab:*' fzf-flags $(add_equals_to_flags "$FZF_DEFAULT_OPTS")
+
+            export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#7aa2f7,fg=#16161e,bold'
+          '';
+        in
+        lib.mkMerge [
+          initExtraFirst
+          initExtraBeforeCompInit
+          initExtra
+        ];
       completionInit = ''
         autoload bashcompinit && bashcompinit
         autoload -Uz compinit && compinit
-      '';
-      initExtra = ''
-        if command -v aws_completer &>/dev/null; then
-          complete -C "$(command -v aws_completer)" aws
-        fi
-        eval "$(register-python-argcomplete $HOME/dotfiles/bin/mdep)"
-
-        ${addEqualsToFlags}
-
-        bindkey -e
-        bindkey '^H' backward-kill-word
-        zstyle ':fzf-tab:*' fzf-flags $(add_equals_to_flags "$FZF_DEFAULT_OPTS")
-
-        export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#7aa2f7,fg=#16161e,bold'
       '';
     };
 

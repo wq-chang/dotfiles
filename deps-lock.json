@@ -43,8 +43,9 @@
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
     "rev": "057ef5d260c1931f1dffd0f052c685dcd14100a3",
-    "hash": "sha256-74kwSHplYvZ929DIOrzeFq/y1zpJwOr1KvsKAT0oC78=",
+    "hash": "sha256-tZMRU8roxXkIjKsFLcAu3J9EDDNcbb7ra01F5lYLo4U=",
     "sparseCheckout": [
+      "extras/eza/tokyonight.yml",
       "extras/sublime/tokyonight_night.tmTheme",
       "extras/wezterm/tokyonight_night.toml"
     ]

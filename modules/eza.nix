@@ -1,5 +1,6 @@
 {
   config,
+  deps,
   isHm,
   lib,
   ...
@@ -13,6 +14,8 @@ let
       git = true;
       icons = "auto";
     };
+
+    xdg.configFile."eza/theme.yml".source = "${deps.tokyonight}/extras/eza/tokyonight.yml";
   };
 in
 {
