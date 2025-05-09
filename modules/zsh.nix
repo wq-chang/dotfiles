@@ -90,6 +90,8 @@ let
             fi
             eval "$(register-python-argcomplete $HOME/dotfiles/bin/mdep)"
 
+            zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
+
             ${addEqualsToFlags}
 
             bindkey -e
