@@ -16,7 +16,7 @@ return {
 		lsp = {
 			code_actions = {
 				previewer = "codeaction_native",
-				preview_pager = "delta -s --width=$COLUMNS --hunk-header-style='omit' --file-style='omit'",
+				preview_pager = [[ delta -s --width=$COLUMNS --hunk-header-style='omit' --file-style='omit' ]],
 			},
 			jump1 = true,
 		},
