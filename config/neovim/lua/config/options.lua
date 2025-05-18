@@ -60,6 +60,4 @@ opt.hlsearch = true
 -- True color support
 opt.termguicolors = true
 
--- TODO: uncomment this option after all plugins are supported
--- Set border
--- vim.o.winborder = "rounded"
+vim.o.winborder = "rounded"

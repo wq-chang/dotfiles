@@ -40,10 +40,8 @@ return {
 		completion = {
 			documentation = {
 				auto_show = true,
-				window = { border = "rounded" },
 			},
 			menu = {
-				border = "rounded",
 				draw = {
 					columns = {
 						{ "label" },
@@ -70,7 +68,10 @@ return {
 		keymap = {
 			preset = "enter",
 		},
-		signature = { window = { border = "rounded" } },
+		signature = {
+			enabled = true,
+			window = { show_documentation = true },
+		},
 		snippets = { preset = "luasnip" },
 		sources = {
 			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
