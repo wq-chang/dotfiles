@@ -39,16 +39,6 @@
     extraGroups = [ "wheel" ];
   };
 
-  # Keep this until this is fixed: https://github.com/nix-community/NixOS-WSL/issues/650
-  # Prevent systemd from mounting a tmpfs over the runtime dir (and thus hiding the wayland socket)
-  systemd.services."user-runtime-dir@" = {
-    overrideStrategy = "asDropin";
-    serviceConfig.ExecStart = [
-      "" # unset old value
-      "${pkgs.coreutils}/bin/true"
-    ];
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

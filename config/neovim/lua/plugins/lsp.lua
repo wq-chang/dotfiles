@@ -77,6 +77,7 @@ return {
 			},
 			nixd = {},
 			pyright = {},
+			ruff = {},
 			terraformls = {},
 			ts_ls = {},
 		},

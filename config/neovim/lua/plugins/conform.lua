@@ -18,7 +18,7 @@ return {
 			java = { "google-java-format" },
 			lua = { "stylua" },
 			nix = { "nixfmt" },
-			python = { "black", "isort" },
+			python = { "ruff_organize_imports", "ruff_format" },
 		}
 		local function formatter_ft_to_ft_formmater(formatter_filetype)
 			local tbl = {}

@@ -25,11 +25,10 @@ let
       gcc
 
       # formatter
-      black
       google-java-format
-      isort
       nixfmt-rfc-style
       nodePackages.prettier
+      ruff
       shfmt
       stylua
       tflint

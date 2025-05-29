@@ -14,11 +14,9 @@ let
       config = {
         global.hide_env_diff = true;
       };
+      silent = true;
     };
 
-    home.sessionVariables = {
-      DIRENV_LOG_FORMAT = "";
-    };
   };
 in
 {
