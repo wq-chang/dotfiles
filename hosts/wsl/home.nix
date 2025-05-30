@@ -11,7 +11,7 @@ in
     localstack
     maven
     nodejs_24
-    terraform
+    tenv
     terraform-local
   ];
 
