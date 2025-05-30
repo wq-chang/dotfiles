@@ -17,6 +17,8 @@ let
       silent = true;
     };
 
+    xdg.configFile."direnv/direnvrc".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/direnv/direnvrc";
   };
 in
 {

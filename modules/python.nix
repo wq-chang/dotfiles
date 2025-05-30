@@ -9,7 +9,13 @@ let
   cfg = config.modules.python;
 
   homeConfig = {
-    home.packages = [ (pkgs.python3.withPackages (p: [ p.argcomplete ] ++ cfg.packages p)) ];
+    home.packages = with pkgs; [
+      (python3.withPackages (p: [ p.argcomplete ] ++ cfg.packages p))
+      uv
+    ];
+
+    xdg.configFile."uv".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/uv";
   };
 in
 {
