@@ -58,6 +58,7 @@ return {
 			},
 		},
 		servers = {
+			basedpyright = {},
 			cssls = {},
 			eslint = {
 				settings = {
@@ -76,7 +77,6 @@ return {
 				},
 			},
 			nixd = {},
-			pyright = {},
 			ruff = {},
 			terraformls = {},
 			ts_ls = {},

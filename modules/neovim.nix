@@ -34,10 +34,10 @@ let
       tflint
 
       # lsp
+      basedpyright
       lua-language-server
       nixd
       nodePackages.typescript-language-server
-      pyright
       terraform-ls
       vscode-langservers-extracted # jsonls
 

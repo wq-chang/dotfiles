@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "879ac3f88fe137c2058afe995298832eb2ff1546",
-    "hash": "sha256-rPvia03MTBHXLgQbBrH6DxD5PCEfc9RuJpdV7nJsFeg=",
+    "rev": "9e506545fdead79c574345a0414c71a0bd6857d6",
+    "hash": "sha256-M5bbBDCl1m/H6fLNGJDWa7ksSzftt5x1s0BShrUllgg=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -53,8 +53,8 @@
   "zsh-completions": {
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "21789376b8c875fbed68398a6867f84f5c682597",
-    "hash": "sha256-OcRpvlTuNIOzYwq4g3QSqXkn0dk7xny8UY87jF6ffT0="
+    "rev": "c29efd0bc3927ab25dc93ad4085d7143881b73f0",
+    "hash": "sha256-qCoBWdBZMVmhnd2m5ffXxu0anGigJexeN0KgS+9bmvg="
   },
   "zsh-manpage-completion-generator": {
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",
