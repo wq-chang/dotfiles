@@ -1,22 +1,80 @@
 #!/usr/bin/env python
 # PYTHON_ARGCOMPLETE_OK
 
-import argparse
 import asyncio
 import json
 import os
+from argparse import ArgumentParser, Namespace
+from dataclasses import asdict, dataclass
+from typing import Callable, cast
 
 import argcomplete
 
+
+@dataclass
+class DependencyAttributes:
+    url: str
+    branchName: str
+    rev: str
+    hash: str
+    sparseCheckout: list[str] | None = None
+
+
 deps_file = f"{os.path.expanduser('~')}/dotfiles/deps-lock.json"
-url_att = "url"
-branch_name_att = "branchName"
-rev_att = "rev"
-hash_att = "hash"
-sparse_checkout_att = "sparseCheckout"
 
 
-async def get_latest_rev_async(url, branch=None):
+def parse_dependency_attributes(
+    data_json: dict[str, dict[str, str | list[str] | None]]
+    | dict[str, str | list[str] | None],
+):
+    if (
+        "url" in data_json
+        and "branchName" in data_json
+        and "rev" in data_json
+        and "hash" in data_json
+    ):
+        sparse_checkout = (
+            cast(list[str] | None, data_json["sparseCheckout"])
+            if "sparseCheckout" in data_json
+            else None
+        )
+
+        return DependencyAttributes(
+            url=cast(str, data_json["url"]),
+            branchName=cast(str, data_json["branchName"]),
+            rev=cast(str, data_json["rev"]),
+            hash=cast(str, data_json["hash"]),
+            sparseCheckout=sparse_checkout,
+        )
+
+    return data_json
+
+
+def clean_dict(dependency: DependencyAttributes):
+    raw_dict = cast(dict[str, str | list[str] | None], asdict(dependency))
+    clean_dict: dict[str, str | list[str]] = {}
+    for k in raw_dict:
+        v = raw_dict[k]
+        if v is not None:
+            clean_dict[k] = v
+    return clean_dict
+
+
+def load_data():
+    with open(deps_file, "r") as file:
+        return cast(
+            dict[str, DependencyAttributes],
+            json.load(file, object_hook=parse_dependency_attributes),
+        )
+
+
+def dump_data(data: dict[str, DependencyAttributes]):
+    with open(deps_file, "w") as file:
+        sorted_data = dict(sorted(data.items()))
+        json.dump({k: clean_dict(v) for k, v in sorted_data.items()}, file, indent=2)
+
+
+async def get_latest_rev_async(url: str, branch: str | None = None):
     command = [
         "git",
         "ls-remote",
@@ -41,11 +99,13 @@ async def get_latest_rev_async(url, branch=None):
     return latest_commit_rev, branch_ref
 
 
-async def get_hash_async(url, branch, rev, sparse_checkout):
+async def get_hash_async(
+    url: str, branch: str, rev: str, sparse_checkout: list[str] | None
+):
     has_sparse_checkout = 1 if sparse_checkout else 0
     command = ["nurl", url, rev, "-f", "fetchgit", "-A", "branchName", branch]
 
-    if has_sparse_checkout == 1:
+    if sparse_checkout:
         sparse_checkout_str = "[" + "".join(f'"{sc}"' for sc in sparse_checkout) + "]"
         command.append("-a")
         command.append("sparseCheckout")
@@ -66,31 +126,31 @@ async def get_hash_async(url, branch, rev, sparse_checkout):
     return hash
 
 
-async def update_dependency_async(data, dep_name):
+async def update_dependency_async(data: dict[str, DependencyAttributes], dep_name: str):
     dep = data[dep_name]
-    url = dep[url_att]
-    branch = dep[branch_name_att]
-    rev = dep[rev_att]
+    url = dep.url
+    branch = dep.branchName
+    rev = dep.rev
     latest_rev, _ = await get_latest_rev_async(url, branch)
-    hash = dep[hash_att]
+    hash = dep.hash
 
     if rev == latest_rev and hash != "":
         return
 
-    sparse_checkout = dep[sparse_checkout_att] if sparse_checkout_att in dep else None
+    sparse_checkout = dep.sparseCheckout if dep.sparseCheckout is not None else None
     hash_value = await get_hash_async(url, branch, latest_rev, sparse_checkout)
-    dep[rev_att] = latest_rev
-    dep[hash_att] = hash_value
+    dep.rev = latest_rev
+    dep.hash = hash_value
 
     print(f"Updated {dep_name}")
 
 
-async def add_dependency_async(args):
-    dep_name = args.name
-    url = args.url
-    branch = args.branch
-    sparse_checkout = args.sparse_checkout
-    rev = args.rev
+async def add_dependency_async(args: Namespace):
+    dep_name = cast(str, args.name)
+    url = cast(str, args.url)
+    branch = cast(str | None, args.branch)
+    rev = cast(str | None, args.rev)
+    sparse_checkout = cast(list[str] | None, args.sparse_checkout)
 
     if not rev or not branch:
         latest_rev, branch_ref = await get_latest_rev_async(url, branch)
@@ -100,56 +160,46 @@ async def add_dependency_async(args):
 
     hash = await get_hash_async(url, branch, rev, sparse_checkout)
 
-    with open(deps_file, "r") as file:
-        data = json.load(file)
-    data[dep_name] = {
-        url_att: url,
-        branch_name_att: branch,
-        rev_att: rev,
-        hash_att: hash,
-    }
-    if sparse_checkout:
-        data[dep_name][sparse_checkout_att] = sparse_checkout
+    data = load_data()
 
-    with open(deps_file, "w") as file:
-        sorted_data = dict(sorted(data.items()))
-        json.dump(sorted_data, file, indent=2)
+    data[dep_name] = DependencyAttributes(
+        url=url, branchName=branch, rev=rev, hash=hash, sparseCheckout=sparse_checkout
+    )
+
+    dump_data(data)
 
     print(f"Dependency {dep_name} was added successfully!")
 
 
 async def update_dependencies_async(_):
-    with open(deps_file, "r") as file:
-        data = json.load(file)
+    data = load_data()
 
     tasks = [update_dependency_async(data, dep_name) for dep_name in data]
-    await asyncio.gather(*tasks)
+    _ = await asyncio.gather(*tasks)
 
-    with open(deps_file, "w") as file:
-        sorted_data = dict(sorted(data.items()))
-        json.dump(sorted_data, file, indent=2)
+    dump_data(data)
 
     print("Dependencies' hash and rev were updated successfully!")
 
 
-def add_dependency(args):
+def add_dependency(args: Namespace):
     asyncio.run(add_dependency_async(args))
 
 
-def update_dependencies(args):
+def update_dependencies(args: Namespace):
     asyncio.run(update_dependencies_async(args))
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Manage Nix dependency")
+    parser = ArgumentParser(description="Manage Nix dependency")
     subparsers = parser.add_subparsers(dest="action", help="Choose an action")
 
     parser_add = subparsers.add_parser("add", help="Add dependency")
-    parser_add.add_argument("name", type=str, help="Dependency name")
-    parser_add.add_argument("url", type=str, help="Dependency url")
-    parser_add.add_argument("-b", "--branch", type=str, help="Branch name")
-    parser_add.add_argument("-r", "--rev", type=str, help="Revision")
-    parser_add.add_argument(
+    _ = parser_add.add_argument("name", type=str, help="Dependency name")
+    _ = parser_add.add_argument("url", type=str, help="Dependency url")
+    _ = parser_add.add_argument("-b", "--branch", type=str, help="Branch name")
+    _ = parser_add.add_argument("-r", "--rev", type=str, help="Revision")
+    _ = parser_add.add_argument(
         "-s", "--sparse-checkout", nargs="+", type=str, help="Sparse checkout"
     )
     parser_add.set_defaults(func=add_dependency)
@@ -160,7 +210,8 @@ def main():
     argcomplete.autocomplete(parser)
     args = parser.parse_args()
     if "func" in args:
-        args.func(args)
+        casted__argfunc = cast(Callable[[Namespace], None], args.func)
+        casted__argfunc(args)
     else:
         parser.print_help()
 
