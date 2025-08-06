@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "71bc8ab3eaf5f245901e27523abcbdbc5ba2f982",
-    "hash": "sha256-Zzihjy23SQ/RWc2ww1b7L2rzc3pjiO4aDzHI/1wOhoQ=",
+    "rev": "c1cc6b61a394c88d9a6346b25e47534c066430af",
+    "hash": "sha256-gzwHHJu+mpFZz2PFJF/qGPuSzYRdBELcWlAT5VbYJuw=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -26,7 +26,7 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "2ac69955e84d5ab2407e848275dfc2768b3b1531",
+    "rev": "a6beb0f5958e935d33b0edb6d4470c3d7c4e8917",
     "hash": "sha256-ySpfceikeEq9NWqddytCftfuF4PePcO6khkRJKx/uac=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -53,8 +53,8 @@
   "zsh-completions": {
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "fb87bc486f57fc04d4403e20855d6790e2b66e6f",
-    "hash": "sha256-GpFxLKBy7GQPlClF9Dy+hfJNxD2P6uMxSGSdr9+8Ca4="
+    "rev": "1488badf72d9214e9e368201758c4eb08af55016",
+    "hash": "sha256-zyEJfvYbBoXvS2T8ZvRoUCNiynRimRCIdZE5WmWpKSQ="
   },
   "zsh-manpage-completion-generator": {
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",

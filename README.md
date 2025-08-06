@@ -45,7 +45,7 @@ wsl
 
 ```bash
 cd ~/dotfiles
-sudo nixos-rebuild switch --flake .#wsl
+nixos-rebuild switch --flake .#wsl --sudo
 ```
 
 ## Utils
