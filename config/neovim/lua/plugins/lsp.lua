@@ -88,9 +88,10 @@ return {
 		-- stylua: ignore
 		vim.keymap.set( "n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Lsp info" })
 		vim.api.nvim_del_keymap("n", "gra")
+		vim.api.nvim_del_keymap("n", "gri")
 		vim.api.nvim_del_keymap("n", "grn")
 		vim.api.nvim_del_keymap("n", "grr")
-		vim.api.nvim_del_keymap("n", "gri")
+		vim.api.nvim_del_keymap("n", "grt")
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
