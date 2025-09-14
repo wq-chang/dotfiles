@@ -45,7 +45,7 @@ return {
 		local function live_grep_from_git_root(is_resume)
 			local cwd = git_utils.get_git_root()
 			if is_resume then
-				fzf.live_grep_resume({ cwd = cwd })
+				fzf.live_grep({ cwd = cwd, resume = true })
 			else
 				fzf.live_grep({ cwd = cwd })
 			end
