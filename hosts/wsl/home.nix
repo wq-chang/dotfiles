@@ -7,6 +7,7 @@ in
   home.packages = with pkgs; [
     awscli2
     awslocal
+    go
     lazydocker
     localstack
     maven

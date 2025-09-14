@@ -35,6 +35,7 @@ let
 
       # lsp
       basedpyright
+      gopls
       lua-language-server
       nixd
       nodePackages.typescript-language-server

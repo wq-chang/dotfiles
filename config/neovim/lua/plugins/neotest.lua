@@ -8,6 +8,7 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 			"rcasia/neotest-java",
 			"nvim-neotest/neotest-python",
+			"marilari88/neotest-vitest",
 		},
 		-- stylua: ignore
 		keys = {
@@ -23,8 +24,9 @@ return {
 		opts = function()
 			return {
 				adapters = {
-					require("neotest-java")({}),
-					require("neotest-python")({}),
+					require("neotest-java"),
+					require("neotest-python"),
+					require("neotest-vitest"),
 				},
 			}
 		end,

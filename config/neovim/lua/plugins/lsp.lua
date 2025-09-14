@@ -70,6 +70,7 @@ return {
 					},
 				},
 			},
+			gopls = {},
 			jsonls = { init_options = { provideFormatter = false } },
 			lua_ls = {
 				settings = {

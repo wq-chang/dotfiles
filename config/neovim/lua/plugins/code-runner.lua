@@ -11,12 +11,13 @@ return {
 	},
 	opts = {
 		filetype = {
+			go = { "go run" },
 			java = {
 				"cd $dir &&",
 				"javac $fileName &&",
 				"java $fileNameWithoutExt",
 			},
-			python = "python -u '$dir/$fileName'",
+			python = "python -u",
 		},
 	},
 }
