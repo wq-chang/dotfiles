@@ -31,6 +31,9 @@ let
       ruff
       shfmt
       stylua
+
+      # linter
+      golangci-lint
       tflint
 
       # lsp

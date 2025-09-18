@@ -62,6 +62,7 @@ return {
 					"bash",
 					"css",
 					"gitignore",
+					"go",
 					"html",
 					"java",
 					"javascript",

@@ -3,6 +3,7 @@ return {
 	opts = {
 		events = { "BufWritePost", "BufReadPost", "InsertLeave" },
 		linters_by_ft = {
+			go = { "golangcilint" },
 			terraform = { "tflint" },
 		},
 	},

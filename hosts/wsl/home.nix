@@ -14,6 +14,7 @@ in
     nodejs_24
     tenv
     terraform-local
+    zip
   ];
 
   programs.zoxide = {

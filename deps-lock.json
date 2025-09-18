@@ -11,7 +11,7 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "4373ce5f8b8d10b50c2b61bc60665c85e3256d5f",
+    "rev": "5d8fb335d4e0db3a7250892de0e07b1fa7d3a730",
     "hash": "sha256-n5GNkU4mXWFHcuFIGO1KYJFfCHLELxmCCP7uNqQ4GwY=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
@@ -20,8 +20,8 @@
   "fzf-tab": {
     "url": "https://github.com/Aloxaf/fzf-tab",
     "branchName": "master",
-    "rev": "fc6f0dcb2d5e41a4a685bfe9af2f2393dc39f689",
-    "hash": "sha256-1g3kToboNGXNJTd+LEIB/j76VgPdYqG2PNs3u6Zke9s="
+    "rev": "fac145167f7ec1861233c54de0c8900b09c650fe",
+    "hash": "sha256-1Ior+/9e+M+Fc1u0uq5HhknlGRS96q7tazhEE6rmx9Y="
   },
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
@@ -42,8 +42,8 @@
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
-    "rev": "057ef5d260c1931f1dffd0f052c685dcd14100a3",
-    "hash": "sha256-tZMRU8roxXkIjKsFLcAu3J9EDDNcbb7ra01F5lYLo4U=",
+    "rev": "14fd5ff7f84027064724ec3157fe903199e77ded",
+    "hash": "sha256-nAFiLtt9YuKeolysaY480n7bkXoK9RhPJhY+8uOxKNY=",
     "sparseCheckout": [
       "extras/eza/tokyonight.yml",
       "extras/sublime/tokyonight_night.tmTheme",
