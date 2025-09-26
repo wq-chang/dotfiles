@@ -15,6 +15,7 @@ return {
 			shfmt = { "sh", "zsh" },
 		}
 		local ft_formatter = {
+			go = { "golines" },
 			java = { "google-java-format" },
 			lua = { "stylua" },
 			nix = { "nixfmt" },

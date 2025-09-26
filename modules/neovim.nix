@@ -25,6 +25,7 @@ let
       gcc
 
       # formatter
+      golines
       google-java-format
       nixfmt-rfc-style
       nodePackages.prettier
