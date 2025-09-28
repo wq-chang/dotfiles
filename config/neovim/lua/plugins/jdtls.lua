@@ -115,7 +115,6 @@ return {
 				callback = function(_)
 					map("<leader>da", "<cmd>lua require('jdtls.dap').test_class()<cr>", { desc = "Test class" })
 					map("<leader>dm", "<cmd>lua require('jdtls.dap').test_nearest_method()<cr>", { desc = "Test method" })
-					map("<leader>nd", "<cmd>lua require('jdtls.dap').test_nearest_method()<cr>", { desc = "Debug method" })
 					jdtls_setup()
 				end,
 			group = group,

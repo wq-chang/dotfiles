@@ -22,7 +22,9 @@ let
     modules.python.packages = p: with p; [ debugpy ];
 
     home.packages = with pkgs; [
+      delve # go debugger
       gcc
+      gotestsum
       tree-sitter
 
       # formatter

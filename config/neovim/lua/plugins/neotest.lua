@@ -9,6 +9,7 @@ return {
 			"rcasia/neotest-java",
 			"nvim-neotest/neotest-python",
 			"marilari88/neotest-vitest",
+			"fredrikaverpil/neotest-golang",
 		},
 		-- stylua: ignore
 		keys = {
@@ -27,6 +28,9 @@ return {
 					require("neotest-java"),
 					require("neotest-python"),
 					require("neotest-vitest"),
+					require("neotest-golang")({
+						runner = "gotestsum",
+					}),
 				},
 			}
 		end,
@@ -42,5 +46,9 @@ return {
 				vim.cmd("NeotestJava setup")
 			end
 		end,
+	},
+	{
+		"fredrikaverpil/neotest-golang",
+		version = "*",
 	},
 }
