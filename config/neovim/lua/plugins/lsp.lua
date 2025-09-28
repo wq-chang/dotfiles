@@ -1,3 +1,4 @@
+---@param event vim.api.keyset.create_autocmd.callback_args
 local function config_lsp_keymap(event)
 	local function map(keys, func, desc)
 		vim.keymap.set("n", keys, func, { buffer = event.buf, desc = desc })
@@ -12,6 +13,7 @@ local function config_lsp_keymap(event)
 	map("<leader>la", fzf.lsp_code_actions, "Code action")
 	map("<leader>ld", vim.diagnostic.open_float, "Show diagnostic")
 	map("<leader>lr", vim.lsp.buf.rename, "Rename")
+	map("<leader>lc", vim.lsp.codelens.run, "Codelens")
 	map("K", vim.lsp.buf.hover, "Hover Documentation")
 	map("gD", vim.lsp.buf.declaration, "Goto declaration")
 	map("[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Prev diagnostic")
@@ -19,13 +21,9 @@ local function config_lsp_keymap(event)
 	-- stylua: ignore end
 end
 
-local function create_references_highlight_autocommands(event)
-	-- The following two autocommands are used to highlight references of the
-	-- word under your cursor when your cursor rests there for a little while.
-	--    See `:help CursorHold` for information about when this is executed
-	--
-	-- When you move your cursor, the highlights will be cleared (the second autocommand).
-	local client = vim.lsp.get_client_by_id(event.data.client_id)
+---@param event vim.api.keyset.create_autocmd.callback_args
+---@param client vim.lsp.Client
+local function enable_references_highlight(event, client)
 	if client and client.server_capabilities.documentHighlightProvider then
 		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 			buffer = event.buf,
@@ -35,6 +33,34 @@ local function create_references_highlight_autocommands(event)
 			buffer = event.buf,
 			callback = vim.lsp.buf.clear_references,
 		})
+	end
+end
+
+---@param event vim.api.keyset.create_autocmd.callback_args
+---@param client vim.lsp.Client
+local function enable_codelens(event, client)
+	if client and client.server_capabilities.codeLensProvider then
+		vim.lsp.codelens.refresh()
+		vim.api.nvim_create_autocmd(
+			{ "BufEnter", "CursorHold", "InsertLeave" },
+			{
+				buffer = event.buf,
+				callback = vim.lsp.codelens.refresh,
+			}
+		)
+	end
+end
+
+---@param event vim.api.keyset.create_autocmd.callback_args
+---@param client vim.lsp.Client
+local function enable_inlay_hints(event, client)
+	if client and client.server_capabilities.inlayHintProvider then
+		if
+			vim.api.nvim_buf_is_valid(event.buf)
+			and vim.bo[event.buf].buftype == ""
+		then
+			vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+		end
 	end
 end
 
@@ -130,7 +156,13 @@ return {
 			group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 			callback = function(event)
 				config_lsp_keymap(event)
-				create_references_highlight_autocommands(event)
+
+				local client = vim.lsp.get_client_by_id(event.data.client_id)
+				if client then
+					enable_references_highlight(event, client)
+					enable_codelens(event, client)
+					enable_inlay_hints(event, client)
+				end
 			end,
 		})
 
