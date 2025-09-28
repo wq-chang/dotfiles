@@ -28,7 +28,7 @@ let
       tree-sitter
 
       # formatter
-      golines
+      gofumpt
       google-java-format
       nixfmt-rfc-style
       nodePackages.prettier

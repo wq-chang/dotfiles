@@ -15,7 +15,6 @@ return {
 			shfmt = { "sh", "zsh" },
 		}
 		local ft_formatter = {
-			go = { "golines" },
 			java = { "google-java-format" },
 			lua = { "stylua" },
 			nix = { "nixfmt" },
@@ -40,10 +39,8 @@ return {
 				end
 
 				return {
-					timeout_ms = 3000,
-					async = false,
-					quiet = false,
-					lsp_fallback = true,
+					timeout_ms = 500,
+					lsp_format = "fallback",
 				}
 			end,
 			formatters_by_ft = vim.tbl_extend(

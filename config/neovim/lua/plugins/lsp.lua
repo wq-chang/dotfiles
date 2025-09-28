@@ -70,7 +70,39 @@ return {
 					},
 				},
 			},
-			gopls = {},
+			gopls = {
+				-- experimental feature:
+				-- https://github.com/mvdan/gofumpt/issues/2#issuecomment-1934129935
+				cmd_env = { GOFUMPT_SPLIT_LONG_LINES = "on" },
+				settings = {
+					gopls = {
+						gofumpt = true,
+						codelenses = {
+							test = true,
+							vulncheck = true,
+						},
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+						usePlaceholders = true,
+						directoryFilters = {
+							"-.git",
+							"-.vscode",
+							"-.idea",
+							"-.vscode-test",
+							"-node_modules",
+						},
+						semanticTokens = true,
+						vulncheck = "Imports",
+					},
+				},
+			},
 			jsonls = { init_options = { provideFormatter = false } },
 			lua_ls = {
 				settings = {
