@@ -23,6 +23,7 @@ let
 
     home.packages = with pkgs; [
       gcc
+      tree-sitter
 
       # formatter
       golines
