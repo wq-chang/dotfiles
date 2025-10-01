@@ -9,6 +9,7 @@ return {
 				languages = {
 					"bash",
 					"css",
+					"dockerfile",
 					"gitignore",
 					"go",
 					"gomod",

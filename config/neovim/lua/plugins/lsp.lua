@@ -42,7 +42,7 @@ local function enable_codelens(event, client)
 	if client and client.server_capabilities.codeLensProvider then
 		vim.lsp.codelens.refresh()
 		vim.api.nvim_create_autocmd(
-			{ "BufEnter", "CursorHold", "InsertLeave" },
+			{ "BufEnter", "BufWritePost", "InsertLeave" },
 			{
 				buffer = event.buf,
 				callback = vim.lsp.codelens.refresh,
