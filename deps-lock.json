@@ -47,7 +47,8 @@
     "sparseCheckout": [
       "extras/eza/tokyonight.yml",
       "extras/sublime/tokyonight_night.tmTheme",
-      "extras/wezterm/tokyonight_night.toml"
+      "extras/wezterm/tokyonight_night.toml",
+      "extras/yazi/tokyonight_night.toml"
     ]
   },
   "zsh-completions": {

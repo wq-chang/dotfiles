@@ -13,6 +13,7 @@
     ./neovim.nix
     ./python.nix
     ./wezterm.nix
+    ./yazi.nix
     ./zsh.nix
   ];
 }

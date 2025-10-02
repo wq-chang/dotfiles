@@ -11,6 +11,7 @@
     kitty.enable = true;
     lazygit.enable = true;
     neovim.enable = true;
+    yazi.enable = true;
     zsh = {
       enable = true;
       defaultShell = true;
