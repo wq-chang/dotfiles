@@ -8,6 +8,37 @@
 }:
 let
   cfg = config.modules.yazi;
+  generateTheme =
+    let
+      theme = builtins.fromTOML (
+        builtins.readFile "${deps.tokyonight}/extras/yazi/tokyonight_night.toml"
+      );
+
+      mgr = builtins.removeAttrs theme.manager [
+        "tab_active"
+        "tab_inactive"
+      ];
+
+      theme' = builtins.removeAttrs theme [ "manager" ];
+    in
+    theme'
+    // {
+      mgr = mgr // {
+        syntect_theme = "${deps.tokyonight}/extras/sublime/tokyonight_night.tmTheme";
+      };
+
+      tabs = {
+        active = {
+          bg = "#7aa2f7";
+          fg = "#15161e";
+          bold = true;
+        };
+        inactive = {
+          bg = "#292e42";
+          fg = "#7aa2f7";
+        };
+      };
+    };
 
   homeConfig = {
     programs.yazi = {
@@ -32,15 +63,11 @@ let
             id = "git";
             name = "*/";
             run = "git";
-
           }
         ];
       };
+      theme = generateTheme;
     };
-
-    xdg.configFile."yazi/theme.toml".source =
-      with deps;
-      "${tokyonight}/extras/yazi/tokyonight_night.toml";
   };
 in
 {
