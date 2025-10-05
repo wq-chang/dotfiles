@@ -2,11 +2,11 @@
   "nodes": {
     "dotfilesConfigs": {
       "locked": {
-        "lastModified": 1725126427,
-        "narHash": "sha256-I6CA6AaHfBCAM/F+LxMrGdkGn6xxCWaebP0itzNIotQ=",
+        "lastModified": 1759688616,
+        "narHash": "sha256-AWqU0f8S2mKoQ/rG0eksLyzzGXspCXWtpZvSNwCXkP8=",
         "ref": "refs/heads/main",
-        "rev": "e696002277fa06ab2eae4f479d6b0a4c92e259b7",
-        "revCount": 6,
+        "rev": "4684e741088ea084e7f75d740de972ea44ebecc0",
+        "revCount": 7,
         "type": "git",
         "url": "ssh://git@github.com/wq-chang/dotfiles-configs"
       },
@@ -38,11 +38,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759573136,
-        "narHash": "sha256-ILSPD0Dm8p0w0fCVzOx98ZH8yFDrR75GmwmH3fS2VnE=",
+        "lastModified": 1759690868,
+        "narHash": "sha256-lra5EkTwrObCIg9gyJx+285RM6oKd3Y+DYkO7XOYqpk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5f06ceafc6c9b773a776b9195c3f47bbe1defa43",
+        "rev": "9070d7d32b3d4317e95b6b92f98fee850c1f116d",
         "type": "github"
       },
       "original": {
@@ -75,11 +75,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1759417375,
-        "narHash": "sha256-O7eHcgkQXJNygY6AypkF9tFhsoDQjpNEojw3eFs73Ow=",
+        "lastModified": 1759632233,
+        "narHash": "sha256-krgZxGAIIIKFJS+UB0l8do3sYUDWJc75M72tepmVMzE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "dc704e6102e76aad573f63b74c742cd96f8f1e6c",
+        "rev": "d7f52a7a640bc54c7bb414cca603835bf8dd4b10",
         "type": "github"
       },
       "original": {

@@ -8,6 +8,7 @@
     fonts.enable = true;
     fzf.enable = true;
     git.enable = true;
+    gpg.enable = true;
     kitty.enable = true;
     lazygit.enable = true;
     neovim.enable = true;
