@@ -54,8 +54,8 @@ let
       history.ignoreDups = true;
       historySubstringSearch = {
         enable = true;
-        searchDownKey = "$terminfo[kcud1]";
-        searchUpKey = "$terminfo[kcuu1]";
+        searchDownKey = [ "$terminfo[kcud1]" ];
+        searchUpKey = [ "$terminfo[kcuu1]" ];
       };
       plugins = [
         {
@@ -100,11 +100,20 @@ let
 
             export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=#7aa2f7,fg=#16161e,bold'
           '';
+          initPost = lib.mkOrder 2000 ''
+            ${lib.concatMapStringsSep "\n" (upKey: ''bindkey "${upKey}" history-substring-search-up'') (
+              lib.toList config.programs.zsh.historySubstringSearch.searchUpKey
+            )}
+            ${lib.concatMapStringsSep "\n" (downKey: ''bindkey "${downKey}" history-substring-search-down'') (
+              lib.toList config.programs.zsh.historySubstringSearch.searchDownKey
+            )}
+          '';
         in
         lib.mkMerge [
           initExtraFirst
           initExtraBeforeCompInit
           initExtra
+          initPost
         ];
       completionInit = ''
         autoload bashcompinit && bashcompinit

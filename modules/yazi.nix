@@ -14,14 +14,12 @@ let
         builtins.readFile "${deps.tokyonight}/extras/yazi/tokyonight_night.toml"
       );
 
-      mgr = builtins.removeAttrs theme.manager [
+      mgr = builtins.removeAttrs theme.mgr [
         "tab_active"
         "tab_inactive"
       ];
-
-      theme' = builtins.removeAttrs theme [ "manager" ];
     in
-    theme'
+    theme
     // {
       mgr = mgr // {
         syntect_theme = "${deps.tokyonight}/extras/sublime/tokyonight_night.tmTheme";
@@ -53,6 +51,7 @@ let
         require("git"):setup()
       '';
       settings = {
+        mgr.linemode = "size";
         plugin.prepend_fetchers = [
           {
             id = "git";
