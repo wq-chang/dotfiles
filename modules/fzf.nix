@@ -30,7 +30,6 @@ let
         header = "#9ece6a";
         scrollbar = "#3b4261";
         border = "#27a1b9";
-        gutter = "-1";
       };
     };
   };
