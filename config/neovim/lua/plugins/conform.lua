@@ -72,10 +72,6 @@ end
 
 return {
 	"stevearc/conform.nvim",
-	-- stylua: ignore
-	keys = {
-		{ "<leader>cf", function() require("conform").format() end, desc = "Format code" },
-	},
 	opts = function()
 		return {
 			format_on_save = format_on_save,
@@ -86,5 +82,8 @@ return {
 		require("conform").setup(opts)
 		create_disable_autoformat_command()
 		create_enable_autoformat_command()
+		vim.keymap.set("n", "<leader>cf", function()
+			require("conform").format()
+		end, { desc = "Format code" })
 	end,
 }
