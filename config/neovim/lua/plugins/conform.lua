@@ -27,6 +27,7 @@ local function generate_formatter_by_ft()
 		lua = { "stylua" },
 		nix = { "nixfmt" },
 		python = { "ruff_organize_imports", "ruff_format" },
+		xml = { "xmllint" },
 	}
 
 	return vim.tbl_extend(

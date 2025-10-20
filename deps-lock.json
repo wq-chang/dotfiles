@@ -2,8 +2,8 @@
   "argcomplete": {
     "url": "https://github.com/kislyuk/argcomplete",
     "branchName": "main",
-    "rev": "a2b8bc6461bcfc919bc3f4b3f83c7716bd078583",
-    "hash": "sha256-CMoKPyQilbKlXu1+iJwOlgv+vcnDc4ZxiVaqqx2BREo=",
+    "rev": "fae5549ac1e89ec05de7d11ff33f540c74fc3b18",
+    "hash": "sha256-LLRmOQkC98bHAQ87iVpQHfjI/V5lR9z8SVOnJEg8A8s=",
     "sparseCheckout": [
       "argcomplete/bash_completion.d/_python-argcomplete"
     ]
@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "171a9b70b2736c719019393259ecebdcac47bead",
-    "hash": "sha256-oViZN/i0kfKyDJVcOOLLy0IQdLbQBzRIDwNh+gTP4vs=",
+    "rev": "7b4cde69673ee7c1d6929749d1a639d748749804",
+    "hash": "sha256-UJ3vyqdCsSJR+WDAHKWwafxdVDiaLqsleQBC2sjfPL0=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -42,7 +42,7 @@
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
-    "rev": "d14614cbfc63b6037bfccd48bb982d2ad2003352",
+    "rev": "e63c42a42b11cd6225f009dd949b9ee0fccc15ef",
     "hash": "sha256-V4nIQ1aB2TFngfsSNcgqdRQIGwzVSc2SZBRwA5wywjw=",
     "sparseCheckout": [
       "extras/eza/tokyonight.yml",
@@ -54,8 +54,8 @@
   "zsh-completions": {
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "5fd23d5376a8eba491c4d3cffe5141447bac15a2",
-    "hash": "sha256-EzSTVv1+4xmzI9naz6XJiUc+ukhdMsA01qIr3iU8Vxg="
+    "rev": "c47e10641ab0dcb2e9e1f7e1a1ad05011613145d",
+    "hash": "sha256-junvrXtEwlKDs7d9QdxJ5Gg46qjwFOP2KkLcnLDs/Ow="
   },
   "zsh-manpage-completion-generator": {
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",

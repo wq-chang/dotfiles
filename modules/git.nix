@@ -8,36 +8,36 @@
 }:
 let
   cfg = config.modules.git;
-  extraConfig = {
-    include.path = "~/dotfiles/config/git/themes.gitconfig";
-    merge.conflictstyle = "diff3";
-  }
-  // (
-    if config.modules.gpg.enable then
-      {
-        commit.gpgsign = true;
-        user.signingkey = dotfilesConfig.gpgKey;
-      }
-    else
-      { }
-  );
 
   homeConfig = {
     programs.git = {
       enable = true;
-      userName = dotfilesConfig.gitName;
-      userEmail = dotfilesConfig.email;
+      includes = [ { path = "~/dotfiles/config/git/themes.gitconfig"; } ];
       iniContent = {
         core.pager = lib.mkForce "${pkgs.delta}/bin/delta -s --line-numbers";
       };
-      extraConfig = extraConfig;
-      delta = {
-        enable = true;
-        options = {
-          navigate = true;
-          features = "tokyonight-night";
-          true-color = "always";
+      settings = {
+        user = {
+          name = dotfilesConfig.gitName;
+          email = dotfilesConfig.email;
+        }
+        // lib.optionalAttrs config.modules.gpg.enable {
+          signingkey = dotfilesConfig.gpgKey;
         };
+        merge.conflictstyle = "diff3";
+      }
+      // lib.optionalAttrs config.modules.gpg.enable {
+        commit.gpgsign = true;
+      };
+    };
+
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
+      options = {
+        navigate = true;
+        features = "tokyonight-night";
+        true-color = "always";
       };
     };
   };
