@@ -26,8 +26,8 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "d1c04d8a33f9127d03b69617c5367db5ceebc8a7",
-    "hash": "sha256-nJUyCeM0VRmCK0mu82HGUA45GdVjLkP4oxS3u4OwVOE=",
+    "rev": "f1934d2c769e43d87fd6b2138bed90ed6b1455fe",
+    "hash": "sha256-uZpsLLdil9/lIeo/EO0MblIjCxQA+2FeYl49VD1Pxts=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
       "plugins/docker-compose/_docker-compose"

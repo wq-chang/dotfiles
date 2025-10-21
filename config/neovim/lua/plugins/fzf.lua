@@ -37,6 +37,7 @@ return {
 	config = function(_, opts)
 		local fzf = require("fzf-lua")
 		fzf.setup(opts)
+		fzf.register_ui_select()
 		local git_utils = require("utils.git")
 		local function find_files_from_git_root()
 			local cwd = git_utils.get_git_root()
