@@ -12,6 +12,7 @@ in
     lazydocker
     localstack
     maven
+    natscli
     nodejs_24
     tenv
     terraform-local

@@ -42,8 +42,8 @@
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
-    "rev": "e63c42a42b11cd6225f009dd949b9ee0fccc15ef",
-    "hash": "sha256-V4nIQ1aB2TFngfsSNcgqdRQIGwzVSc2SZBRwA5wywjw=",
+    "rev": "8734a4e9a9b03549337faf5a86637abd5e16721e",
+    "hash": "sha256-MTuAaGWHUaRywRqnOwgQWohxhRsVr6a83kV6gdqrNI4=",
     "sparseCheckout": [
       "extras/eza/tokyonight.yml",
       "extras/sublime/tokyonight_night.tmTheme",
@@ -54,8 +54,8 @@
   "zsh-completions": {
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "c47e10641ab0dcb2e9e1f7e1a1ad05011613145d",
-    "hash": "sha256-junvrXtEwlKDs7d9QdxJ5Gg46qjwFOP2KkLcnLDs/Ow="
+    "rev": "1b97a1492b824e72b7869e72d4949f7c77397b9a",
+    "hash": "sha256-phupA2ICdrzjwHLK1x/byoAyacX0CYp9C6WdqyUcntc="
   },
   "zsh-manpage-completion-generator": {
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",
