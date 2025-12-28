@@ -1,4 +1,4 @@
-local function jdtls_setup()
+local function build_jdtls_config()
 	local home = os.getenv("HOME")
 	local root_markers =
 		{ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
@@ -98,7 +98,8 @@ local function jdtls_setup()
 			vim.schedule_wrap(require("jdtls.dap").setup_dap_main_class_configs)
 		)
 	end
-	require("jdtls").start_or_attach(config)
+
+	return config
 end
 
 return {
@@ -115,9 +116,11 @@ return {
 				callback = function(_)
 					map("<leader>da", "<cmd>lua require('jdtls.dap').test_class()<cr>", { desc = "Test class" })
 					map("<leader>dm", "<cmd>lua require('jdtls.dap').test_nearest_method()<cr>", { desc = "Test method" })
-					jdtls_setup()
 				end,
 			group = group,
 		})
+		local config = build_jdtls_config()
+		vim.lsp.config("jdtls", config)
+		vim.lsp.enable("jdtls")
 	end,
 }

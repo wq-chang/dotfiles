@@ -1,6 +1,5 @@
 { pkgs, ... }:
 let
-
   awslocal = pkgs.callPackage ../../packages/aws-local.nix { };
 in
 {

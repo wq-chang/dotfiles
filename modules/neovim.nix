@@ -8,6 +8,10 @@
 let
   cfg = config.modules.neovim;
 
+  # TODO: temporary fix until version is bumped to > 0.43.2
+  # https://github.com/NixOS/nixpkgs/blob/3e2499d5539c16d0d173ba53552a4ff8547f4539/pkgs/applications/editors/vscode/extensions/default.nix#L5083
+  vsCodeJavaTest = pkgs.callPackage ../packages/vscode-java-test.nix { };
+
   homeConfig = {
     programs.neovim = {
       enable = true;
@@ -57,7 +61,8 @@ let
       lombok
       jdt-language-server
       vscode-extensions.vscjava.vscode-java-debug
-      vscode-extensions.vscjava.vscode-java-test
+      # vscode-extensions.vscjava.vscode-java-test
+      vsCodeJavaTest
     ];
 
     xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/neovim";
@@ -67,9 +72,10 @@ let
       JAVA_DEBUG =
         vscode-extensions.vscjava.vscode-java-debug
         + "/share/vscode/extensions/vscjava.vscode-java-debug/server";
-      JAVA_TEST =
-        vscode-extensions.vscjava.vscode-java-test
-        + "/share/vscode/extensions/vscjava.vscode-java-test/server";
+      # JAVA_TEST =
+      #   vscode-extensions.vscjava.vscode-java-test
+      #   + "/share/vscode/extensions/vscjava.vscode-java-test/server";
+      JAVA_TEST = vsCodeJavaTest + "/share/vscode/extensions/vscjava.vscode-java-test/server";
     };
   };
 in
