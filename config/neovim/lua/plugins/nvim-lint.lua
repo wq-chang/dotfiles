@@ -5,6 +5,7 @@ return {
 		linters_by_ft = {
 			go = { "golangcilint" },
 			terraform = { "tflint" },
+			sql = { "sqlfluff" },
 		},
 	},
 	config = function(_, opts)

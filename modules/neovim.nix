@@ -41,6 +41,9 @@ let
       golangci-lint
       tflint
 
+      # formatter and linter
+      sqlfluff
+
       # lsp
       basedpyright
       gopls

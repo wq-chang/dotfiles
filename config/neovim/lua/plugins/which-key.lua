@@ -15,7 +15,6 @@ return {
 			{ "<leader>d", group = "+debug" },
 			{ "<leader>f", group = "+file/find" },
 			{ "<leader>g", group = "+git" },
-			{ "<leader>gh", group = "+hunks" },
 			{ "<leader>l", group = "+lsp" },
 			{ "<leader>m", group = "+mergetools" },
 			{ "<leader>n", group = "+neotest" },

@@ -62,6 +62,7 @@ return {
 		map("<leader>.", "<cmd>FzfLua command_history<cr>", "Command history")
 		map("<leader>fc", "<cmd>FzfLua commands<cr>", "Find commands")
 		map("<leader>ff", find_files_from_git_root, "Find file")
+		map("<leader>gh", "<cmd>FzfLua git_bcommits<cr>", "File git history")
 		-- stylua: ignore end
 	end,
 }
