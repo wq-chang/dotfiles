@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ dotfilesConfig, ... }:
+{ dotfilesConfig, pkgs, ... }:
 {
   imports = [
     ./module-configuration.nix
@@ -12,6 +12,7 @@
   wsl = {
     enable = true;
     defaultUser = dotfilesConfig.username;
+    useWindowsDriver = true;
   };
 
   security.sudo.wheelNeedsPassword = false;
@@ -31,6 +32,25 @@
       dates = "weekly";
       options = "--delete-older-than 1d";
     };
+  };
+
+  hardware.graphics = {
+    enable = true;
+
+    extraPackages = with pkgs; [
+      mesa
+      libvdpau-va-gl
+      libva-vdpau-driver
+    ];
+  };
+
+  # Workaround for hardware acceleration on NixOS-WSL
+  # https://github.com/nix-community/NixOS-WSL/issues/454
+  # https://github.com/nix-community/NixOS-WSL/issues/623
+  environment.sessionVariables = {
+    LD_LIBRARY_PATH = [ "/run/opengl-driver/lib/" ];
+    MESA_D3D12_DEFAULT_ADAPTER_NAME = "Nvidia";
+    GALLIUM_DRIVER = "d3d12";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
