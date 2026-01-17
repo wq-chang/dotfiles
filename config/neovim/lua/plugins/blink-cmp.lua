@@ -6,9 +6,7 @@ local function create_icon_configs(ctx)
 			icon = dev_icon
 		end
 	else
-		icon = require("lspkind").symbolic(ctx.kind, {
-			mode = "symbol",
-		})
+		icon = require("lspkind").symbol_map[ctx.kind] or icon
 	end
 
 	return icon .. ctx.icon_gap

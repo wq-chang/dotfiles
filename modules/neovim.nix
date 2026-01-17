@@ -35,7 +35,7 @@ let
       gofumpt
       google-java-format
       libxml2 # xml
-      nixfmt-rfc-style
+      nixfmt
       nodePackages.prettier
       ruff
       shfmt
