@@ -6,15 +6,8 @@ in
   home.packages = with pkgs; [
     awscli2
     awslocal
-    bruno
-    go
     lazydocker
-    localstack
-    maven
-    natscli
-    nodejs_24
-    tenv
-    terraform-local
+    unzip
     zip
   ];
 

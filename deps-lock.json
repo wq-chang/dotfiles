@@ -26,7 +26,7 @@
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "ec14da72fbf8b5016bb1533d4af3ff3bb2ac7a19",
+    "rev": "834fbf371196b6136dacf113b90713c2f2f42a6f",
     "hash": "sha256-TjMZqcyCBM2EByFJXB0me3kYzbirtiVrtNV2HBSNqb0=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
