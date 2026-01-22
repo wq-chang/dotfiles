@@ -37,8 +37,6 @@ return {
 	},
 	{
 		"rcasia/neotest-java",
-		-- TODO: The latest version is broken (2026-01-17), check again later.
-		commit = "65b4ee5ebb2884bb752e451c15cb334e3f477ca6",
 		config = function()
 			local neotest_java_path = vim.fn.stdpath("data") .. "/neotest-java"
 			local jar_path = vim.fn.glob(
