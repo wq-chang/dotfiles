@@ -2,15 +2,8 @@
 
 ### Installation
 
-1. Create `%USERPROFILE%/.wslconfig` and paste the following into it
-
-```
-[wsl2]
-kernelCommandLine = cgroup_no_v1=all
-```
-
-2. Enable WSL and install NixOS, refer to the steps through the [NixOS-WSL](https://github.com/nix-community/NixOS-WSL)
-3. Use curl to download `wsl_init.sh` and run it from the home directory
+1. Enable WSL and install NixOS, refer to the steps through the [NixOS-WSL](https://github.com/nix-community/NixOS-WSL)
+2. Use curl to download `wsl_init.sh` and run it from the home directory
 
 ```bash
 cd

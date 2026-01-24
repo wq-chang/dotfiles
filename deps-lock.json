@@ -54,8 +54,8 @@
   "zsh-completions": {
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "8a994c20d7d81e6341147bedaa8f5963b07ce441",
-    "hash": "sha256-bJmZsW3Gft9UvDMjVXEvW/2BBYelsm9ZnN/11CiJ9pg="
+    "rev": "d41e237045c656a58346219bd06ae629a6eff519",
+    "hash": "sha256-wHew5cp/4zBSusozZ7SBFd+AaautYHgyi2GeSiKyE1Y="
   },
   "zsh-manpage-completion-generator": {
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",
