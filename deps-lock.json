@@ -11,8 +11,8 @@
   "docker-cli": {
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "d5ed03732077084b5cf3911e26ad25c33d036ca8",
-    "hash": "sha256-qna7p7nUkG8fsEthHl0RpMW4iY7JK8fdHo9eqcIkrtY=",
+    "rev": "a5c7197d720daef7d8b9e6174ee78c0743cea166",
+    "hash": "sha256-lLSgy5vkZG4J5Q6Y4jJWnrADZlOsXw2dELbPE0DUxMU=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -20,13 +20,13 @@
   "fzf-tab": {
     "url": "https://github.com/Aloxaf/fzf-tab",
     "branchName": "master",
-    "rev": "cbdc58226a696688d08eae63d8e44f4b230fa3dd",
-    "hash": "sha256-ZekrZYQBGYQOTMojnJbQhelH4rOyzuPIP/Tu/6Tjwec="
+    "rev": "747c15de85a38748b28c29ac65616137dbb4c8b6",
+    "hash": "sha256-gatFp2kjyqaqi8hu0UWPDtQAy+X2VmyYNPP4aiNDdHg="
   },
   "ohmyzsh": {
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "e0766905519fbc7982a590a195ee7c3e8bb594e8",
+    "rev": "9df4ea095fe27ccd0ee95f2d34bab884c4a75585",
     "hash": "sha256-mf8a41kNioDfBK5muUXZ7ajXHRPwvsjvOe8o2G8ySYY=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -36,8 +36,8 @@
   "powerlevel10k": {
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "b97926675aba2d8465325d786cc69de9d9fdec84",
-    "hash": "sha256-lmVBVSc+SEzDr+8z5gaMKA/uSEriaB8rxTT1smgkl1Y="
+    "rev": "8ed1f58e082e1cce85e1d69235d1a906cf3c643e",
+    "hash": "sha256-xiUNt2zomP3TNiCW/PZn6rS/3pv+uW17YjkzEPc227I="
   },
   "tokyonight": {
     "url": "https://github.com/folke/tokyonight.nvim",
@@ -54,8 +54,8 @@
   "zsh-completions": {
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "d41e237045c656a58346219bd06ae629a6eff519",
-    "hash": "sha256-wHew5cp/4zBSusozZ7SBFd+AaautYHgyi2GeSiKyE1Y="
+    "rev": "a83d61b6c641056bc7b6e2f35712312400159b05",
+    "hash": "sha256-dCBwMmtFEbZ5G9h8wc/AVQoY3DOJQ0MfTztKleVWhGA="
   },
   "zsh-manpage-completion-generator": {
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",

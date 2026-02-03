@@ -15,6 +15,7 @@ let
 
     home.packages = with pkgs; [
       jetbrains-mono
+      sarasa-gothic
       nerd-fonts.symbols-only
     ];
   };
