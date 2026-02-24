@@ -10,14 +10,13 @@ let
   cfg = config.modules.yazi;
   generateTheme =
     let
-      theme = builtins.fromTOML (
-        builtins.readFile "${deps.tokyonight}/extras/yazi/tokyonight_night.toml"
-      );
+      theme = fromTOML (builtins.readFile "${deps.tokyonight}/extras/yazi/tokyonight_night.toml");
 
-      mgr = builtins.removeAttrs theme.mgr [
+      mgr = removeAttrs theme.mgr [
         "tab_active"
         "tab_inactive"
       ];
+
     in
     theme
     // {
@@ -41,6 +40,7 @@ let
   homeConfig = {
     programs.yazi = {
       enable = true;
+      shellWrapperName = "y";
       plugins = with pkgs.yaziPlugins; {
         inherit full-border git;
       };
