@@ -28,7 +28,6 @@ let
       tree-sitter
 
       # formatter
-      gofumpt
       google-java-format
       libxml2 # xml
       nixfmt

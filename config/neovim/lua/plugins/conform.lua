@@ -23,6 +23,7 @@ local function generate_formatter_by_ft()
 		shfmt = { "sh", "zsh" },
 	}
 	local ft_formatter = {
+		go = { "golangci-lint" },
 		java = { "google-java-format" },
 		lua = { "stylua" },
 		nix = { "nixfmt" },

@@ -97,12 +97,8 @@ return {
 				},
 			},
 			gopls = {
-				-- experimental feature:
-				-- https://github.com/mvdan/gofumpt/issues/2#issuecomment-1934129935
-				cmd_env = { GOFUMPT_SPLIT_LONG_LINES = "on" },
 				settings = {
 					gopls = {
-						gofumpt = true,
 						codelenses = {
 							test = true,
 							vulncheck = true,
