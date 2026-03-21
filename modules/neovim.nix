@@ -9,10 +9,20 @@ let
   cfg = config.modules.neovim;
 
   homeConfig = {
+    # If used home-manager only to install plugins, the newly generated init.lua
+    # might conflict with manual init.lua.
+    # Can ignore the generated init.lua with
+    # `xdg.configFile."nvim/init.lua".enable = false`
+    # Note: doing so will make `extraLuaPackages` become ineffective.
+    #
+    # Can still refer to its generated content via:
+    # `xdg.configFile."nvim/lua/hm-generated.lua".text = config.programs.neovim.initLua;`
+    # in manual init.lua `require'hm-generated'`
     programs.neovim = {
       enable = true;
       defaultEditor = true;
     };
+    xdg.configFile."nvim/init.lua".enable = false;
 
     programs.java = {
       enable = true;
@@ -23,6 +33,7 @@ let
 
     home.packages = with pkgs; [
       delve # go debugger
+      file
       gcc
       gotestsum
       tree-sitter
