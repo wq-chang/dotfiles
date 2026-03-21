@@ -1,14 +1,14 @@
-local function formatter_ft_to_ft_formmater(formatter_filetype)
-	local tbl = {}
-	for formatter, filetypes in pairs(formatter_filetype) do
-		for _, filetype in ipairs(filetypes) do
-			tbl[filetype] = { formatter }
-		end
-	end
-	return tbl
-end
-
 local function generate_formatter_by_ft()
+	local ft_formatter = {
+		go = { "golangci-lint" },
+		java = { "google-java-format" },
+		lua = { "stylua" },
+		nix = { "nixfmt" },
+		python = { "ruff_organize_imports", "ruff_format" },
+		sql = { "sqlfluff" },
+		xml = { "xmllint" },
+	}
+
 	local formatter_ft = {
 		prettier = {
 			"css",
@@ -22,21 +22,17 @@ local function generate_formatter_by_ft()
 		},
 		shfmt = { "sh", "zsh" },
 	}
-	local ft_formatter = {
-		go = { "golangci-lint" },
-		java = { "google-java-format" },
-		lua = { "stylua" },
-		nix = { "nixfmt" },
-		python = { "ruff_organize_imports", "ruff_format" },
-		sql = { "sqlfluff" },
-		xml = { "xmllint" },
-	}
 
-	return vim.tbl_extend(
-		"error",
-		ft_formatter,
-		formatter_ft_to_ft_formmater(formatter_ft)
-	)
+	for formatter, fts in pairs(formatter_ft) do
+		for _, ft in ipairs(fts) do
+			if not ft_formatter[ft] then
+				ft_formatter[ft] = {}
+			end
+			table.insert(ft_formatter[ft], formatter)
+		end
+	end
+
+	return ft_formatter
 end
 
 local function create_disable_autoformat_command()
