@@ -21,6 +21,8 @@ let
     programs.neovim = {
       enable = true;
       defaultEditor = true;
+      withRuby = false;
+      withPython3 = false;
     };
     xdg.configFile."nvim/init.lua".enable = false;
 
@@ -42,7 +44,7 @@ let
       google-java-format
       libxml2 # xml
       nixfmt
-      nodePackages.prettier
+      prettier
       ruff
       shfmt
       stylua
@@ -59,7 +61,7 @@ let
       gopls
       lua-language-server
       nixd
-      nodePackages.typescript-language-server
+      typescript-language-server
       terraform-ls
       vscode-langservers-extracted # jsonls
 

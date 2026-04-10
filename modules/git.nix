@@ -12,6 +12,7 @@ let
   homeConfig = {
     programs.git = {
       enable = true;
+      signing.format = null;
       includes = [ { path = "~/dotfiles/config/git/themes.gitconfig"; } ];
       iniContent = {
         core.pager = lib.mkForce "${pkgs.delta}/bin/delta -s --line-numbers";
