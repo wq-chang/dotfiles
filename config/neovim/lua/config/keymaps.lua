@@ -28,9 +28,15 @@ map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Windows
+-- stylua: ignore start
 map("n", "<leader>wc", "<C-W>c", { desc = "Close window", remap = true })
 map("n", "<leader>ws", "<C-W>s", { desc = "Split window below", remap = true })
 map("n", "<leader>wv", "<C-W>v", { desc = "Split window right", remap = true })
+map("n", "<S-Up>", "<cmd>resize +2<cr>", { desc = "Increase height" })
+map("n", "<S-Down>", "<cmd>resize -2<cr>", { desc = "Decrease height" })
+map("n", "<S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease width" })
+map( "n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase width" })
+-- stylua: ignore end
 
 -- Codes
 map("n", "<leader>cm", ":%s/\\r//g<cr>", { desc = "Remove ^M character" })

@@ -134,7 +134,7 @@ return {
 		vim.diagnostic.config(opts.diagnostic)
 
 		-- stylua: ignore
-		vim.keymap.set( "n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "Lsp info" })
+		vim.keymap.set( "n", "<leader>li", "<cmd>checkhealth vim.lsp<cr>", { desc = "Lsp info" })
 		vim.api.nvim_del_keymap("n", "gra")
 		vim.api.nvim_del_keymap("n", "gri")
 		vim.api.nvim_del_keymap("n", "grn")
