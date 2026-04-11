@@ -58,6 +58,7 @@ let
 
       # lsp
       basedpyright
+      copilot-language-server
       gopls
       lua-language-server
       nixd
@@ -82,6 +83,7 @@ let
       JAVA_TEST =
         vscode-extensions.vscjava.vscode-java-test
         + "/share/vscode/extensions/vscjava.vscode-java-test/server";
+      COPILOT_LSP = "${copilot-language-server}/bin/copilot-language-server";
     };
   };
 in

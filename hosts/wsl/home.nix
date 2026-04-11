@@ -6,6 +6,8 @@ in
   home.packages = with pkgs; [
     awscli2
     awslocal
+    github-copilot-cli
+    gemini-cli
     lazydocker
     unzip
     zip

@@ -57,6 +57,35 @@ local function enable_inlay_hints(event, client)
 	end
 end
 
+---@param event vim.api.keyset.create_autocmd.callback_args
+---@param client vim.lsp.Client
+local function enable_inline_completion(event, client)
+	if
+		client:supports_method(
+			vim.lsp.protocol.Methods.textDocument_inlineCompletion,
+			event.buf
+		)
+	then
+		vim.lsp.inline_completion.enable(true, { bufnr = event.buf })
+
+		vim.keymap.set("i", "<Tab>", function()
+			if not vim.lsp.inline_completion.get() then
+				return "<Tab>"
+			end
+		end, { expr = true, desc = "Accept the current inline completion" })
+
+		vim.keymap.set("i", "<S-Tab>", function()
+			return "<Tab>"
+		end, { desc = "Normal outdent", buffer = event.buf, expr = true })
+		vim.keymap.set("i", "<M-]>", function()
+			vim.lsp.inline_completion.select()
+		end, { desc = "LSP: next inline completion", buffer = event.buf })
+		vim.keymap.set("i", "<M-[>", function()
+			vim.lsp.inline_completion.select({ cycle = -1 })
+		end, { desc = "LSP: previous inline completion", buffer = event.buf })
+	end
+end
+
 return {
 	"neovim/nvim-lspconfig",
 	opts = {
@@ -78,6 +107,13 @@ return {
 		},
 		servers = {
 			basedpyright = {},
+			-- copilot = {
+			-- 	settings = {
+			-- 		nextEditSuggestions = {
+			-- 			enabled = true,
+			-- 		},
+			-- 	},
+			-- },
 			cssls = {},
 			eslint = {
 				settings = {
@@ -151,6 +187,7 @@ return {
 					enable_references_highlight(event, client)
 					enable_codelens(event, client)
 					enable_inlay_hints(event, client)
+					enable_inline_completion(event, client)
 				end
 			end,
 		})
