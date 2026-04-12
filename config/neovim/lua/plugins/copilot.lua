@@ -42,7 +42,7 @@ return {
 				else
 					return "<tab>"
 				end
-			end)
+			end, { desc = "Accept Copilot suggestion", expr = true })
 
 			vim.keymap.set("n", "<tab>", function()
 				local bufnr = vim.api.nvim_get_current_buf()
