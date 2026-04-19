@@ -64,6 +64,15 @@ class DependencyAttributes:
 
 
 def parse_dependency_attributes(data_json: SerializedDependency) -> DependencyAttributes:
+    """
+    Parse a serialized dependency dict from deps-lock.json into a DependencyAttributes object.
+
+    Args:
+        data_json: The serialized dependency mapping loaded from JSON.
+
+    Returns:
+        DependencyAttributes with typed fields; converts serialized release assets into GithubReleaseAsset objects when present.
+    """
     assets_json = data_json.get("assets")
     assets = (
         {
@@ -94,6 +103,9 @@ def parse_dependency_attributes(data_json: SerializedDependency) -> DependencyAt
 
 
 def serialize_release_asset(asset: GithubReleaseAsset) -> SerializedGithubReleaseAsset:
+    """
+    Convert a GithubReleaseAsset dataclass to a JSON-serializable mapping.
+    """
     return {
         "name": asset.name,
         "url": asset.url,
@@ -102,6 +114,15 @@ def serialize_release_asset(asset: GithubReleaseAsset) -> SerializedGithubReleas
 
 
 def clean_dict(dependency: DependencyAttributes) -> SerializedDependency:
+    """
+    Produce a serializable dict for a DependencyAttributes object, omitting None fields.
+
+    Args:
+        dependency: DependencyAttributes instance to serialize.
+
+    Returns:
+        A SerializedDependency mapping suitable for JSON output.
+    """
     clean: SerializedDependency = {"type": dependency.type}
     if dependency.url is not None:
         clean["url"] = dependency.url
@@ -130,6 +151,12 @@ def clean_dict(dependency: DependencyAttributes) -> SerializedDependency:
 
 
 def load_data() -> dict[str, DependencyAttributes]:
+    """
+    Load locked dependency data from deps-lock.json into DependencyAttributes objects.
+
+    Returns:
+        A dict mapping dependency names to DependencyAttributes. Returns empty dict if file missing.
+    """
     if not deps_file.exists():
         return {}
 
@@ -139,6 +166,12 @@ def load_data() -> dict[str, DependencyAttributes]:
 
 
 def dump_data(data: dict[str, DependencyAttributes]) -> None:
+    """
+    Write dependency data to deps-lock.json in a stable, sorted format.
+
+    Args:
+        data: Mapping of dependency names to DependencyAttributes to persist.
+    """
     with deps_file.open("w") as file:
         sorted_data = dict(sorted(data.items()))
         json.dump({key: clean_dict(value) for key, value in sorted_data.items()}, file, indent=2)
@@ -146,6 +179,18 @@ def dump_data(data: dict[str, DependencyAttributes]) -> None:
 
 
 async def run_command(command: list[str]) -> str:
+    """
+    Execute a subprocess command asynchronously and return its stdout.
+
+    Args:
+        command: The command and arguments to execute.
+
+    Returns:
+        Decoded stdout from the process.
+
+    Raises:
+        RuntimeError: if the subprocess exits with a non-zero return code.
+    """
     process = await asyncio.create_subprocess_exec(
         *command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
@@ -159,6 +204,18 @@ async def run_command(command: list[str]) -> str:
 
 
 def fetch_json(url: str) -> JSONDict | JSONList:
+    """
+    Fetch and parse JSON from a URL using urllib, with GitHub-compatible Accept header.
+
+    Args:
+        url: The URL to request.
+
+    Returns:
+        Parsed JSON (dict or list).
+
+    Raises:
+        urllib.error.HTTPError: on HTTP errors.
+    """
     request = Request(
         url,
         headers={
@@ -172,10 +229,31 @@ def fetch_json(url: str) -> JSONDict | JSONList:
 
 
 async def fetch_json_async(url: str) -> JSONDict | JSONList:
+    """
+    Async wrapper around fetch_json that runs the request in a thread.
+
+    Args:
+        url: The URL to fetch.
+
+    Returns:
+        Parsed JSON (dict or list).
+    """
     return await asyncio.to_thread(fetch_json, url)
 
 
 def parse_github_repo_url(url: str) -> tuple[str, str]:
+    """
+    Extract owner and repository name from various GitHub repository URL formats.
+
+    Args:
+        url: GitHub URL or SSH/GIT spec.
+
+    Returns:
+        (owner, repo)
+
+    Raises:
+        ValueError: if the URL format is unsupported.
+    """
     patterns = [
         r"^https://github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+?)(?:\.git)?/?$",
         r"^ssh://git@github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+?)(?:\.git)?/?$",
@@ -191,6 +269,16 @@ def parse_github_repo_url(url: str) -> tuple[str, str]:
 
 
 def parse_mapping_args(raw_values: list[str], label: str) -> dict[str, str] | None:
+    """
+    Parse a list of key=value strings into a dict.
+
+    Args:
+        raw_values: List of strings of the form 'key=value'.
+        label: Human-readable label used in error messages.
+
+    Returns:
+        A dict mapping keys to values, or None if raw_values is empty.
+    """
     parsed: dict[str, str] = {}
     for raw_value in raw_values:
         key, separator, value = raw_value.partition("=")
@@ -203,6 +291,16 @@ def parse_mapping_args(raw_values: list[str], label: str) -> dict[str, str] | No
 
 
 def normalize_release_version(tag: str, release_name: str | None = None) -> str:
+    """
+    Normalize a release version string, preferring a non-empty release name over the tag.
+
+    Args:
+        tag: The tag name (e.g., 'v1.2.3').
+        release_name: Optional release title from GitHub.
+
+    Returns:
+        A normalized version string without a leading 'v' where applicable.
+    """
     if release_name:
         stripped_name = release_name.strip()
         if stripped_name != "":
@@ -212,6 +310,18 @@ def normalize_release_version(tag: str, release_name: str | None = None) -> str:
 
 
 async def get_default_git_branch_async(url: str) -> tuple[str, str]:
+    """
+    Resolve the default branch and its latest commit for a remote Git repository.
+
+    Args:
+        url: Repository URL.
+
+    Returns:
+        Tuple (rev, branch) where rev is the commit SHA and branch is branch name.
+
+    Raises:
+        RuntimeError: if unable to determine the default branch.
+    """
     output = await run_command(["git", "ls-remote", "--symref", url, "HEAD"])
 
     branch_match = re.search(r"ref:\s+refs/heads/(?P<branch>[^\t]+)\tHEAD", output)
@@ -224,6 +334,19 @@ async def get_default_git_branch_async(url: str) -> tuple[str, str]:
 
 
 async def get_latest_git_rev_async(url: str, branch: str | None) -> tuple[str, str]:
+    """
+    Get the latest commit SHA for the given branch (or default branch if None).
+
+    Args:
+        url: Repository URL.
+        branch: Branch to query, or None to use default.
+
+    Returns:
+        Tuple (rev, branch).
+
+    Raises:
+        RuntimeError: if the commit cannot be resolved.
+    """
     if branch is None:
         return await get_default_git_branch_async(url)
 
@@ -236,16 +359,45 @@ async def get_latest_git_rev_async(url: str, branch: str | None) -> tuple[str, s
 
 
 def github_release_archive_url(url: str, tag: str) -> str:
+    """
+    Construct the URL to a release archive (.tar.gz) for a GitHub repository and tag.
+
+    Args:
+        url: Repository URL.
+        tag: Release tag.
+
+    Returns:
+        Archive download URL.
+    """
     base_url = url.removesuffix(".git").rstrip("/")
     return f"{base_url}/archive/refs/tags/{tag}.tar.gz"
 
 
 def github_release_api_base_url(url: str) -> str:
+    """
+    Build the GitHub API base URL for a repository.
+
+    Args:
+        url: Repository URL.
+
+    Returns:
+        API base URL, e.g. 'https://api.github.com/repos/owner/repo'.
+    """
     owner, repo = parse_github_repo_url(url)
     return f"https://api.github.com/repos/{owner}/{repo}"
 
 
 async def get_github_release_data_async(url: str, tag: str | None) -> JSONDict | None:
+    """
+    Fetch release metadata from the GitHub Releases API for a given repo and optional tag.
+
+    Args:
+        url: Repository URL.
+        tag: Release tag or None for latest.
+
+    Returns:
+        Parsed release JSON dict or None if not found (404).
+    """
     api_base_url = github_release_api_base_url(url)
     endpoint = (
         f"{api_base_url}/releases/latest"
@@ -263,6 +415,18 @@ async def get_github_release_data_async(url: str, tag: str | None) -> JSONDict |
 
 
 async def get_latest_github_tag_async(url: str) -> str:
+    """
+    Query the repository tags API to determine the latest tag.
+
+    Args:
+        url: Repository URL.
+
+    Returns:
+        The latest tag name.
+
+    Raises:
+        RuntimeError: if no tags are available.
+    """
     tags_data = cast(
         list[JSONDict],
         await fetch_json_async(f"{github_release_api_base_url(url)}/tags?per_page=1"),
@@ -274,6 +438,15 @@ async def get_latest_github_tag_async(url: str) -> str:
 
 
 async def get_latest_github_release_tag_async(url: str) -> str:
+    """
+    Get the latest release tag, preferring the release entry and falling back to tags list.
+
+    Args:
+        url: Repository URL.
+
+    Returns:
+        A tag name string.
+    """
     release_data = await get_github_release_data_async(url, None)
     if release_data is not None:
         tag_name = cast(str | None, release_data.get("tag_name"))
@@ -284,12 +457,35 @@ async def get_latest_github_release_tag_async(url: str) -> str:
 
 
 def get_release_assets(release_data: JSONDict) -> list[JSONDict]:
+    """
+    Extract the 'assets' list from a GitHub release payload.
+
+    Args:
+        release_data: Parsed JSON for a release.
+
+    Returns:
+        List of asset dicts (may be empty).
+    """
     return cast(list[JSONDict], release_data.get("assets", []))
 
 
 def select_release_asset(
     release_assets: list[JSONDict], system: str, pattern: str
 ) -> JSONDict:
+    """
+    Choose a single release asset matching the provided regex pattern for a system.
+
+    Args:
+        release_assets: List of assets from a release.
+        system: Logical system name used in the asset_patterns mapping.
+        pattern: Regex pattern to match asset filenames.
+
+    Returns:
+        The matched asset dict.
+
+    Raises:
+        RuntimeError: if no assets match or multiple assets match.
+    """
     matches = [
         asset
         for asset in release_assets
@@ -309,6 +505,16 @@ def select_release_asset(
 
 
 async def prefetch_file_hash_async(url: str, unpack: bool = False) -> str:
+    """
+    Use 'nix store prefetch-file' to fetch a remote file and return its Nix hash.
+
+    Args:
+        url: URL to prefetch.
+        unpack: Whether to unpack the archive before hashing.
+
+    Returns:
+        The Nix hash string.
+    """
     command = ["nix", "store", "prefetch-file", "--json"]
     if unpack:
         command.append("--unpack")
@@ -320,6 +526,15 @@ async def prefetch_file_hash_async(url: str, unpack: bool = False) -> str:
 
 
 async def lock_release_asset_async(asset: JSONDict) -> GithubReleaseAsset:
+    """
+    Lock a single GitHub release asset by fetching its URL and computing its hash.
+
+    Args:
+        asset: Asset payload from the release JSON.
+
+    Returns:
+        GithubReleaseAsset with name, url, and resolved hash.
+    """
     asset_url = cast(str, asset["browser_download_url"])
     return GithubReleaseAsset(
         name=cast(str, asset["name"]),
@@ -331,6 +546,16 @@ async def lock_release_asset_async(asset: JSONDict) -> GithubReleaseAsset:
 async def lock_release_assets_async(
     release_data: JSONDict, asset_patterns: dict[str, str]
 ) -> dict[str, GithubReleaseAsset]:
+    """
+    Lock a set of GitHub release assets according to asset_patterns, returning a mapping by system.
+
+    Args:
+        release_data: Release JSON payload.
+        asset_patterns: Mapping of system -> regex pattern.
+
+    Returns:
+        Mapping of system name to GithubReleaseAsset.
+    """
     release_assets = get_release_assets(release_data)
     selected_assets = {
         system: select_release_asset(release_assets, system, pattern)
@@ -353,6 +578,21 @@ async def get_git_hash_async(
     rev: str,
     sparse_checkout: list[str] | None,
 ) -> str:
+    """
+    Compute a Nix fetchgit hash for a specific repository revision using 'nurl'.
+
+    Args:
+        url: Repository URL.
+        branch: Branch name or None.
+        rev: Commit SHA to lock.
+        sparse_checkout: Optional list of sparse paths.
+
+    Returns:
+        The computed fetchgit hash.
+
+    Raises:
+        RuntimeError: if the hash cannot be extracted from nurl output.
+    """
     command = ["nurl", url, rev, "-f", "fetchgit"]
 
     if branch:
@@ -376,6 +616,18 @@ async def resolve_git_dependency_async(
     rev: str | None,
     sparse_checkout: list[str] | None,
 ) -> DependencyAttributes:
+    """
+    Resolve a git dependency by determining the revision and computing its hash.
+
+    Args:
+        url: Repository URL.
+        branch: Optional branch name.
+        rev: Optional explicit revision (commit SHA).
+        sparse_checkout: Optional sparse checkout paths.
+
+    Returns:
+        DependencyAttributes containing resolved branch, rev, and hash.
+    """
     latest_rev, resolved_branch = await get_latest_git_rev_async(url, branch)
     resolved_rev = rev or latest_rev
     hash_value = await get_git_hash_async(url, resolved_branch, resolved_rev, sparse_checkout)
@@ -396,6 +648,26 @@ async def resolve_github_release_dependency_async(
     version: str | None,
     asset_patterns: dict[str, str] | None,
 ) -> DependencyAttributes:
+    """
+    Resolve a GitHub release dependency into concrete attributes.
+
+    Args:
+        url: Repository identifier or URL (e.g. "owner/repo" or full GitHub URL).
+        tag: Specific tag to resolve. If None, the latest tag will be used.
+        version: Optional override for the resolved version string.
+        asset_patterns: If provided, lock and return release assets matching
+            these glob patterns instead of a release archive hash.
+
+    Returns:
+        DependencyAttributes describing the resolved release. When
+        asset_patterns is provided the returned attributes include `assets`
+        and `assetPatterns`; otherwise they include a `hash` of the release
+        archive suitable for reproducible fetching.
+
+    Raises:
+        RuntimeError: If asset_patterns is provided but the requested release
+            (tag or latest) cannot be found.
+    """
     release_data = await get_github_release_data_async(url, tag)
 
     if asset_patterns is not None:
@@ -441,6 +713,19 @@ async def resolve_github_release_dependency_async(
 
 
 async def get_pypi_source_async(package_name: str, version: str | None) -> tuple[str, str]:
+    """
+    Resolve a PyPI package and version to a source sdist URL and resolved version.
+
+    Args:
+        package_name: PyPI package name.
+        version: Optional version string; if None the latest is used.
+
+    Returns:
+        Tuple (resolved_version, sdist_url).
+
+    Raises:
+        RuntimeError: if no source distribution is found for the resolved version.
+    """
     resolved_version = version
     if resolved_version is None:
         package_data = cast(
@@ -469,6 +754,16 @@ async def get_pypi_source_async(package_name: str, version: str | None) -> tuple
 async def resolve_pypi_dependency_async(
     package_name: str, version: str | None
 ) -> DependencyAttributes:
+    """
+    Resolve a PyPI dependency into DependencyAttributes including the sdist URL and hash.
+
+    Args:
+        package_name: PyPI package name.
+        version: Optional version string.
+
+    Returns:
+        DependencyAttributes with type 'pypi', name, version, url, and hash.
+    """
     resolved_version, source_url = await get_pypi_source_async(package_name, version)
     hash_value = await prefetch_file_hash_async(source_url)
 
@@ -482,6 +777,16 @@ async def resolve_pypi_dependency_async(
 
 
 async def get_npm_source_async(package_name: str, version: str | None) -> tuple[str, str]:
+    """
+    Resolve an npm package and version to a tarball URL and resolved version.
+
+    Args:
+        package_name: npm package name (may include scope).
+        version: Optional version; if None resolves 'latest'.
+
+    Returns:
+        Tuple (resolved_version, tarball_url).
+    """
     encoded_name = quote(package_name, safe="")
     metadata_url = (
         f"https://registry.npmjs.org/{encoded_name}/latest"
@@ -496,6 +801,16 @@ async def get_npm_source_async(package_name: str, version: str | None) -> tuple[
 async def resolve_npm_dependency_async(
     package_name: str, version: str | None
 ) -> DependencyAttributes:
+    """
+    Resolve an npm dependency into DependencyAttributes with tarball URL and hash.
+
+    Args:
+        package_name: npm package name.
+        version: Optional version.
+
+    Returns:
+        DependencyAttributes with type 'npm', name, version, url, and hash.
+    """
     resolved_version, source_url = await get_npm_source_async(package_name, version)
     hash_value = await prefetch_file_hash_async(source_url)
 
@@ -519,6 +834,26 @@ async def resolve_dependency_async(
     version: str | None,
     asset_patterns: dict[str, str] | None,
 ) -> DependencyAttributes:
+    """
+    Resolve a dependency by dispatching to the appropriate resolver for its type.
+
+    Args:
+        dependency_type: One of 'git', 'github-release', 'pypi', or 'npm'.
+        source: Source string (repo URL or package name) when applicable.
+        branch: Git branch (for git sources).
+        rev: Git revision (commit SHA) override.
+        sparse_checkout: Optional sparse checkout paths for git.
+        tag: GitHub release tag.
+        package_name: Package name for PyPI/npm.
+        version: Package or release version.
+        asset_patterns: Asset pattern mapping for GitHub release assets.
+
+    Returns:
+        Resolved DependencyAttributes for the given dependency specification.
+
+    Raises:
+        ValueError: for missing required fields or unsupported types.
+    """
     if dependency_type == "git":
         if source is None:
             raise ValueError("A Git dependency requires a repository URL.")
@@ -549,6 +884,19 @@ async def resolve_dependency_async(
 
 
 async def update_dependency_async(data: dict[str, DependencyAttributes], dep_name: str) -> None:
+    """
+    Update a single dependency entry in-place by re-resolving its attributes.
+
+    Args:
+        data: The full dependency mapping (modified in-place).
+        dep_name: The key of the dependency to update.
+
+    Returns:
+        None
+
+    Raises:
+        RuntimeError: if the dependency entry is missing required fields for its type.
+    """
     dep = data[dep_name]
 
     if dep.type == "git":
@@ -607,10 +955,32 @@ async def update_dependency_async(data: dict[str, DependencyAttributes], dep_nam
 
 
 def get_namespace_values(args: Namespace) -> dict[str, object]:
+    """
+    Convert an argparse Namespace into a plain dict with proper typing.
+
+    Args:
+        args: argparse Namespace instance.
+
+    Returns:
+        A dict mapping argument names to their values.
+    """
     return cast(dict[str, object], vars(args))
 
 
 def get_str_arg(args: Namespace, name: str) -> str:
+    """
+    Retrieve a required string argument from argparse Namespace, raising on type mismatch.
+
+    Args:
+        args: argparse Namespace.
+        name: Argument name to retrieve.
+
+    Returns:
+        The string value for the argument.
+
+    Raises:
+        TypeError: if the value is not a string.
+    """
     value = get_namespace_values(args)[name]
     if isinstance(value, str):
         return value
@@ -619,6 +989,19 @@ def get_str_arg(args: Namespace, name: str) -> str:
 
 
 def get_optional_str_arg(args: Namespace, name: str) -> str | None:
+    """
+    Retrieve an optional string argument from argparse Namespace (may be None).
+
+    Args:
+        args: argparse Namespace.
+        name: Argument name to retrieve.
+
+    Returns:
+        The string value or None.
+
+    Raises:
+        TypeError: if the value is neither a string nor None.
+    """
     value = get_namespace_values(args)[name]
     if value is None or isinstance(value, str):
         return value
@@ -627,6 +1010,19 @@ def get_optional_str_arg(args: Namespace, name: str) -> str | None:
 
 
 def get_str_list_arg(args: Namespace, name: str) -> list[str]:
+    """
+    Retrieve an argument expected to be a list of strings from argparse Namespace.
+
+    Args:
+        args: argparse Namespace.
+        name: Argument name to retrieve.
+
+    Returns:
+        A list of strings.
+
+    Raises:
+        TypeError: if the value is not a list of strings.
+    """
     value = get_namespace_values(args)[name]
     if not isinstance(value, list):
         raise TypeError(f"Expected {name} to be a list of strings.")
@@ -641,6 +1037,19 @@ def get_str_list_arg(args: Namespace, name: str) -> list[str]:
 
 
 def get_optional_str_list_arg(args: Namespace, name: str) -> list[str] | None:
+    """
+    Retrieve an optional argument expected to be a list of strings from argparse Namespace.
+
+    Args:
+        args: argparse Namespace.
+        name: Argument name to retrieve.
+
+    Returns:
+        A list of strings or None.
+
+    Raises:
+        TypeError: if the value is neither None nor a list of strings.
+    """
     value = get_namespace_values(args)[name]
     if value is None:
         return None
@@ -658,6 +1067,18 @@ def get_optional_str_list_arg(args: Namespace, name: str) -> list[str] | None:
 
 
 def get_arg_callback(args: Namespace) -> Callable[[Namespace], None] | None:
+    """
+    Extract a stored callback function from parsed argparse Namespace (used for subcommands).
+
+    Args:
+        args: argparse Namespace parsed from CLI.
+
+    Returns:
+        A callable taking a Namespace or None if not set.
+
+    Raises:
+        TypeError: if func is present but not callable.
+    """
     value = get_namespace_values(args).get("func")
     if value is None:
         return None
@@ -668,6 +1089,12 @@ def get_arg_callback(args: Namespace) -> Callable[[Namespace], None] | None:
 
 
 async def add_dependency_async(args: Namespace) -> None:
+    """
+    CLI handler for the 'add' subcommand: resolve a dependency and persist it to deps-lock.json.
+
+    Args:
+        args: Parsed argparse Namespace containing CLI options for the dependency.
+    """
     asset_patterns = parse_mapping_args(get_str_list_arg(args, "asset_pattern"), "--asset-pattern")
 
     dependency = await resolve_dependency_async(
@@ -691,6 +1118,12 @@ async def add_dependency_async(args: Namespace) -> None:
 
 
 async def update_dependencies_async(_args: Namespace) -> None:
+    """
+    CLI handler for the 'update' subcommand: update all dependencies by re-resolving their hashes/refs.
+
+    Args:
+        _args: Parsed argparse Namespace (unused).
+    """
     data = load_data()
     tasks = [update_dependency_async(data, dep_name) for dep_name in data]
     _ = await asyncio.gather(*tasks)
@@ -700,14 +1133,31 @@ async def update_dependencies_async(_args: Namespace) -> None:
 
 
 def add_dependency(args: Namespace) -> None:
+    """
+    Synchronous wrapper that runs the add_dependency_async coroutine for CLI usage.
+
+    Args:
+        args: Parsed argparse Namespace for the 'add' command.
+    """
     asyncio.run(add_dependency_async(args))
 
 
 def update_dependencies(args: Namespace) -> None:
+    """
+    Synchronous wrapper that runs the update_dependencies_async coroutine for CLI usage.
+
+    Args:
+        args: Parsed argparse Namespace for the 'update' command.
+    """
     asyncio.run(update_dependencies_async(args))
 
 
 def main() -> None:
+    """
+    Command-line entry point for mdep. Parses arguments and dispatches subcommands.
+
+    This sets up 'add' and 'update' subcommands and invokes the corresponding handlers.
+    """
     parser = ArgumentParser(description="Manage locked Nix dependencies")
     subparsers = parser.add_subparsers(dest="action", help="Choose an action")
 
