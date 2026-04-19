@@ -13,7 +13,6 @@ let
   homeConfig = {
     home.packages = with pkgs; [
       docker
-      docker-compose
     ];
   };
 
