@@ -1,4 +1,8 @@
-{ deps, pkgs }:
+{
+  deps,
+  pkgs,
+  ...
+}:
 pkgs.buildGoModule rec {
   pname = "zsh-manpage-completion-generator";
   version = "1.0.2";

@@ -1,5 +1,6 @@
 {
   config,
+  customPkgs,
   deps,
   dotfilesConfig,
   isHm,
@@ -11,7 +12,7 @@
 let
   cfg = config.modules.zsh;
 
-  completions = pkgs.callPackage ../packages/zsh-completions.nix { inherit deps; };
+  completions = customPkgs.zsh-completions;
 
   addEqualsToFlags = ''
     add_equals_to_flags() {

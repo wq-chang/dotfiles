@@ -1,20 +1,15 @@
-{ ... }:
+{ lib, ... }:
+let
+  moduleFiles =
+    lib.sort builtins.lessThan (
+      builtins.attrNames (
+        lib.filterAttrs (
+          name: type:
+          type == "regular" && name != "default.nix" && lib.hasSuffix ".nix" name
+        ) (builtins.readDir ./.)
+      )
+    );
+in
 {
-  imports = [
-    ./bat.nix
-    ./direnv.nix
-    ./docker.nix
-    ./eza.nix
-    ./fonts.nix
-    ./fzf.nix
-    ./git.nix
-    ./gpg.nix
-    ./kitty.nix
-    ./lazygit.nix
-    ./neovim.nix
-    ./python.nix
-    ./wezterm.nix
-    ./yazi.nix
-    ./zsh.nix
-  ];
+  imports = map (fileName: (./. + "/${fileName}")) moduleFiles;
 }

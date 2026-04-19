@@ -1,15 +1,18 @@
 {
+  deps,
+  depsLock,
   pkgs,
+  ...
 }:
-pkgs.python3Packages.buildPythonApplication rec {
-  pname = "awscli_local";
-  version = "0.22.2";
+let
+  sourceMeta = depsLock.awscli-local;
+in
+pkgs.python3Packages.buildPythonApplication {
+  pname = sourceMeta.name;
+  version = sourceMeta.version;
   pyproject = true;
 
-  src = pkgs.fetchPypi {
-    inherit pname version;
-    hash = "sha256-B8Uyw3J1O/XxVCZFHckdbuyd6HeXSASTKamogr2sigs=";
-  };
+  src = deps.awscli-local;
 
   build-system = with pkgs.python3Packages; [ setuptools ];
 

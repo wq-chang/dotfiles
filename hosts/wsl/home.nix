@@ -1,11 +1,8 @@
-{ pkgs, ... }:
-let
-  awslocal = pkgs.callPackage ../../packages/aws-local.nix { };
-in
+{ customPkgs, pkgs, ... }:
 {
   home.packages = with pkgs; [
     awscli2
-    awslocal
+    customPkgs.aws-local
     github-copilot-cli
     gemini-cli
     lazydocker
