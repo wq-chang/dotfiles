@@ -54,7 +54,7 @@ nixos-rebuild switch --flake .#wsl --sudo
 
 ## Adding a new host
 
-1. Add the host's user settings to your external `dotfilesConfigs` input so `configKey` resolves to a real config.
+1. Add the host's user settings to your external `dotfilesConfigs` input so the host key (the map key in `hosts/default.nix`) resolves to a real config.
 2. Create `hosts/<name>/configuration.nix`, `hosts/<name>/home.nix`, and `hosts/<name>/module-configuration.nix`.
 3. Register the host in `hosts/default.nix`.
 
@@ -64,7 +64,6 @@ nixos-rebuild switch --flake .#wsl --sudo
 {
   laptop = {
     kind = "nixos";
-    configKey = "laptop";
     system = "x86_64-linux";
     systemStateVersion = "24.05";
     homeStateVersion = "24.05";
@@ -87,7 +86,6 @@ nixos-rebuild switch --flake .#laptop --sudo
 {
   macbook = {
     kind = "darwin";
-    configKey = "macbook";
     system = "aarch64-darwin";
     homeStateVersion = "24.05";
     systemModule = ./macbook/configuration.nix;

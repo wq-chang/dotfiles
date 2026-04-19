@@ -44,7 +44,7 @@
       mkHostContext =
         hostName: host:
         let
-          dotfilesConfig = dotfilesConfigs.${host.configKey or hostName} // {
+          dotfilesConfig = dotfilesConfigs.${hostName} // {
             user = hostName;
           };
 

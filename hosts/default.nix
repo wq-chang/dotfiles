@@ -1,7 +1,6 @@
 {
   wsl = {
     kind = "nixos";
-    configKey = "wsl";
     system = "x86_64-linux";
     systemStateVersion = "24.05";
     homeStateVersion = "24.05";
