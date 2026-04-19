@@ -107,13 +107,6 @@ return {
 		},
 		servers = {
 			basedpyright = {},
-			-- copilot = {
-			-- 	settings = {
-			-- 		nextEditSuggestions = {
-			-- 			enabled = true,
-			-- 		},
-			-- 	},
-			-- },
 			cssls = {},
 			eslint = {
 				settings = {

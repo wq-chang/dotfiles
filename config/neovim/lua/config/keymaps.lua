@@ -40,3 +40,6 @@ map( "n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase width" 
 
 -- Codes
 map("n", "<leader>cm", ":%s/\\r//g<cr>", { desc = "Remove ^M character" })
+
+-- Terminal
+map("t", "jk", [[<C-\><C-n>]], { noremap = true })

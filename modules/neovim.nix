@@ -23,8 +23,8 @@ let
       defaultEditor = true;
       withRuby = false;
       withPython3 = false;
+      sideloadInitLua = true;
     };
-    xdg.configFile."nvim/init.lua".enable = false;
 
     programs.java = {
       enable = true;
