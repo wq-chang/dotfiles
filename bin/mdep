@@ -7,7 +7,7 @@ import re
 from argparse import ArgumentParser, Namespace
 from dataclasses import dataclass
 from pathlib import Path
-from typing import IO, TypeAlias, TypedDict, Callable, cast
+from typing import IO, Callable, TypeAlias, TypedDict, cast
 from urllib.error import HTTPError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
@@ -63,7 +63,9 @@ class DependencyAttributes:
     assets: dict[str, GithubReleaseAsset] | None = None
 
 
-def parse_dependency_attributes(data_json: SerializedDependency) -> DependencyAttributes:
+def parse_dependency_attributes(
+    data_json: SerializedDependency,
+) -> DependencyAttributes:
     """
     Parse a serialized dependency dict from deps-lock.json into a DependencyAttributes object.
 
@@ -162,7 +164,9 @@ def load_data() -> dict[str, DependencyAttributes]:
 
     with deps_file.open("r") as file:
         raw_data = cast(dict[str, SerializedDependency], json.load(file))
-        return {key: parse_dependency_attributes(value) for key, value in raw_data.items()}
+        return {
+            key: parse_dependency_attributes(value) for key, value in raw_data.items()
+        }
 
 
 def dump_data(data: dict[str, DependencyAttributes]) -> None:
@@ -174,7 +178,11 @@ def dump_data(data: dict[str, DependencyAttributes]) -> None:
     """
     with deps_file.open("w") as file:
         sorted_data = dict(sorted(data.items()))
-        json.dump({key: clean_dict(value) for key, value in sorted_data.items()}, file, indent=2)
+        json.dump(
+            {key: clean_dict(value) for key, value in sorted_data.items()},
+            file,
+            indent=2,
+        )
         _ = file.write("\n")
 
 
@@ -283,7 +291,9 @@ def parse_mapping_args(raw_values: list[str], label: str) -> dict[str, str] | No
     for raw_value in raw_values:
         key, separator, value = raw_value.partition("=")
         if separator == "" or key == "" or value == "":
-            raise ValueError(f"Expected {label} in the form key=value, got: {raw_value}")
+            raise ValueError(
+                f"Expected {label} in the form key=value, got: {raw_value}"
+            )
 
         parsed[key] = value
 
@@ -493,7 +503,9 @@ def select_release_asset(
     ]
 
     if not matches:
-        raise RuntimeError(f"Unable to find a release asset for {system} matching {pattern!r}")
+        raise RuntimeError(
+            f"Unable to find a release asset for {system} matching {pattern!r}"
+        )
 
     if len(matches) > 1:
         matched_names = ", ".join(cast(str, asset["name"]) for asset in matches)
@@ -568,7 +580,9 @@ async def lock_release_assets_async(
 
     return {
         system: locked_asset
-        for system, locked_asset in zip(selected_assets.keys(), locked_assets, strict=True)
+        for system, locked_asset in zip(
+            selected_assets.keys(), locked_assets, strict=True
+        )
     }
 
 
@@ -599,13 +613,17 @@ async def get_git_hash_async(
         command.extend(["-A", "branchName", branch])
 
     if sparse_checkout:
-        sparse_checkout_value = "[" + " ".join(f'"{entry}"' for entry in sparse_checkout) + "]"
+        sparse_checkout_value = (
+            "[" + " ".join(f'"{entry}"' for entry in sparse_checkout) + "]"
+        )
         command.extend(["-a", "sparseCheckout", sparse_checkout_value])
 
     output = await run_command(command)
     hash_match = re.search(r'hash\s*=\s*"([^"]+)";', output)
     if hash_match is None:
-        raise RuntimeError(f"Unable to extract a fetchgit hash from nurl output for {url}@{rev}")
+        raise RuntimeError(
+            f"Unable to extract a fetchgit hash from nurl output for {url}@{rev}"
+        )
 
     return hash_match.group(1)
 
@@ -630,7 +648,9 @@ async def resolve_git_dependency_async(
     """
     latest_rev, resolved_branch = await get_latest_git_rev_async(url, branch)
     resolved_rev = rev or latest_rev
-    hash_value = await get_git_hash_async(url, resolved_branch, resolved_rev, sparse_checkout)
+    hash_value = await get_git_hash_async(
+        url, resolved_branch, resolved_rev, sparse_checkout
+    )
 
     return DependencyAttributes(
         type="git",
@@ -701,7 +721,9 @@ async def resolve_github_release_dependency_async(
         resolved_tag = tag or await get_latest_github_tag_async(url)
         resolved_version = version or normalize_release_version(resolved_tag)
 
-    hash_value = await prefetch_file_hash_async(github_release_archive_url(url, resolved_tag), unpack=True)
+    hash_value = await prefetch_file_hash_async(
+        github_release_archive_url(url, resolved_tag), unpack=True
+    )
 
     return DependencyAttributes(
         type="github-release",
@@ -712,7 +734,9 @@ async def resolve_github_release_dependency_async(
     )
 
 
-async def get_pypi_source_async(package_name: str, version: str | None) -> tuple[str, str]:
+async def get_pypi_source_async(
+    package_name: str, version: str | None
+) -> tuple[str, str]:
     """
     Resolve a PyPI package and version to a source sdist URL and resolved version.
 
@@ -729,14 +753,17 @@ async def get_pypi_source_async(package_name: str, version: str | None) -> tuple
     resolved_version = version
     if resolved_version is None:
         package_data = cast(
-            JSONDict, await fetch_json_async(f"https://pypi.org/pypi/{package_name}/json")
+            JSONDict,
+            await fetch_json_async(f"https://pypi.org/pypi/{package_name}/json"),
         )
         info = cast(JSONDict, package_data["info"])
         resolved_version = cast(str, info["version"])
 
     release_data = cast(
         JSONDict,
-        await fetch_json_async(f"https://pypi.org/pypi/{package_name}/{resolved_version}/json"),
+        await fetch_json_async(
+            f"https://pypi.org/pypi/{package_name}/{resolved_version}/json"
+        ),
     )
 
     urls = cast(list[JSONDict], release_data["urls"])
@@ -746,7 +773,9 @@ async def get_pypi_source_async(package_name: str, version: str | None) -> tuple
     )
 
     if source_distribution is None:
-        raise RuntimeError(f"Unable to find a source distribution for {package_name}@{resolved_version}")
+        raise RuntimeError(
+            f"Unable to find a source distribution for {package_name}@{resolved_version}"
+        )
 
     return resolved_version, cast(str, source_distribution["url"])
 
@@ -776,7 +805,9 @@ async def resolve_pypi_dependency_async(
     )
 
 
-async def get_npm_source_async(package_name: str, version: str | None) -> tuple[str, str]:
+async def get_npm_source_async(
+    package_name: str, version: str | None
+) -> tuple[str, str]:
     """
     Resolve an npm package and version to a tarball URL and resolved version.
 
@@ -864,7 +895,9 @@ async def resolve_dependency_async(
         if source is None:
             raise ValueError("A GitHub release dependency requires a repository URL.")
 
-        return await resolve_github_release_dependency_async(source, tag, version, asset_patterns)
+        return await resolve_github_release_dependency_async(
+            source, tag, version, asset_patterns
+        )
 
     if dependency_type == "pypi":
         resolved_name = package_name or source
@@ -883,7 +916,9 @@ async def resolve_dependency_async(
     raise ValueError(f"Unsupported dependency type: {dependency_type}")
 
 
-async def update_dependency_async(data: dict[str, DependencyAttributes], dep_name: str) -> None:
+async def update_dependency_async(
+    data: dict[str, DependencyAttributes], dep_name: str
+) -> None:
     """
     Update a single dependency entry in-place by re-resolving its attributes.
 
@@ -903,7 +938,9 @@ async def update_dependency_async(data: dict[str, DependencyAttributes], dep_nam
         if dep.url is None:
             raise RuntimeError(f"Missing Git URL for dependency {dep_name}")
 
-        latest_rev, resolved_branch = await get_latest_git_rev_async(dep.url, dep.branchName)
+        latest_rev, resolved_branch = await get_latest_git_rev_async(
+            dep.url, dep.branchName
+        )
         if dep.rev == latest_rev and dep.hash is not None:
             return
 
@@ -937,6 +974,9 @@ async def update_dependency_async(data: dict[str, DependencyAttributes], dep_nam
             raise RuntimeError(f"Missing PyPI package name for dependency {dep_name}")
 
         resolved_version, source_url = await get_pypi_source_async(dep.name, None)
+        if dep.version == resolved_version and dep.hash is not None:
+            return
+
         dep.version = resolved_version
         dep.url = source_url
         dep.hash = await prefetch_file_hash_async(source_url)
@@ -945,6 +985,9 @@ async def update_dependency_async(data: dict[str, DependencyAttributes], dep_nam
             raise RuntimeError(f"Missing npm package name for dependency {dep_name}")
 
         resolved_version, source_url = await get_npm_source_async(dep.name, None)
+        if dep.version == resolved_version and dep.hash is not None:
+            return
+
         dep.version = resolved_version
         dep.url = source_url
         dep.hash = await prefetch_file_hash_async(source_url)
@@ -1095,7 +1138,9 @@ async def add_dependency_async(args: Namespace) -> None:
     Args:
         args: Parsed argparse Namespace containing CLI options for the dependency.
     """
-    asset_patterns = parse_mapping_args(get_str_list_arg(args, "asset_pattern"), "--asset-pattern")
+    asset_patterns = parse_mapping_args(
+        get_str_list_arg(args, "asset_pattern"), "--asset-pattern"
+    )
 
     dependency = await resolve_dependency_async(
         dependency_type=get_str_arg(args, "type"),
@@ -1162,7 +1207,9 @@ def main() -> None:
     subparsers = parser.add_subparsers(dest="action", help="Choose an action")
 
     parser_add = subparsers.add_parser("add", help="Add dependency")
-    _ = parser_add.add_argument("name", type=str, help="Dependency key in deps-lock.json")
+    _ = parser_add.add_argument(
+        "name", type=str, help="Dependency key in deps-lock.json"
+    )
     _ = parser_add.add_argument(
         "source",
         nargs="?",
@@ -1191,7 +1238,9 @@ def main() -> None:
         type=str,
         help="Package name for PyPI or npm dependencies",
     )
-    _ = parser_add.add_argument("--version", type=str, help="Package version for GitHub release, PyPI, or npm")
+    _ = parser_add.add_argument(
+        "--version", type=str, help="Package version for GitHub release, PyPI, or npm"
+    )
     _ = parser_add.add_argument(
         "-s",
         "--sparse-checkout",

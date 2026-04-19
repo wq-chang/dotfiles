@@ -1,14 +1,16 @@
-{ deps, depsLock, lib }:
+{
+  deps,
+  depsLock,
+  lib,
+}:
 let
-  overlayFiles =
-    lib.sort builtins.lessThan (
-      builtins.attrNames (
-        lib.filterAttrs (
-          name: type:
-          type == "regular" && name != "default.nix" && lib.hasSuffix ".nix" name
-        ) (builtins.readDir ./.)
-      )
-    );
+  overlayFiles = lib.sort builtins.lessThan (
+    builtins.attrNames (
+      lib.filterAttrs (
+        name: type: type == "regular" && name != "default.nix" && lib.hasSuffix ".nix" name
+      ) (builtins.readDir ./.)
+    )
+  );
 
   customPackagesOverlay = final: _prev: {
     customPkgs = import ../packages {
