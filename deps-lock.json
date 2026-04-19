@@ -1,5 +1,6 @@
 {
   "argcomplete": {
+    "type": "git",
     "url": "https://github.com/kislyuk/argcomplete",
     "branchName": "main",
     "rev": "8e5ad6a5a702e5529f61ae9a63f720beda68ffaf",
@@ -8,7 +9,15 @@
       "argcomplete/bash_completion.d/_python-argcomplete"
     ]
   },
+  "awscli-local": {
+    "type": "pypi",
+    "url": "https://files.pythonhosted.org/packages/7a/71/591a30da6819c96deca2286f145d5982e73b11e7f657e8cbfc5e003ca73f/awscli_local-0.22.2.tar.gz",
+    "hash": "sha256-B8Uyw3J1O/XxVCZFHckdbuyd6HeXSASTKamogr2sigs=",
+    "name": "awscli_local",
+    "version": "0.22.2"
+  },
   "docker-cli": {
+    "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
     "rev": "89958b190cca2d6bc6005103accccefafd5f62f5",
@@ -18,12 +27,48 @@
     ]
   },
   "fzf-tab": {
+    "type": "git",
     "url": "https://github.com/Aloxaf/fzf-tab",
     "branchName": "master",
     "rev": "0983009f8666f11e91a2ee1f88cfdb748d14f656",
     "hash": "sha256-yvPQyuK4Dw+LkwxrkWTRcw4PIf/79fW61jWbEg8Pe9Y="
   },
+  "github-copilot-cli": {
+    "type": "github-release",
+    "url": "https://github.com/github/copilot-cli",
+    "tag": "v1.0.32",
+    "version": "1.0.32",
+    "assetPatterns": {
+      "aarch64-darwin": "^copilot-darwin-arm64\\.tar\\.gz$",
+      "aarch64-linux": "^copilot-linux-arm64\\.tar\\.gz$",
+      "x86_64-darwin": "^copilot-darwin-x64\\.tar\\.gz$",
+      "x86_64-linux": "^copilot-linux-x64\\.tar\\.gz$"
+    },
+    "assets": {
+      "aarch64-darwin": {
+        "name": "copilot-darwin-arm64.tar.gz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.32/copilot-darwin-arm64.tar.gz",
+        "hash": "sha256-8Lzl6JJc1tpR1hO9gv/ck+zRy4zO7/ieLwfnppgKsLM="
+      },
+      "aarch64-linux": {
+        "name": "copilot-linux-arm64.tar.gz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.32/copilot-linux-arm64.tar.gz",
+        "hash": "sha256-9snR+MC8EZESZde/xRQ28z8h/5vTFDMboAm60gOjilk="
+      },
+      "x86_64-darwin": {
+        "name": "copilot-darwin-x64.tar.gz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.32/copilot-darwin-x64.tar.gz",
+        "hash": "sha256-fGY8ahkymJXAlcREgVB8UkICtn3zP52w1Lhur+F7LaY="
+      },
+      "x86_64-linux": {
+        "name": "copilot-linux-x64.tar.gz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.32/copilot-linux-x64.tar.gz",
+        "hash": "sha256-K0UH4DsBNpKnypnOWjyVBF/tKQFRC/Se06RA1eZPt3M="
+      }
+    }
+  },
   "ohmyzsh": {
+    "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
     "rev": "e42ac8c57bc7eb473b689ffcbb98473ba45dbab8",
@@ -34,12 +79,14 @@
     ]
   },
   "powerlevel10k": {
+    "type": "git",
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
     "rev": "604f19a9eaa18e76db2e60b8d446d5f879065f90",
     "hash": "sha256-J8qKLkKYd62LuUY2y6Hy+AaokKVDSTucCNQwVQeAaxo="
   },
   "tokyonight": {
+    "type": "git",
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
     "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
@@ -52,12 +99,14 @@
     ]
   },
   "zsh-completions": {
+    "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
     "rev": "ed67fbb8ee9ec00abfaecdc3dcfc330202ede323",
     "hash": "sha256-JVX+gWLvcnln4pEJ/d4I7iIfWXHZ+zu8MRMGIslh/Fw="
   },
   "zsh-manpage-completion-generator": {
+    "type": "git",
     "url": "https://github.com/umlx5h/zsh-manpage-completion-generator",
     "branchName": "main",
     "rev": "9deb58cdefb11e808c77256873d96e2501adf1fc",
