@@ -37,9 +37,24 @@
       depsLib = import ./lib/deps.nix { inherit lib; };
       depsLock = depsLib.readDepsLock ./deps-lock.json;
 
+      isDarwinSystem = system: lib.hasSuffix "darwin" system;
+
       mkHomeDirectory =
-        system: username:
-        if lib.hasSuffix "darwin" system then "/Users/${username}" else "/home/${username}";
+        system: username: if isDarwinSystem system then "/Users/${username}" else "/home/${username}";
+
+      mkSpecialArgs =
+        context:
+        {
+          isHm,
+          isNixOs,
+        }:
+        let
+          isDarwin = isDarwinSystem context.host.system;
+        in
+        context.commonArgs
+        // {
+          inherit isDarwin isHm isNixOs;
+        };
 
       mkHostContext =
         hostName: host:
@@ -67,24 +82,23 @@
             inherit overlays;
             config.allowUnfree = true;
           };
+
+          customPkgs = import ./packages {
+            inherit deps depsLock pkgs;
+          };
         in
         {
           inherit
-            deps
             dotfilesConfig
-            host
             overlays
             pkgs
             ;
-          customPkgs = pkgs.customPkgs;
           commonArgs = {
             inherit
+              customPkgs
               deps
-              depsLock
               dotfilesConfig
-              hostName
               ;
-            customPkgs = pkgs.customPkgs;
             homeDirectory = mkHomeDirectory host.system dotfilesConfig.username;
             homeStateVersion = host.homeStateVersion;
             systemStateVersion = host.systemStateVersion or null;
@@ -98,77 +112,68 @@
         host.homeModule
       ];
 
-      mkNixOsConfiguration =
-        hostName: host:
+      mkSystemModules = context: host: homeManagerModule: [
+        {
+          nixpkgs = {
+            inherit (context) overlays;
+            config.allowUnfree = true;
+          };
+        }
+        host.moduleConfig
+        ./modules
+        host.systemModule
+        homeManagerModule
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = mkSpecialArgs context {
+              isHm = true;
+              isNixOs = false;
+            };
+            users.${context.dotfilesConfig.username}.imports = mkHomeModules host;
+          };
+        }
+      ];
+
+      mkSystemConfiguration =
+        {
+          builder,
+          extraModules ? [ ],
+          homeManagerModule,
+          host,
+          hostName,
+          isNixOs,
+        }:
         let
           context = mkHostContext hostName host;
         in
-        lib.nixosSystem {
+        builder {
           system = host.system;
-          specialArgs = context.commonArgs // {
+          specialArgs = mkSpecialArgs context {
             isHm = false;
-            isNixOs = true;
+            inherit isNixOs;
           };
-          modules = [
-            {
-              nixpkgs = {
-                inherit (context) overlays;
-                config.allowUnfree = true;
-              };
-            }
-            host.moduleConfig
-            ./modules
-            host.systemModule
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = context.commonArgs // {
-                  isHm = true;
-                  isNixOs = false;
-                };
-                users.${context.dotfilesConfig.username}.imports = mkHomeModules host;
-              };
-            }
-          ]
-          ++ lib.optionals (host.enableWsl or false) [ nixos-wsl.nixosModules.default ];
+          modules = mkSystemModules context host homeManagerModule ++ extraModules;
+        };
+
+      mkNixOsConfiguration =
+        hostName: host:
+        mkSystemConfiguration {
+          builder = lib.nixosSystem;
+          extraModules = lib.optionals (host.enableWsl or false) [ nixos-wsl.nixosModules.default ];
+          homeManagerModule = home-manager.nixosModules.home-manager;
+          inherit host hostName;
+          isNixOs = true;
         };
 
       mkDarwinConfiguration =
         hostName: host:
-        let
-          context = mkHostContext hostName host;
-        in
-        darwin.lib.darwinSystem {
-          system = host.system;
-          specialArgs = context.commonArgs // {
-            isHm = false;
-            isNixOs = false;
-          };
-          modules = [
-            {
-              nixpkgs = {
-                inherit (context) overlays;
-                config.allowUnfree = true;
-              };
-            }
-            host.moduleConfig
-            ./modules
-            host.systemModule
-            home-manager.darwinModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = context.commonArgs // {
-                  isHm = true;
-                  isNixOs = false;
-                };
-                users.${context.dotfilesConfig.username}.imports = mkHomeModules host;
-              };
-            }
-          ];
+        mkSystemConfiguration {
+          builder = darwin.lib.darwinSystem;
+          homeManagerModule = home-manager.darwinModules.home-manager;
+          inherit host hostName;
+          isNixOs = false;
         };
 
       mkHomeConfiguration =
@@ -178,7 +183,7 @@
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = context.pkgs;
-          extraSpecialArgs = context.commonArgs // {
+          extraSpecialArgs = mkSpecialArgs context {
             isHm = true;
             isNixOs = false;
           };
