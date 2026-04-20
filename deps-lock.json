@@ -71,7 +71,7 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "e42ac8c57bc7eb473b689ffcbb98473ba45dbab8",
+    "rev": "349b9e49ced7682e27927ffb34b6522f011f3e74",
     "hash": "sha256-IPLw8NRRZuHXg++NykLJJNkDDNE/Nljmvx8dwCbK0J4=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -102,8 +102,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "ed67fbb8ee9ec00abfaecdc3dcfc330202ede323",
-    "hash": "sha256-JVX+gWLvcnln4pEJ/d4I7iIfWXHZ+zu8MRMGIslh/Fw="
+    "rev": "47e40c923ca038b5a0259ea0460326c56344dc64",
+    "hash": "sha256-4dfAG6gfL9og3+3AA2F4Q3x4QVOqU4u/OsrLs/IbmlA="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",
