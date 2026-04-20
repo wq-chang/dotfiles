@@ -11,7 +11,8 @@
 - `modules/` contains reusable modules that are imported into both the NixOS and Home Manager graphs.
 - `lib/deps.nix` reads `deps-lock.json` and dispatches source fetching for `git`, `github-release`, `pypi`, and `npm`, including per-system GitHub release assets.
 - `packages/default.nix` auto-loads `packages/*.nix` into `customPkgs`.
-- `overlays/default.nix` auto-loads every overlay in `overlays/*.nix`, injects `customPkgs` into `pkgs`, and passes `deps`/`depsLock` into repo overlays.
+- `flake.nix` imports `packages/default.nix`, passes `customPkgs` plus shared special args (`isHm`, `isNixOs`, `isDarwin`), and builds the shared host context.
+- `overlays/default.nix` auto-loads every overlay in `overlays/*.nix` and passes `deps`/`depsLock` into repo overlays.
 - `bin/mdep` updates `deps-lock.json`.
 
 ## Conventions
@@ -19,7 +20,9 @@
 - Add a new machine by registering it in `hosts/default.nix`; the flake builders pick up the rest from there.
 - `kind = "nixos"` hosts build under `nixosConfigurations`; `kind = "darwin"` hosts build under `darwinConfigurations`.
 - Keep host files focused on overrides. Shared imports belong in the flake builders or `hosts/common/`.
+- When a change affects repository structure, setup/usage, conventions, or contributor workflow, update both `README.md` and `AGENTS.md` in the same change so the docs match the codebase.
 - Put custom packages in `packages/*.nix` and consume them through `customPkgs`.
+- For platform-aware module logic, use the shared special args from `flake.nix` (`isHm`, `isNixOs`, `isDarwin`) instead of recomputing platform checks inside modules.
 - `customPkgs` exposes hyphenated package names that match file names, e.g., `customPkgs.aws-local`
 - Drop overlays into `overlays/*.nix` as functions of the form `{ deps, depsLock, lib, ... }: final: prev: { ... }`; they are loaded automatically.
 - Use explicit dependency `type` values in `deps-lock.json` and let `mdep` manage `rev`, `tag`, `version`, `url`, and `hash`.
