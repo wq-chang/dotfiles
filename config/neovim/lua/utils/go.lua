@@ -2,7 +2,7 @@ local file_utils = require("utils.file")
 
 local M = {}
 
-local integration_build_flag = "-tags=integration"
+M.integration_build_flag = "-tags=integration"
 
 local function ensure_optimization_flag(flags)
 	if flags == nil or flags == vim.NIL then
@@ -53,7 +53,7 @@ function M.current_test_build_flags()
 		return {}
 	end
 
-	return { integration_build_flag }
+	return { M.integration_build_flag }
 end
 
 function M.current_package_dir()

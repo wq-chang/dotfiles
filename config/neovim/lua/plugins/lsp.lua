@@ -121,7 +121,9 @@ return {
 			gopls = {
 				settings = {
 					gopls = {
-						buildFlags = { "-tags=integration" },
+						buildFlags = {
+							require("utils.go").integration_build_flag,
+						},
 						codelenses = {
 							test = true,
 							vulncheck = true,
