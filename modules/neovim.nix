@@ -34,6 +34,8 @@ let
     modules.python.packages = p: with p; [ debugpy ];
 
     home.packages = with pkgs; [
+      go
+
       delve # go debugger
       file
       gcc

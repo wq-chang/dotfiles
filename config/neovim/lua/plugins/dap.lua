@@ -1,5 +1,7 @@
-local function map(lhs, rhx, opts)
-	vim.api.nvim_buf_set_keymap(0, "n", lhs, rhx, opts)
+local function map(lhs, rhs, opts)
+	opts = opts or {}
+	opts.buffer = 0
+	vim.keymap.set("n", lhs, rhs, opts)
 end
 
 return {
@@ -123,7 +125,15 @@ return {
 			"mfussenegger/nvim-dap",
 		},
 		config = function()
-			require("dap-go").setup()
+			local go_utils = require("utils.go")
+			local dap_go = require("dap-go")
+
+			dap_go.setup({
+				delve = {
+					build_flags = go_utils.current_test_build_flags,
+				},
+			})
+
 			local group = vim.api.nvim_create_augroup(
 				"golang_dap_keymap",
 				{ clear = true }
@@ -132,9 +142,9 @@ return {
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = { "go" },
 				callback = function(_)
-					-- stylua: ignore start
-					map("<leader>dm", "<cmd>lua require('dap-go').debug_test()<cr>", { desc = "Test method" })
-					-- stylua: ignore end
+					map("<leader>dm", function()
+						dap_go.debug_test(go_utils.current_debug_test_config())
+					end, { desc = "Test method" })
 				end,
 				group = group,
 			})

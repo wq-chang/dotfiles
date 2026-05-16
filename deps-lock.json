@@ -20,8 +20,8 @@
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "3928571dac80bbe3cf74b82d4505caac58881197",
-    "hash": "sha256-KXGacITYIHbW/db/G1QLae395y8j4H54mbNw2UEzdwQ=",
+    "rev": "2518b52d948a0cbee071d394c03c86a3005636ba",
+    "hash": "sha256-Q6Z8AVnJSveKak2ScXVOIzTM6+ntigNBzmxo8tREY0Q=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -30,14 +30,14 @@
     "type": "git",
     "url": "https://github.com/Aloxaf/fzf-tab",
     "branchName": "master",
-    "rev": "0983009f8666f11e91a2ee1f88cfdb748d14f656",
-    "hash": "sha256-yvPQyuK4Dw+LkwxrkWTRcw4PIf/79fW61jWbEg8Pe9Y="
+    "rev": "e394092c17277c84cb3d234917c4ac1073102ba6",
+    "hash": "sha256-WlmWLKHrLeptc5rqlHbKvthD73it9ij7IDT9QxN4jCc="
   },
   "github-copilot-cli": {
     "type": "github-release",
     "url": "https://github.com/github/copilot-cli",
-    "tag": "v1.0.35",
-    "version": "1.0.35",
+    "tag": "v1.0.48",
+    "version": "1.0.48",
     "assetPatterns": {
       "aarch64-darwin": "^copilot-darwin-arm64\\.tar\\.gz$",
       "aarch64-linux": "^copilot-linux-arm64\\.tar\\.gz$",
@@ -47,23 +47,23 @@
     "assets": {
       "aarch64-darwin": {
         "name": "copilot-darwin-arm64.tar.gz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.35/copilot-darwin-arm64.tar.gz",
-        "hash": "sha256-Fo4Bm45RezZjDRHXl+AtK/S6Gqn2z/qam3WjHHmIIVs="
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.48/copilot-darwin-arm64.tar.gz",
+        "hash": "sha256-uJJW/f6x76O6P5yISO6ETNNOpIXVNBa/MEtsabGNQ3g="
       },
       "aarch64-linux": {
         "name": "copilot-linux-arm64.tar.gz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.35/copilot-linux-arm64.tar.gz",
-        "hash": "sha256-wT9Q4EHbck0A/+krCniha+CvY523LYPtmmLr8dK3ZrM="
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.48/copilot-linux-arm64.tar.gz",
+        "hash": "sha256-Wle9EaLxdwpDP54EG945xleDj32k97fAWdpXUKZpq3s="
       },
       "x86_64-darwin": {
         "name": "copilot-darwin-x64.tar.gz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.35/copilot-darwin-x64.tar.gz",
-        "hash": "sha256-CA/yaQK3+XXowe+qQfuFGWo+ghty+AlCra0tU2E3Cc8="
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.48/copilot-darwin-x64.tar.gz",
+        "hash": "sha256-kOLkzcMFP9bFF/vqJmkQ8jJZ7omn2CT5i8hnPcWJrB4="
       },
       "x86_64-linux": {
         "name": "copilot-linux-x64.tar.gz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.35/copilot-linux-x64.tar.gz",
-        "hash": "sha256-H6fM9Ie8f69PvdgP3h3oknF1kNZg0Y1YTQuHgDgCZ4Y="
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.48/copilot-linux-x64.tar.gz",
+        "hash": "sha256-8qEnjDwv4iy8vlHA0u4lH3Yh0uoiEf4cezZoqzs2P/0="
       }
     }
   },
@@ -71,7 +71,7 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "349b9e49ced7682e27927ffb34b6522f011f3e74",
+    "rev": "a07126330b9f56f12f1e00ddd29786d35d6e64d9",
     "hash": "sha256-IPLw8NRRZuHXg++NykLJJNkDDNE/Nljmvx8dwCbK0J4=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -102,8 +102,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "dbaeafd96c3fd9d84c8540f6d87c6b37c4c9173d",
-    "hash": "sha256-+vOwkZrUHKH6mGs0xihg7FTWILA+93LNjaLhiYt81Bc="
+    "rev": "64f802936cc368202957e1db42e9305eaaddda4d",
+    "hash": "sha256-nNvE1wfPl8aASxTGwbzNZDwiDnmeKQP5UVm9ekxlgMQ="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",

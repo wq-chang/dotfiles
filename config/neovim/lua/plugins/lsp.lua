@@ -121,6 +121,7 @@ return {
 			gopls = {
 				settings = {
 					gopls = {
+						buildFlags = { "-tags=integration" },
 						codelenses = {
 							test = true,
 							vulncheck = true,
