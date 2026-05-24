@@ -78,6 +78,7 @@ let
     xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/neovim";
 
     home.sessionVariables = with pkgs; {
+      CGO_ENABLED = "1";
       LOMBOK = "${lombok}/share/java/lombok.jar";
       JAVA_DEBUG =
         vscode-extensions.vscjava.vscode-java-debug

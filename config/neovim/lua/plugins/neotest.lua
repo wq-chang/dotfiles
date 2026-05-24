@@ -75,8 +75,4 @@ return {
 			end
 		end,
 	},
-	{
-		"fredrikaverpil/neotest-golang",
-		version = "*",
-	},
 }
