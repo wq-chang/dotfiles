@@ -9,8 +9,12 @@ let
 
   selectGithubReleaseAsset =
     system: spec:
-    spec.assets.${system}
-      or (throw "GitHub release dependency ${spec.url} has no asset for system ${system}");
+    if builtins.hasAttr system spec.assets then
+      spec.assets.${system}
+    else if builtins.hasAttr "universal" spec.assets then
+      spec.assets.universal
+    else
+      throw "GitHub release dependency ${spec.url} has no asset at assets.${system} and no asset at assets.universal";
 
   fetchDependency =
     pkgs: spec:

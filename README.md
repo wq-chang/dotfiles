@@ -142,12 +142,9 @@ mdep add <name> <repo-url> -t git -b <branch> -r <commit revision> -s <sparse ch
 # Add a GitHub release dependency from the source archive
 mdep add <name> <repo-url> -t github-release --tag <tag>
 
-# Add a GitHub release dependency with per-system assets
+# Add a GitHub release dependency with a universal asset
 mdep add github-copilot-cli https://github.com/github/copilot-cli -t github-release \
-  --asset-pattern 'x86_64-linux=^copilot-linux-x64\.tar\.gz$' \
-  --asset-pattern 'aarch64-linux=^copilot-linux-arm64\.tar\.gz$' \
-  --asset-pattern 'x86_64-darwin=^copilot-darwin-x64\.tar\.gz$' \
-  --asset-pattern 'aarch64-darwin=^copilot-darwin-arm64\.tar\.gz$'
+  --asset-pattern 'universal=^github-copilot-[0-9.]+\.tgz$'
 
 # Add a PyPI dependency (uses the latest version when --version is omitted)
 mdep add <name> <package-name> -t pypi --version <version>
@@ -159,7 +156,7 @@ mdep add <name> <package-name> -t npm --version <version>
 mdep update
 ```
 
-Asset-based `github-release` entries keep one dependency record, store the resolved `assets.<system>` URLs and hashes, and let Nix select the correct asset from the current `host.system`.
+Asset-based `github-release` entries keep one dependency record and may store `assets.<system>` overrides and/or a shared `assets.universal` entry. Nix first selects `assets.<host.system>` and then falls back to `assets.universal`.
 
 ## Command reference
 

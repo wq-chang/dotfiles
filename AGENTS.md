@@ -222,7 +222,7 @@ See `overlays/github-copilot-cli.nix` for a complete example of consuming per-sy
 }
 ```
 
-**GitHub release with per-system assets**:
+**GitHub release with system-specific and universal assets**:
 
 ```json
 {
@@ -230,17 +230,17 @@ See `overlays/github-copilot-cli.nix` for a complete example of consuming per-sy
   "repo": "https://github.com/owner/repo",
   "tag": "v1.0.0",
   "assetPatterns": {
-    "x86_64-linux": "^binary-linux-x64\\.tar\\.gz$",
-    "aarch64-darwin": "^binary-macos-arm64\\.tar\\.gz$"
+    "universal": "^tool-[0-9.]+\\.tgz$",
+    "x86_64-linux": "^tool-linux-x64\\.tar\\.gz$"
   },
   "assets": {
-    "x86_64-linux": { "url": "...", "hash": "..." },
-    "aarch64-darwin": { "url": "...", "hash": "..." }
+    "universal": { "url": "...", "hash": "..." },
+    "x86_64-linux": { "url": "...", "hash": "..." }
   }
 }
 ```
 
-Nix selects the current system's asset automatically via `host.system`.
+Nix selects `assets.<host.system>` when present and otherwise falls back to `assets.universal`.
 
 **PyPI dependencies**:
 
@@ -269,10 +269,9 @@ mdep add my-tool https://github.com/owner/repo -t git -b main
 # Add a GitHub release dependency
 mdep add my-tool https://github.com/owner/repo -t github-release --tag v1.0.0
 
-# Add a GitHub release with per-system assets
+# Add a GitHub release with a universal asset
 mdep add github-copilot-cli https://github.com/github/copilot-cli -t github-release \
-  --asset-pattern 'x86_64-linux=^copilot-linux-x64\.tar\.gz$' \
-  --asset-pattern 'aarch64-darwin=^copilot-darwin-arm64\.tar\.gz$'
+  --asset-pattern 'universal=^github-copilot-[0-9.]+\.tgz$'
 
 # Update all locked hashes and versions
 mdep update

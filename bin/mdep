@@ -15,6 +15,7 @@ from urllib.request import Request, urlopen
 import argcomplete
 
 SOURCE_TYPES = ("git", "github-release", "pypi", "npm")
+UNIVERSAL_ASSET_KEY = "universal"
 deps_file = Path(__file__).resolve().parents[1] / "deps-lock.json"
 
 JSONDict: TypeAlias = dict[str, object]
@@ -480,14 +481,15 @@ def get_release_assets(release_data: JSONDict) -> list[JSONDict]:
 
 
 def select_release_asset(
-    release_assets: list[JSONDict], system: str, pattern: str
+    release_assets: list[JSONDict], asset_key: str, pattern: str
 ) -> JSONDict:
     """
-    Choose a single release asset matching the provided regex pattern for a system.
+    Choose a single release asset matching the provided regex pattern.
 
     Args:
         release_assets: List of assets from a release.
-        system: Logical system name used in the asset_patterns mapping.
+        asset_key: Key from the asset_patterns mapping. This may be a system
+            name or the reserved universal key.
         pattern: Regex pattern to match asset filenames.
 
     Returns:
@@ -504,13 +506,13 @@ def select_release_asset(
 
     if not matches:
         raise RuntimeError(
-            f"Unable to find a release asset for {system} matching {pattern!r}"
+            f"Unable to find a release asset for {asset_key} matching {pattern!r}"
         )
 
     if len(matches) > 1:
         matched_names = ", ".join(cast(str, asset["name"]) for asset in matches)
         raise RuntimeError(
-            f"Multiple release assets matched {system} with pattern {pattern!r}: {matched_names}"
+            f"Multiple release assets matched {asset_key} with pattern {pattern!r}: {matched_names}"
         )
 
     return matches[0]
@@ -537,52 +539,69 @@ async def prefetch_file_hash_async(url: str, unpack: bool = False) -> str:
     return data["hash"]
 
 
-async def lock_release_asset_async(asset: JSONDict) -> GithubReleaseAsset:
+def get_release_asset_download_url(asset: JSONDict) -> str:
     """
-    Lock a single GitHub release asset by fetching its URL and computing its hash.
+    Extract the browser download URL from a release asset payload.
 
     Args:
         asset: Asset payload from the release JSON.
 
     Returns:
-        GithubReleaseAsset with name, url, and resolved hash.
+        The browser download URL for the asset.
     """
-    asset_url = cast(str, asset["browser_download_url"])
-    return GithubReleaseAsset(
-        name=cast(str, asset["name"]),
-        url=asset_url,
-        hash=await prefetch_file_hash_async(asset_url),
-    )
+    return cast(str, asset["browser_download_url"])
+
+
+async def lock_release_asset_url_async(url: str) -> str:
+    """
+    Resolve the Nix hash for a release asset URL.
+
+    Args:
+        url: Browser download URL for the release asset.
+
+    Returns:
+        The Nix hash string for the asset.
+    """
+    return await prefetch_file_hash_async(url)
 
 
 async def lock_release_assets_async(
     release_data: JSONDict, asset_patterns: dict[str, str]
 ) -> dict[str, GithubReleaseAsset]:
     """
-    Lock a set of GitHub release assets according to asset_patterns, returning a mapping by system.
+    Lock a set of GitHub release assets according to asset_patterns.
 
     Args:
         release_data: Release JSON payload.
-        asset_patterns: Mapping of system -> regex pattern.
+        asset_patterns: Mapping of asset key -> regex pattern. Keys are usually
+            system names, but may also include the reserved `universal` key.
 
     Returns:
-        Mapping of system name to GithubReleaseAsset.
+        Mapping of asset key to GithubReleaseAsset.
     """
     release_assets = get_release_assets(release_data)
     selected_assets = {
-        system: select_release_asset(release_assets, system, pattern)
-        for system, pattern in asset_patterns.items()
+        asset_key: select_release_asset(release_assets, asset_key, pattern)
+        for asset_key, pattern in asset_patterns.items()
     }
-
-    locked_assets = await asyncio.gather(
-        *(lock_release_asset_async(asset) for asset in selected_assets.values())
+    selected_asset_urls = list(
+        dict.fromkeys(
+            get_release_asset_download_url(asset) for asset in selected_assets.values()
+        )
     )
 
+    locked_hashes = await asyncio.gather(
+        *(lock_release_asset_url_async(asset_url) for asset_url in selected_asset_urls)
+    )
+    locked_hashes_by_url = dict(zip(selected_asset_urls, locked_hashes, strict=True))
+
     return {
-        system: locked_asset
-        for system, locked_asset in zip(
-            selected_assets.keys(), locked_assets, strict=True
+        asset_key: GithubReleaseAsset(
+            name=cast(str, selected_asset["name"]),
+            url=get_release_asset_download_url(selected_asset),
+            hash=locked_hashes_by_url[get_release_asset_download_url(selected_asset)],
         )
+        for asset_key, selected_asset in selected_assets.items()
     }
 
 
@@ -1230,7 +1249,7 @@ def main() -> None:
         "--asset-pattern",
         action="append",
         default=[],
-        help="System-to-regex mapping for GitHub release assets, e.g. x86_64-linux=linux-x64\\.tar\\.gz",
+        help=f"Asset-key-to-regex mapping for GitHub release assets, e.g. x86_64-linux=linux-x64\\.tar\\.gz or {UNIVERSAL_ASSET_KEY}=github-copilot-.*\\.tgz",
     )
     _ = parser_add.add_argument(
         "-p",
