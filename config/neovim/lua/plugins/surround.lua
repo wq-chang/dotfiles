@@ -1,4 +1,6 @@
 return {
 	"kylechui/nvim-surround",
-	opts = {},
+	init = function()
+		vim.g.nvim_surround_no_visual_mappings = true
+	end,
 }
