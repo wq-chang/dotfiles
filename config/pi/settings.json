@@ -1,0 +1,11 @@
+{
+  "lastChangelogVersion": "0.78.0",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4-flash",
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:context-mode",
+    "npm:pi-web-access",
+    "npm:pi-subagents"
+  ]
+}

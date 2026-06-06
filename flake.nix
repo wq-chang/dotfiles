@@ -107,8 +107,8 @@
 
       mkHomeModules = host: [
         ./hosts/common/home.nix
-        host.moduleConfig
         ./modules
+        host.moduleConfig
         host.homeModule
       ];
 
@@ -119,8 +119,8 @@
             config.allowUnfree = true;
           };
         }
-        host.moduleConfig
         ./modules
+        host.moduleConfig
         host.systemModule
         homeManagerModule
         {

@@ -1,3 +1,6 @@
 .git/
 .idea/
 result
+
+config/pi/auth.json
+config/pi/sessions/

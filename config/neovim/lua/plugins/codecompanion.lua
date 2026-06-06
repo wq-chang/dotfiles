@@ -36,12 +36,17 @@ return {
 		},
 		interactions = {
 			cli = {
-				agent = "copilot",
+				agent = "pi",
 				agents = {
 					copilot = {
 						cmd = "copilot",
 						args = {},
 						description = "Copilot CLI",
+					},
+					pi = {
+						cmd = "pi",
+						args = {},
+						description = "Pi Agent",
 					},
 				},
 			},

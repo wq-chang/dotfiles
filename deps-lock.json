@@ -20,8 +20,8 @@
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "9f16882de480b23b39a8b0bc91393bb59aa19838",
-    "hash": "sha256-MhLWSYoaOEyQSeMmSAr0EowiB2knBKPOdVAXiCCgXeE=",
+    "rev": "4ed0e4e65dfd447668a775cefb65312c8bc980c7",
+    "hash": "sha256-eKcyfsuXX327DMudrAcVnC9NrEChKW99paUD9x9MJnk=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -30,22 +30,22 @@
     "type": "git",
     "url": "https://github.com/Aloxaf/fzf-tab",
     "branchName": "master",
-    "rev": "e394092c17277c84cb3d234917c4ac1073102ba6",
-    "hash": "sha256-WlmWLKHrLeptc5rqlHbKvthD73it9ij7IDT9QxN4jCc="
+    "rev": "24105b15714bfec37989ed5c5b6e60f572253019",
+    "hash": "sha256-YhTSu0P7mFlVx1zBvbT0jNstkamcZHhPYJHKMAHgyuM="
   },
   "github-copilot-cli": {
     "type": "github-release",
     "url": "https://github.com/github/copilot-cli",
-    "tag": "v1.0.52",
-    "version": "1.0.52",
+    "tag": "v1.0.60",
+    "version": "1.0.60",
     "assetPatterns": {
       "universal": "^github-copilot-[0-9.]+\\.tgz$"
     },
     "assets": {
       "universal": {
-        "name": "github-copilot-1.0.52.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.52/github-copilot-1.0.52.tgz",
-        "hash": "sha256-/TqmfP8IRgz4g9o//6/CH3/CrGbuwVfpfDOscKXh5ek="
+        "name": "github-copilot-1.0.60.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.60/github-copilot-1.0.60.tgz",
+        "hash": "sha256-wUEBstKx8Yb9m6ynIi137ZXR7dO39uepnv/yGFVE/qQ="
       }
     }
   },
@@ -53,7 +53,7 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "cb64103161b69d59e1efefeb761ac85564c44698",
+    "rev": "70ad5e3df8f7bed68aa6672029496926e632aedd",
     "hash": "sha256-IPLw8NRRZuHXg++NykLJJNkDDNE/Nljmvx8dwCbK0J4=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -64,8 +64,8 @@
     "type": "git",
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "604f19a9eaa18e76db2e60b8d446d5f879065f90",
-    "hash": "sha256-J8qKLkKYd62LuUY2y6Hy+AaokKVDSTucCNQwVQeAaxo="
+    "rev": "a0c9dbe80be404ff58e3ce5d7cf312582e370635",
+    "hash": "sha256-5yASWIMiuEghMU1zEtjT8ztIdWrflWDbaqAt3Yh6o7w="
   },
   "tokyonight": {
     "type": "git",
@@ -84,8 +84,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "6d21c2a1de9cb88479a0e67df492da3f3bbdb054",
-    "hash": "sha256-j+uDt2Tocej+AuNFBjM8rVTyuj1fDaMJL7I9cFCaPgg="
+    "rev": "dd83145816fe2d90b1ab4154ed528050e94ac5e3",
+    "hash": "sha256-dIZXrL11US/x0mVODxlBENP3qZmCLG4KZZAgmWJAKsU="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",

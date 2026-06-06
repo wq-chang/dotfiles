@@ -11,6 +11,7 @@
     gpg.enable = true;
     kitty.enable = true;
     lazygit.enable = true;
+    pi.enable = true;
     neovim.enable = true;
     yazi.enable = true;
     zsh = {
