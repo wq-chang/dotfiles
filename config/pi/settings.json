@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.78.0",
+  "lastChangelogVersion": "0.78.1",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "high",
@@ -7,5 +7,6 @@
     "npm:context-mode",
     "npm:pi-web-access",
     "npm:pi-subagents"
-  ]
+  ],
+  "hideThinkingBlock": true
 }

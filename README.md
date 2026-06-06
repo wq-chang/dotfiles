@@ -45,7 +45,7 @@ nixos-rebuild switch --flake .#<host> --sudo
 ## Repository layout
 
 | Path                                    | Purpose                                                                                                                                                                                                           |
-| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | `flake.nix`                             | Main entrypoint. Builds `nixosConfigurations`, `darwinConfigurations`, and `homeConfigurations` from `hosts/default.nix`, and passes shared special args such as `customPkgs`, `isHm`, `isNixOs`, and `isDarwin`. |
 | `hosts/default.nix`                     | Host inventory with each machine's kind, system, state versions, and module paths.                                                                                                                                |
 | `hosts/common/home.nix`                 | Shared Home Manager defaults.                                                                                                                                                                                     |
@@ -56,7 +56,7 @@ nixos-rebuild switch --flake .#<host> --sudo
 | `packages/default.nix`                  | Auto-loads `packages/*.nix` into `customPkgs`.                                                                                                                                                                    |
 | `overlays/default.nix`                  | Auto-loads overlay files from `overlays/*.nix` and passes `deps`/`depsLock` into them.                                                                                                                            |
 | `lib/deps.nix`                          | Reads `deps-lock.json` and resolves `git`, `github-release`, `pypi`, and `npm` dependencies.                                                                                                                      |
-| `bin/mdep`                              | Updates `deps-lock.json`.                                                                                                                                                                                         |
+| `bin/mdep`                              | Updates `deps-lock.json`. Also computes `npmDepsHash` from npm lockfiles for packages whose source is managed via deps.                                                                                           |     |
 
 ## Common workflows
 
@@ -132,6 +132,7 @@ darwin-rebuild switch --flake .#macbook
 - Overlay files in `overlays/*.nix` are auto-loaded into `pkgs`.
 - Repo overlays use the signature `{ deps, depsLock, lib, ... }: final: prev: { ... }`.
 - `overlays/github-copilot-cli.nix` is the reference example for tracking a newer upstream GitHub release than nixpkgs currently provides.
+- `overlays/pi-coding-agent.nix` shows the pattern for overriding a nixpkgs package from a `github-release` source with auto-computed `npmDepsHash`.
 
 ### `mdep`
 
@@ -152,20 +153,28 @@ mdep add <name> <package-name> -t pypi --version <version>
 # Add an npm dependency (uses the latest version when --version is omitted)
 mdep add <name> <package-name> -t npm --version <version>
 
-# Update dependencies in deps-lock.json
+# Add a GitHub release dependency with npm lockfile tracking
+mdep add pi-coding-agent https://github.com/earendil-works/pi -t github-release \
+  --npm-deps-lock-path packages/coding-agent/package-lock.json
+
+# Update dependencies in deps-lock.json (recomputes npmDepsHash for npm-tracked deps)
 mdep update
+
+# Update without recomputing npm deps hashes
+mdep update --no-npm-deps
 ```
 
 Asset-based `github-release` entries keep one dependency record and may store `assets.<system>` overrides and/or a shared `assets.universal` entry. Nix first selects `assets.<host.system>` and then falls back to `assets.universal`.
 
 ## Command reference
 
-| Command                                                            | Purpose                                                |
-| ------------------------------------------------------------------ | ------------------------------------------------------ |
-| `nix flake check --no-build --quiet`                               | Validate the flake without building.                   |
-| `nix build .#nixosConfigurations.wsl.config.system.build.toplevel` | Build the WSL NixOS system closure.                    |
-| `nix eval .#darwinConfigurations`                                  | Inspect available nix-darwin outputs without building. |
-| `nix build .#darwinConfigurations.<host>.activationPackage`        | Build a darwin activation package without applying it. |
-| `home-manager build --flake .#wsl`                                 | Build the WSL Home Manager profile.                    |
-| `mdep update`                                                      | Refresh and re-lock `deps-lock.json`.                  |
-| `upcmp`                                                            | Parse man pages and convert them to zsh completions.   |
+| Command                                                            | Purpose                                                                                         |
+| ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | --- |
+| `nix flake check --no-build --quiet`                               | Validate the flake without building.                                                            |
+| `nix build .#nixosConfigurations.wsl.config.system.build.toplevel` | Build the WSL NixOS system closure.                                                             |
+| `nix eval .#darwinConfigurations`                                  | Inspect available nix-darwin outputs without building.                                          |
+| `nix build .#darwinConfigurations.<host>.activationPackage`        | Build a darwin activation package without applying it.                                          |
+| `home-manager build --flake .#wsl`                                 | Build the WSL Home Manager profile.                                                             |
+| `mdep update`                                                      | Refresh and re-lock `deps-lock.json` (includes npmDepsHash recomputation for npm-tracked deps). |
+| `mdep update --no-npm-deps`                                        | Refresh source hashes only; skip npmDepsHash recomputation.                                     |     |
+| `upcmp`                                                            | Parse man pages and convert them to zsh completions.                                            |

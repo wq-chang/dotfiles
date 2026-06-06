@@ -40,6 +40,8 @@ class SerializedDependency(TypedDict, total=False):
     version: str
     assetPatterns: dict[str, str]
     assets: dict[str, SerializedGithubReleaseAsset]
+    npmDepsHash: str
+    npmDepsLockPath: str
 
 
 @dataclass
@@ -62,6 +64,8 @@ class DependencyAttributes:
     version: str | None = None
     assetPatterns: dict[str, str] | None = None
     assets: dict[str, GithubReleaseAsset] | None = None
+    npmDepsHash: str | None = None
+    npmDepsLockPath: str | None = None
 
 
 def parse_dependency_attributes(
@@ -102,6 +106,8 @@ def parse_dependency_attributes(
         version=data_json.get("version"),
         assetPatterns=data_json.get("assetPatterns"),
         assets=assets,
+        npmDepsHash=data_json.get("npmDepsHash"),
+        npmDepsLockPath=data_json.get("npmDepsLockPath"),
     )
 
 
@@ -150,6 +156,10 @@ def clean_dict(dependency: DependencyAttributes) -> SerializedDependency:
             system: serialize_release_asset(asset)
             for system, asset in sorted(dependency.assets.items())
         }
+    if dependency.npmDepsHash is not None:
+        clean["npmDepsHash"] = dependency.npmDepsHash
+    if dependency.npmDepsLockPath is not None:
+        clean["npmDepsLockPath"] = dependency.npmDepsLockPath
     return clean
 
 
@@ -537,6 +547,72 @@ async def prefetch_file_hash_async(url: str, unpack: bool = False) -> str:
     output = await run_command(command)
     data = cast(dict[str, str], json.loads(output))
     return data["hash"]
+
+
+async def fetch_unpacked_store_path_async(url: str) -> str:
+    """
+    Download and unpack a URL via nix store prefetch-file --unpack, returning the store path.
+
+    Args:
+        url: URL to fetch and unpack.
+
+    Returns:
+        The Nix store path of the unpacked content.
+    """
+    command = ["nix", "store", "prefetch-file", "--unpack", "--json", url]
+    output = await run_command(command)
+    data = cast(dict[str, str], json.loads(output))
+    return data["storePath"]
+
+
+async def compute_npm_deps_hash_async(lockfile_path: str) -> str:
+    """
+    Run 'nix run nixpkgs#prefetch-npm-deps' on a lockfile and return the SRI hash.
+
+    Args:
+        lockfile_path: Local path to a package-lock.json file.
+
+    Returns:
+        The SRI hash (e.g. sha256-xxxx...).
+    """
+    output = await run_command(
+        [
+            "nix",
+            "run",
+            "nixpkgs#prefetch-npm-deps",
+            lockfile_path,
+        ]
+    )
+    return output.strip()
+
+
+async def compute_npm_deps_for_dep_async(dep: DependencyAttributes) -> str | None:
+    """
+    If dep has npmDepsLockPath set, download the source archive and
+    compute the npmDepsHash via prefetch-npm-deps.
+
+    Args:
+        dep: The dependency attributes to compute for.
+
+    Returns:
+        The npmDepsHash SRI string, or None if the dep doesn't track npm deps.
+    """
+    if dep.npmDepsLockPath is None:
+        return None
+    if dep.type != "github-release":
+        print("  ⚠ npmDepsHash only supported for github-release deps, skipping")
+        return None
+    if dep.url is None or dep.tag is None:
+        return None
+
+    archive_url = github_release_archive_url(dep.url, dep.tag)
+    store_path = Path(await fetch_unpacked_store_path_async(archive_url))
+
+    package_lock_json = store_path / dep.npmDepsLockPath
+    if not package_lock_json.is_file():
+        raise RuntimeError(f"No lockfile found - {package_lock_json} ")
+
+    return await compute_npm_deps_hash_async(str(package_lock_json))
 
 
 def get_release_asset_download_url(asset: JSONDict) -> str:
@@ -936,7 +1012,9 @@ async def resolve_dependency_async(
 
 
 async def update_dependency_async(
-    data: dict[str, DependencyAttributes], dep_name: str
+    data: dict[str, DependencyAttributes],
+    dep_name: str,
+    no_npm_deps: bool = False,
 ) -> None:
     """
     Update a single dependency entry in-place by re-resolving its attributes.
@@ -988,6 +1066,17 @@ async def update_dependency_async(
             data[dep_name] = await resolve_github_release_dependency_async(
                 dep.url, None, None, None
             )
+
+        # Recompute npm deps hash if this dep tracks them
+        if not no_npm_deps and dep.npmDepsLockPath is not None:
+            data[dep_name].npmDepsLockPath = dep.npmDepsLockPath
+            print(f"  → computing npm deps hash for {dep_name}...")
+            try:
+                data[dep_name].npmDepsHash = await compute_npm_deps_for_dep_async(
+                    data[dep_name]
+                )
+            except RuntimeError as e:
+                print(f"  ⚠ npm deps hash computation failed for {dep_name}: {e}")
     elif dep.type == "pypi":
         if dep.name is None:
             raise RuntimeError(f"Missing PyPI package name for dependency {dep_name}")
@@ -1173,6 +1262,12 @@ async def add_dependency_async(args: Namespace) -> None:
         asset_patterns=asset_patterns,
     )
 
+    npm_deps_lock_path = get_optional_str_arg(args, "npm_deps_lock_path")
+    if npm_deps_lock_path is not None:
+        dependency.npmDepsLockPath = npm_deps_lock_path
+        print("  → computing npm deps hash...")
+        dependency.npmDepsHash = await compute_npm_deps_for_dep_async(dependency)
+
     data = load_data()
     dependency_name = get_str_arg(args, "name")
     data[dependency_name] = dependency
@@ -1181,15 +1276,16 @@ async def add_dependency_async(args: Namespace) -> None:
     print(f"Dependency {dependency_name} was added successfully!")
 
 
-async def update_dependencies_async(_args: Namespace) -> None:
+async def update_dependencies_async(args: Namespace) -> None:
     """
     CLI handler for the 'update' subcommand: update all dependencies by re-resolving their hashes/refs.
 
     Args:
-        _args: Parsed argparse Namespace (unused).
+        args: Parsed argparse Namespace.
     """
+    no_npm_deps = cast(bool, get_namespace_values(args).get("no_npm_deps", False))
     data = load_data()
-    tasks = [update_dependency_async(data, dep_name) for dep_name in data]
+    tasks = [update_dependency_async(data, dep_name, no_npm_deps) for dep_name in data]
     _ = await asyncio.gather(*tasks)
     dump_data(data)
 
@@ -1267,9 +1363,19 @@ def main() -> None:
         type=str,
         help="Sparse checkout paths for git dependencies",
     )
+    _ = parser_add.add_argument(
+        "--npm-deps-lock-path",
+        type=str,
+        help="Path to package-lock.json within the source tree, e.g. packages/coding-agent/package-lock.json. Sets npmDepsHash automatically.",
+    )
     parser_add.set_defaults(func=add_dependency)
 
     parser_update = subparsers.add_parser("update", help="Update all dependencies")
+    _ = parser_update.add_argument(
+        "--no-npm-deps",
+        action="store_true",
+        help="Skip npmDepsHash recomputation for deps that track npm dependencies",
+    )
     parser_update.set_defaults(func=update_dependencies)
 
     argcomplete.autocomplete(parser)

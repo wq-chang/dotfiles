@@ -44,7 +44,7 @@ This guide is designed to help AI code generation assistants (like GitHub Copilo
 ## File Structure
 
 | Path                                    | Purpose                                                                                                                                                                                                                                                            |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- |
 | `flake.nix`                             | Main entrypoint. Reads `hosts/default.nix`, imports modules, and exposes `nixosConfigurations`, `darwinConfigurations`, `homeConfigurations` outputs. Passes shared special args (`customPkgs`, `isHm`, `isNixOs`, `isDarwin`, `deps`, `depsLock`) to all modules. |
 | `hosts/default.nix`                     | Host inventory. Each host defines: `kind` (nixos or darwin), `system` (x86_64-linux, aarch64-darwin, etc.), state versions, and module paths. The flake auto-discovers and builds all registered hosts.                                                            |
 | `hosts/<host>/configuration.nix`        | System-level overrides for a specific host (NixOS/nix-darwin only). Imports shared modules via `module-configuration.nix` and applies host-specific settings.                                                                                                      |
@@ -57,7 +57,7 @@ This guide is designed to help AI code generation assistants (like GitHub Copilo
 | `overlays/default.nix`                  | Auto-loads all overlay files from `overlays/` and injects them into nixpkgs, receiving `deps`, `depsLock`, and other special args.                                                                                                                                 |
 | `overlays/<name>.nix`                   | Overlay file. Must be a function with signature `{ deps, depsLock, lib, ... }: final: prev: { ... }`. Auto-loaded by `overlays/default.nix`.                                                                                                                       |
 | `lib/deps.nix`                          | Reads `deps-lock.json` and resolves dependencies (git, github-release, pypi, npm). Handles per-system asset selection for github-release types.                                                                                                                    |
-| `bin/mdep`                              | CLI tool to manage `deps-lock.json`. Add, remove, and lock dependencies (git, github-release, pypi, npm).                                                                                                                                                          |
+| `bin/mdep`                              | CLI tool to manage `deps-lock.json`. Add, remove, and lock dependencies (git, github-release, pypi, npm). Supports `npmDepsHash` auto-computation for packages with npm lockfiles.                                                                                 |     |
 | `deps-lock.json`                        | Locked versions of all external dependencies. Use explicit `type` values; let `mdep` manage `rev`, `tag`, `version`, `url`, `hash`.                                                                                                                                |
 
 ---
@@ -191,9 +191,10 @@ Create `overlays/my-overlay.nix`:
 
 The overlay is automatically loaded by `overlays/default.nix`.
 
-### Reference example
+### Reference examples
 
-See `overlays/github-copilot-cli.nix` for a complete example of consuming per-system GitHub release assets.
+- **`overlays/github-copilot-cli.nix`** — consuming per-system GitHub release assets.
+- **`overlays/pi-coding-agent.nix`** — overriding a nixpkgs package from a `github-release` source with auto-computed `npmDepsHash`.
 
 ---
 
@@ -260,6 +261,15 @@ Nix selects `assets.<host.system>` when present and otherwise falls back to `ass
 }
 ```
 
+**Optional fields** (any type that produces a source tree):
+
+| Field             | Type   | Description                                                                                                                                                                    |
+| ----------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `npmDepsHash`     | string | SRI hash computed by `nix run nixpkgs#prefetch-npm-deps` on the dependency's lockfile. Set automatically by `mdep add --npm-deps-lock-path`.                                   |
+| `npmDepsLockPath` | string | Path to the npm lockfile within the extracted source tree (e.g. `packages/coding-agent/package-lock.json`). Used by `mdep update` to recompute `npmDepsHash` on version bumps. |
+
+When both fields are present in `deps-lock.json`, the overlay reads `npmDepsHash` directly (see `overlays/pi-coding-agent.nix` for the pattern).
+
 ### Managing dependencies
 
 ```bash
@@ -273,27 +283,36 @@ mdep add my-tool https://github.com/owner/repo -t github-release --tag v1.0.0
 mdep add github-copilot-cli https://github.com/github/copilot-cli -t github-release \
   --asset-pattern 'universal=^github-copilot-[0-9.]+\.tgz$'
 
-# Update all locked hashes and versions
+# Add a GitHub release dependency with npm lockfile tracking
+mdep add pi-coding-agent https://github.com/earendil-works/pi -t github-release \
+  --npm-deps-lock-path packages/coding-agent/package-lock.json
+
+# Update all locked hashes and versions (recomputes npmDepsHash for npm-tracked deps)
 mdep update
+
+# Update without recomputing npm deps hashes
+mdep update --no-npm-deps
 ```
 
-**Important**: Use explicit `type` values. Let `mdep` manage `rev`, `tag`, `version`, `url`, and `hash` automatically—don't edit these fields manually.
+**Important**: Use explicit `type` values. Let `mdep` manage `rev`, `tag`, `version`, `url`, `hash`, and `npmDepsHash` automatically—don't edit these fields manually.
 
 ---
 
 ## Complete Command Reference
 
-| Command                                                               | Purpose                                                                                           |
-| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `nix flake check --no-build --quiet`                                  | Validate flake structure without building. Catches evaluation errors quickly.                     |
-| `nixos-rebuild build --flake .#<host>`                                | Build NixOS configuration for `<host>` without applying. Verify before deploying.                 |
-| `darwin-rebuild build --flake .#<host>`                               | Build nix-darwin configuration for `<host>` without applying. Verify before deploying.            |
-| `nix build .#nixosConfigurations.<host>.config.system.build.toplevel` | Build the NixOS toplevel (system closure) for `<host>`. Lower-level alternative to nixos-rebuild. |
-| `nix eval .#darwinConfigurations`                                     | Inspect available darwin outputs without building. Useful for checking available hosts.           |
-| `nix build .#darwinConfigurations.<host>.activationPackage`           | Build darwin activation package for `<host>` without applying it. Recommended for CI/testing.     |
-| `home-manager build --flake .#<host>`                                 | Build Home Manager profile for `<host>`. Outputs activation script to `result/`.                  |
-| `mdep add <name> <repo-url> -t <type> ...`                            | Add dependency to `deps-lock.json` (git, github-release, pypi, npm).                              |
-| `mdep update`                                                         | Refresh all locked versions, hashes, and URLs in `deps-lock.json`.                                |
+| Command                                                                    | Purpose                                                                                           |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `nix flake check --no-build --quiet`                                       | Validate flake structure without building. Catches evaluation errors quickly.                     |
+| `nixos-rebuild build --flake .#<host>`                                     | Build NixOS configuration for `<host>` without applying. Verify before deploying.                 |
+| `darwin-rebuild build --flake .#<host>`                                    | Build nix-darwin configuration for `<host>` without applying. Verify before deploying.            |
+| `nix build .#nixosConfigurations.<host>.config.system.build.toplevel`      | Build the NixOS toplevel (system closure) for `<host>`. Lower-level alternative to nixos-rebuild. |
+| `nix eval .#darwinConfigurations`                                          | Inspect available darwin outputs without building. Useful for checking available hosts.           |
+| `nix build .#darwinConfigurations.<host>.activationPackage`                | Build darwin activation package for `<host>` without applying it. Recommended for CI/testing.     |
+| `home-manager build --flake .#<host>`                                      | Build Home Manager profile for `<host>`. Outputs activation script to `result/`.                  |
+| `mdep add <name> <repo-url> -t <type> ...`                                 | Add dependency to `deps-lock.json` (git, github-release, pypi, npm).                              |
+| `mdep add <name> <repo-url> -t github-release --npm-deps-lock-path <path>` | Add a github-release dep and auto-compute its `npmDepsHash` from the specified npm lockfile.      |
+| `mdep update`                                                              | Refresh all locked versions, hashes, URLs, and npmDepsHash values in `deps-lock.json`.            |
+| `mdep update --no-npm-deps`                                                | Refresh source hashes only; skip npmDepsHash recomputation.                                       |
 
 ---
 
