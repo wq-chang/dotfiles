@@ -26,6 +26,9 @@ This guide is designed to help AI code generation assistants (like GitHub Copilo
 │ Dependency Management                                   │
 │ ├─ deps-lock.json (locked versions)                     │
 │ └─ bin/mdep (update tool)                               │
+├─────────────────────────────────────────────────────────┤
+│ Sandboxing                                              │
+│ └─ bin/pi (bubblewrap wrapper for pi agent)             │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -58,6 +61,7 @@ This guide is designed to help AI code generation assistants (like GitHub Copilo
 | `overlays/<name>.nix`                   | Overlay file. Must be a function with signature `{ deps, depsLock, lib, ... }: final: prev: { ... }`. Auto-loaded by `overlays/default.nix`.                                                                                                                       |
 | `lib/deps.nix`                          | Reads `deps-lock.json` and resolves dependencies (git, github-release, pypi, npm). Handles per-system asset selection for github-release types.                                                                                                                    |
 | `bin/mdep`                              | CLI tool to manage `deps-lock.json`. Add, remove, and lock dependencies (git, github-release, pypi, npm). Supports `npmDepsHash` auto-computation for packages with npm lockfiles.                                                                                 |     |
+| `bin/pi`                                | Bubblewrap sandbox wrapper for the pi coding agent. Replaces the real pi binary on `PATH`. Makes entire rootfs read-only inside the sandbox, bind-mounts specific paths writable (project dir, caches, pi config), and masks sensitive dirs with tmpfs (`.ssh`, `.aws`, `.gnupg`, etc.). See script header comments for config. |     |
 | `deps-lock.json`                        | Locked versions of all external dependencies. Use explicit `type` values; let `mdep` manage `rev`, `tag`, `version`, `url`, `hash`.                                                                                                                                |
 
 ---

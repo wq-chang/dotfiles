@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# Whole-process bubblewrap sandbox for pi coding agent.
+#
+# All host binaries accessible (--ro-bind / /), only specific paths writable.
+# Sensitive directories masked with tmpfs — pi literally cannot see SSH keys etc.
+# Build caches (~/.cache, ~/.cargo, ~/.npm) writable so builds work.
+#
+# Install: add bubblewrap to home.packages (Nix) or apt install bubblewrap.
+
+set -euo pipefail
+
+# ── Locate the real pi binary ────────────────────────────────────────
+REAL_PI=$(command -v pi) || {
+	echo "bpi: error: could not find pi binary in PATH" >&2
+	exit 1
+}
+
+# ── Skip sandbox if bwrap not installed ─────────────────────────────
+if ! command -v bwrap &>/dev/null; then
+	echo "bpi: warning: bubblewrap not found, running pi without sandbox (install bubblewrap to enable)" >&2
+	exec "$REAL_PI" "$@"
+fi
+
+# Skip sandbox for quick info queries (bwrap overhead is tiny but unnecessary)
+case "${1:-}" in
+--version | -v) exec "$REAL_PI" "$@" ;;
+esac
+
+# ── Paths writable inside the sandbox ────────────────────────────────
+# Everything else on the system is read-only (including $HOME by default).
+declare -a WRITABLE=(
+	"$PWD" # current project
+	/tmp
+	"$HOME/.pi"          # pi config, sessions, installed packages
+	"$HOME/.cache"       # go modules, cargo registry, pip, npm cache, direnv
+	"$HOME/.npm"         # npm cache (pi install, package installs)
+	"$HOME/.cargo"       # cargo registry + git checkouts
+	"$HOME/.local/share" # pip --user, nix profile, flatpak, etc.
+	"$HOME/.config/nix"  # nix config (substituters, etc.)
+	"$HOME/.config/pip"  # pip config
+	"$HOME/.config/go"   # go env config
+)
+
+# ── Paths hidden entirely (tmpfs — process never sees real files) ────
+declare -a SECRET=(
+	"$HOME/.ssh"
+	"$HOME/.aws"
+	"$HOME/.gnupg"
+	"$HOME/.config/git" # includes credential helpers
+	"$HOME/.kube"
+	"$HOME/.config/hub"
+	"$HOME/.config/gh" # GitHub CLI tokens
+)
+
+# ── Build bwrap argument list ────────────────────────────────────────
+declare -a ARGS=(--ro-bind / /)
+
+for p in "${WRITABLE[@]}"; do
+	# Resolve symlinks (home-manager manages ~/.pi/agent as a nix-store symlink chain)
+	real=$(readlink -f -- "$p" 2>/dev/null) || real="$p"
+	# Ensure path exists inside the sandbox
+	mkdir -p "$real" 2>/dev/null || true
+	ARGS+=(--bind "$real" "$real")
+done
+
+for p in "${SECRET[@]}"; do
+	if [ -e "$p" ]; then
+		ARGS+=(--tmpfs "$p")
+	fi
+done
+
+ARGS+=(
+	--dev /dev
+	--proc /proc
+	--unshare-pid
+	--die-with-parent
+	-- "$REAL_PI" "$@"
+)
+
+echo "Launching Pi in Bubblewrap sandbox ($PWD)..."
+exec bwrap "${ARGS[@]}"

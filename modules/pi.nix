@@ -13,6 +13,7 @@ let
     home.packages = with pkgs; [
       pi-coding-agent
       nodejs
+      bubblewrap
     ];
 
     home.file = {

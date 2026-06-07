@@ -44,7 +44,7 @@ return {
 						description = "Copilot CLI",
 					},
 					pi = {
-						cmd = "pi",
+						cmd = "bpi",
 						args = {},
 						description = "Pi Agent",
 					},
