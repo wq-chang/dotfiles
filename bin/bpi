@@ -31,7 +31,8 @@ esac
 declare -a WRITABLE=(
 	"$PWD" # current project
 	/tmp
-	"$HOME/.pi"          # pi config, sessions, installed packages
+	"$HOME/.pi"          # root of pi data (for context-mode/ etc.)
+	"$HOME/.pi/agent"    # pi config, sessions, installed packages
 	"$HOME/.cache"       # go modules, cargo registry, pip, npm cache, direnv
 	"$HOME/.npm"         # npm cache (pi install, package installs)
 	"$HOME/.cargo"       # cargo registry + git checkouts
