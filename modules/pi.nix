@@ -1,5 +1,6 @@
 {
   config,
+  deps,
   isHm,
   lib,
   pkgs,
@@ -14,8 +15,12 @@ let
       nodejs
     ];
 
-    home.file.".pi/agent".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/pi";
+    home.file = {
+      "dotfiles/config/pi/themes/tokyonight_night.json".source =
+        "${deps.tokyonight}/extras/pi/tokyonight_night.json";
+      ".pi/agent".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/pi";
+    };
   };
 in
 {

@@ -332,30 +332,6 @@ mdep update --no-npm-deps
 
 ---
 
-## AI Clarification Guardrails
-
-When a user request could have multiple interpretations or require confirmation, **always ask clarifying questions instead of making assumptions**. Do not proceed with code generation or recommendations without explicit confirmation.
-
-**Examples of when to ask:**
-
-- "Should I update the `wsl` host or create a new host?" (clarify which host)
-- "Do you want this package added to all hosts or just one?" (clarify scope)
-- "Should I modify an existing module or create a new one?" (clarify intent)
-- "Is this for NixOS, darwin, or both platforms?" (clarify target)
-- "Do you want this dependency locked to a specific version or track the latest?" (clarify pinning)
-
-**Never assume:**
-
-- Which host/module/package the user refers to
-- Whether a change should apply globally or locally
-- Default configuration values or state versions
-- Whether to use `build` vs `switch` commands (always clarify deployment intent)
-- Architecture or dependency choices (ask for confirmation first)
-
-**Rationale**: Configuration management is high-stakes. Assumptions can lead to broken systems or unintended changes. Asking for clarification prevents errors and builds trust.
-
----
-
 ## Maintenance Guardrails
 
 **Documentation sync rule:**
