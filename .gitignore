@@ -3,5 +3,5 @@
 result
 
 config/pi/auth.json
+config/pi/trust.json
 config/pi/sessions/
-config/pi/themes/tokyonight_night.json

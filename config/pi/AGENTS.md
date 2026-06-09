@@ -41,3 +41,20 @@ What they specified didn't work — you don't know if a different path, method, 
 **Don't do this:**
 
 - Silently write to /tmp instead and move on.
+
+### 5. Present multiple approaches — don't choose for user
+
+When a task has multiple valid approaches, present the options and ask which one user prefer using `ask_user_question`. Do NOT silently pick one.
+
+- Indicate which option is **recommended** by appending `(Recommended)` to its label and making it the first option.
+- Show the **reason/rationale** for each option in its `description` field.
+- If the differences between options warrant richer explanation (code snippets, config examples, diagrams), use the `preview` field to show them. Note: on single-select questions, any option with a non-empty `preview` suppresses the "Type something." row — that's fine as long as "Chat about this" remains available as an escape hatch.
+- If a quick text explanation suffices, just use `label` and `description` — no need for preview.
+
+**Do this:**
+
+- "There are three ways to approach this. Here are the options with my recommendation:"
+
+**Don't do this:**
+
+- Silently implement one approach without telling user there were alternatives.

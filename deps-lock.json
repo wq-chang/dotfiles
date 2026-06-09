@@ -20,7 +20,7 @@
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "4ed0e4e65dfd447668a775cefb65312c8bc980c7",
+    "rev": "e8f837ba7f5ad47bd360231dfc3a03d46054e4b1",
     "hash": "sha256-eKcyfsuXX327DMudrAcVnC9NrEChKW99paUD9x9MJnk=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
@@ -53,7 +53,7 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "70ad5e3df8f7bed68aa6672029496926e632aedd",
+    "rev": "630a7c04c309a53f15e6a433c859867db17cc90e",
     "hash": "sha256-IPLw8NRRZuHXg++NykLJJNkDDNE/Nljmvx8dwCbK0J4=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -63,10 +63,10 @@
   "pi-coding-agent": {
     "type": "github-release",
     "url": "https://github.com/earendil-works/pi",
-    "tag": "v0.78.1",
-    "hash": "sha256-K5+reVdi9LPwUHxFgM1iFWojuj6M/m25ymhkDOQdBE4=",
-    "version": "0.78.1",
-    "npmDepsHash": "sha256-j5hOc2ZFAWyNNjGay1dCNhW6WVmIvTTQdYPLsrRUakE=",
+    "tag": "v0.79.0",
+    "hash": "sha256-mOgqwUdL6leyroHKfYHOEuEX+27pIZiaEvcGxlIj8NI=",
+    "version": "0.79.0",
+    "npmDepsHash": "sha256-H+F/qzXilTXDHneKT3vms0MHi/E7+ahGh6zupFtMptU=",
     "npmDepsLockPath": "package-lock.json"
   },
   "powerlevel10k": {
@@ -81,10 +81,9 @@
     "url": "https://github.com/folke/tokyonight.nvim",
     "branchName": "main",
     "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",
-    "hash": "sha256-GMUm3fh/Miclu1iAtairQuG+iD/rufNVb8b0K89w2PI=",
+    "hash": "sha256-CmmtCME/asJ8mfj9cnR3rxVeWjblK3LpcWONRtm6NcY=",
     "sparseCheckout": [
       "extras/eza/tokyonight.yml",
-      "extras/pi/tokyonight_night.json",
       "extras/sublime/tokyonight_night.tmTheme",
       "extras/wezterm/tokyonight_night.toml",
       "extras/yazi/tokyonight_night.toml"

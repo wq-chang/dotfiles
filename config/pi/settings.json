@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.78.1",
+  "lastChangelogVersion": "0.79.0",
   "defaultProvider": "opencode-go",
-  "defaultModel": "deepseek-v4-flash",
+  "defaultModel": "mimo-v2.5",
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:context-mode",
