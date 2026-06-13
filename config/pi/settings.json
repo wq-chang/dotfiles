@@ -1,10 +1,9 @@
 {
-  "lastChangelogVersion": "0.79.0",
+  "lastChangelogVersion": "0.79.3",
   "defaultProvider": "opencode-go",
   "defaultModel": "mimo-v2.5",
   "defaultThinkingLevel": "high",
   "packages": [
-    "npm:context-mode",
     "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:@juicesharp/rpiv-ask-user-question",

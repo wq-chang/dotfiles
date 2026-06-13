@@ -1,7 +1,7 @@
 {
+  "app.model.cycleForward": "alt+p",
+  "app.model.cycleBackward": "alt+shift+p",
   "tui.select.up": ["up", "ctrl+p"],
   "tui.select.down": ["down", "ctrl+n"],
-  "app.model.cycleForward": "alt+p",
-  "app.model.cycleBackward": "alt+shift+p"
+  "tui.editor.deleteWordBackward": ["ctrl+w", "alt+backspace", "ctrl+backspace"]
 }
-

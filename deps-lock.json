@@ -20,8 +20,8 @@
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "e8f837ba7f5ad47bd360231dfc3a03d46054e4b1",
-    "hash": "sha256-eKcyfsuXX327DMudrAcVnC9NrEChKW99paUD9x9MJnk=",
+    "rev": "1d1562e0049a5fa0e8d7445a26253a8fbdc6a130",
+    "hash": "sha256-iRHai9CXHLEeHDPk8PzXeZSgPxql3nimhs+tWxATAEI=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -36,16 +36,16 @@
   "github-copilot-cli": {
     "type": "github-release",
     "url": "https://github.com/github/copilot-cli",
-    "tag": "v1.0.60",
-    "version": "1.0.60",
+    "tag": "v1.0.61",
+    "version": "1.0.61",
     "assetPatterns": {
       "universal": "^github-copilot-[0-9.]+\\.tgz$"
     },
     "assets": {
       "universal": {
-        "name": "github-copilot-1.0.60.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.60/github-copilot-1.0.60.tgz",
-        "hash": "sha256-wUEBstKx8Yb9m6ynIi137ZXR7dO39uepnv/yGFVE/qQ="
+        "name": "github-copilot-1.0.61.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.61/github-copilot-1.0.61.tgz",
+        "hash": "sha256-8Lks8lHa5XF9ZrC+fU/9VlzD1W32MbRZ7PZtL5YWLTA="
       }
     }
   },
@@ -53,7 +53,7 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "630a7c04c309a53f15e6a433c859867db17cc90e",
+    "rev": "5181447da820331ba48ca976d1885501aa8a573b",
     "hash": "sha256-IPLw8NRRZuHXg++NykLJJNkDDNE/Nljmvx8dwCbK0J4=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -63,10 +63,10 @@
   "pi-coding-agent": {
     "type": "github-release",
     "url": "https://github.com/earendil-works/pi",
-    "tag": "v0.79.0",
-    "hash": "sha256-mOgqwUdL6leyroHKfYHOEuEX+27pIZiaEvcGxlIj8NI=",
-    "version": "0.79.0",
-    "npmDepsHash": "sha256-H+F/qzXilTXDHneKT3vms0MHi/E7+ahGh6zupFtMptU=",
+    "tag": "v0.79.3",
+    "hash": "sha256-w9cbxNUH3anMhZ1eVDLLZJiFRgviSICadmQargHdFSw=",
+    "version": "0.79.3",
+    "npmDepsHash": "sha256-arUKtQ9I4RViiiRmQRfe+rFQ2hyPVlgq6iuKStk8rLU=",
     "npmDepsLockPath": "package-lock.json"
   },
   "powerlevel10k": {
@@ -93,8 +93,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "dd83145816fe2d90b1ab4154ed528050e94ac5e3",
-    "hash": "sha256-dIZXrL11US/x0mVODxlBENP3qZmCLG4KZZAgmWJAKsU="
+    "rev": "3287c3dd30f79a76f1543d7902502def8be20992",
+    "hash": "sha256-k7kkf0iaUTvlQLh7UfaatPqsW3HO2SHmF6IIOL7KrUc="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",

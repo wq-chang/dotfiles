@@ -4,7 +4,6 @@
   "dependencies": {
     "@juicesharp/rpiv-ask-user-question": "^1.19.0",
     "@juicesharp/rpiv-todo": "^1.19.0",
-    "context-mode": "^1.0.162",
     "pi-subagents": "^0.28.0",
     "pi-web-access": "^0.10.7"
   }
