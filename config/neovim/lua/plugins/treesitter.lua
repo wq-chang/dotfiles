@@ -24,6 +24,7 @@ return {
 				"luadoc",
 				"markdown",
 				"markdown_inline",
+				"mermaid",
 				"nix",
 				"python",
 				"regex",

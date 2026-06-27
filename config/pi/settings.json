@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.79.3",
+  "lastChangelogVersion": "0.80.2",
   "defaultProvider": "opencode-go",
-  "defaultModel": "mimo-v2.5",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "deepseek-v4-flash",
+  "defaultThinkingLevel": "xhigh",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-subagents",
