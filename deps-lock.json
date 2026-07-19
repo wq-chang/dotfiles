@@ -20,8 +20,8 @@
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "9ba113bc5db5cd6c683b533e619f5552e0aa3a76",
-    "hash": "sha256-sb6QuLOAB0PBbv4dgCRWhZekaZD1eNsf85LZQYwxLmQ=",
+    "rev": "617d772fcc15c73adef8af8983339388fa60a838",
+    "hash": "sha256-nrYcrYt45w3FqQ0Wzj9OKff9EU6KX/MpRfRHwrfczJU=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -36,8 +36,8 @@
   "github-copilot-cli": {
     "type": "github-release",
     "url": "https://github.com/github/copilot-cli",
-    "tag": "v1.0.70",
-    "version": "1.0.70",
+    "tag": "v1.0.71",
+    "version": "1.0.71",
     "assetPatterns": {
       "aarch64-darwin": "^github-copilot-[0-9.]+-darwin-arm64\\.tgz$",
       "aarch64-linux": "^github-copilot-[0-9.]+-linux-arm64\\.tgz$",
@@ -46,24 +46,24 @@
     },
     "assets": {
       "aarch64-darwin": {
-        "name": "github-copilot-1.0.70-darwin-arm64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.70/github-copilot-1.0.70-darwin-arm64.tgz",
-        "hash": "sha256-Tr+isxFUmWQgQX3ivglJ7x9ONa8JQ9ZVFUdNWuPCKxE="
+        "name": "github-copilot-1.0.71-darwin-arm64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.71/github-copilot-1.0.71-darwin-arm64.tgz",
+        "hash": "sha256-3Pns6dg+P2TukM7ekVcW7QoEYwyaWPlNnOpGCpjC0aY="
       },
       "aarch64-linux": {
-        "name": "github-copilot-1.0.70-linux-arm64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.70/github-copilot-1.0.70-linux-arm64.tgz",
-        "hash": "sha256-saIHbLOlh+uivG9HjONeU/IKNNDWm0GAdDmzMC3191o="
+        "name": "github-copilot-1.0.71-linux-arm64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.71/github-copilot-1.0.71-linux-arm64.tgz",
+        "hash": "sha256-OLr1W1b3DGYVr2k1pdJ1tGUkxrRewCLKpc/5vHqg62k="
       },
       "x86_64-darwin": {
-        "name": "github-copilot-1.0.70-darwin-x64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.70/github-copilot-1.0.70-darwin-x64.tgz",
-        "hash": "sha256-biISO2sXX+HWeGo+4vXRu3M9BN839sFBN0McAcPBWNI="
+        "name": "github-copilot-1.0.71-darwin-x64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.71/github-copilot-1.0.71-darwin-x64.tgz",
+        "hash": "sha256-gl7v+Ui9UnyVdqywAJzirkiiSWznCUoqSW4AiOVgFDY="
       },
       "x86_64-linux": {
-        "name": "github-copilot-1.0.70-linux-x64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.70/github-copilot-1.0.70-linux-x64.tgz",
-        "hash": "sha256-z70Rb+FZviiaut8sK/GKJairCe7KVKCR1AJeHLzaRwk="
+        "name": "github-copilot-1.0.71-linux-x64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.71/github-copilot-1.0.71-linux-x64.tgz",
+        "hash": "sha256-mD6Gs9Ie7YamCfpiqYSx0dy4MNeH3ivoA/IFXICEckM="
       }
     }
   },
@@ -81,10 +81,10 @@
   "pi-coding-agent": {
     "type": "github-release",
     "url": "https://github.com/earendil-works/pi",
-    "tag": "v0.80.6",
-    "hash": "sha256-e/wcHruEcBAHDF5tKvwew7LXjVp0eraHh2k+QaL2sCA=",
-    "version": "0.80.6",
-    "npmDepsHash": "sha256-xXEOR0epZcfbXayYGyJdBiFVliamBexqA+1Sd7wlGhU=",
+    "tag": "v0.80.10",
+    "hash": "sha256-Vs/ndHYzFyfN4CjPV2zMYblLXe9IuM13UrPJI1VsZEQ=",
+    "version": "0.80.10",
+    "npmDepsHash": "sha256-XGvDNH+eilsgc0Z7ITqbitB/9RVc+WuDfCcr1pibNqk=",
     "npmDepsLockPath": "package-lock.json"
   },
   "powerlevel10k": {
@@ -111,8 +111,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "f63d0e642261e40dfaadfcef478ef338e1aa315f",
-    "hash": "sha256-l8z8pP3+5yMVXGhn1ZYhT8xi3oR9Ge9gDBNb/QLppKg="
+    "rev": "9903bae60284072de3fa0e3e20965f22368c5694",
+    "hash": "sha256-sf02F5TNk8ox2gRulgNKigTBi0GycXPKbaeNGDVC0RI="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",
