@@ -12,9 +12,12 @@ in
   pi-coding-agent = basePackage.overrideAttrs (oldAttrs: rec {
     version = sourceMeta.version;
     src = deps.pi-coding-agent;
+
     npmDeps = final.fetchNpmDeps {
       inherit src;
       hash = sourceMeta.npmDepsHash;
     };
+
+    modelData = deps.pi-ai-model-data;
   });
 }
