@@ -88,16 +88,17 @@ AI: Running tests... All 8 tests pass.
 
 ## When to Use This Workflow
 
-| Scenario                             | Use TDD?                                              |
-| ------------------------------------ | ----------------------------------------------------- |
-| New feature with clear behavior      | Yes — write tests first                               |
-| Bug fix                              | Yes — write a test that reproduces the bug first      |
-| Refactor with no behavior change     | Yes — existing tests suffice, add tests for new paths |
-| One-liner fix                        | Skip — too small for test-first                       |
-| Exploratory spike                    | Skip — behavior not yet known                         |
-| UI styling                           | Skip — visual, not behavioral                         |
-| User explicitly asks for tests first | Yes — always honor                                    |
-| User wants quick fix                 | Ask — offer TDD as option                             |
+| Scenario                                             | Use TDD?                                              |
+| ---------------------------------------------------- | ----------------------------------------------------- |
+| New feature with clear behavior                      | Yes — write tests first                               |
+| Bug fix                                              | Yes — write a test that reproduces the bug first      |
+| Refactor with no behavior change                     | Yes — existing tests suffice, add tests for new paths |
+| One-liner fix                                        | Skip — too small for test-first                       |
+| Exploratory spike                                    | Skip — behavior not yet known                         |
+| UI styling                                           | Skip — visual, not behavioral                         |
+| User explicitly asks for tests first                 | Yes — always honor                                    |
+| User wants quick fix                                 | Ask — offer TDD as option                             |
+| Full feature, user doesn't want to review code/tests | No — hand off to `harness-spec` + `harness-gauntlet`  |
 
 ## Constraints
 

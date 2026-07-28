@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/dotfiles/config/pi/harness/guard/harness-guard.sh\" --claude"
+          }
+        ]
+      }
+    ]
+  }
+}
