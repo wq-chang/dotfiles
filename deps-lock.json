@@ -20,8 +20,8 @@
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "5b21d378b0db9eda911a169fd72cacb9f00da685",
-    "hash": "sha256-Z7g70p6IdZE/7vcDiCErY8LsCK7Q4w0qUndKXa9QQWw=",
+    "rev": "c1eba931e3d15d204bedeadeb55ad8880be14ad3",
+    "hash": "sha256-1YpqLw09OOdrjHFYgOPIKNN4K3E9kMvJbzd/If/c1i4=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -36,8 +36,8 @@
   "github-copilot-cli": {
     "type": "github-release",
     "url": "https://github.com/github/copilot-cli",
-    "tag": "v1.0.75",
-    "version": "1.0.75",
+    "tag": "v1.0.77",
+    "version": "1.0.77",
     "assetPatterns": {
       "aarch64-darwin": "^github-copilot-[0-9.]+-darwin-arm64\\.tgz$",
       "aarch64-linux": "^github-copilot-[0-9.]+-linux-arm64\\.tgz$",
@@ -46,24 +46,24 @@
     },
     "assets": {
       "aarch64-darwin": {
-        "name": "github-copilot-1.0.75-darwin-arm64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.75/github-copilot-1.0.75-darwin-arm64.tgz",
-        "hash": "sha256-bviakVJFgut0OxeDBXHcf+BCvB3fKO1f1gSqxgCWO1A="
+        "name": "github-copilot-1.0.77-darwin-arm64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.77/github-copilot-1.0.77-darwin-arm64.tgz",
+        "hash": "sha256-/zJIhE1mWbnM5fKlR4fcbUwSGjeaxc7JH1rN7RVbmJ0="
       },
       "aarch64-linux": {
-        "name": "github-copilot-1.0.75-linux-arm64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.75/github-copilot-1.0.75-linux-arm64.tgz",
-        "hash": "sha256-+Fyfn39ESn9G3Lyk+TXjdp2DBVwFrnRBUuYs7ZWdCD8="
+        "name": "github-copilot-1.0.77-linux-arm64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.77/github-copilot-1.0.77-linux-arm64.tgz",
+        "hash": "sha256-WpnS30eAIO/7EGarEuZ8yeiGRpw/+1MN0R4XvIKt/uE="
       },
       "x86_64-darwin": {
-        "name": "github-copilot-1.0.75-darwin-x64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.75/github-copilot-1.0.75-darwin-x64.tgz",
-        "hash": "sha256-G07r7jRujfUgvH4IfKcvYszFN8uslCWG6a1Druo4xx8="
+        "name": "github-copilot-1.0.77-darwin-x64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.77/github-copilot-1.0.77-darwin-x64.tgz",
+        "hash": "sha256-4j3kDyH2MrKXa8Y3HZS5lzfZxp8EN/RXmhFpm5c9pvU="
       },
       "x86_64-linux": {
-        "name": "github-copilot-1.0.75-linux-x64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.75/github-copilot-1.0.75-linux-x64.tgz",
-        "hash": "sha256-wap0L0tK/hWtBAXk03n/HoSDoVk8abc1bKH7MaAZT8Y="
+        "name": "github-copilot-1.0.77-linux-x64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.77/github-copilot-1.0.77-linux-x64.tgz",
+        "hash": "sha256-m87HV2YX4H3oiKuuneXwYmA/en0ne8/dTENdGHlATI8="
       }
     }
   },
@@ -71,7 +71,7 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "b37dd49ca5bfe0d99b35607637152cb8cc8b29d7",
+    "rev": "c5ba74cf02cce4c342153f79089100194f30940f",
     "hash": "sha256-IPLw8NRRZuHXg++NykLJJNkDDNE/Nljmvx8dwCbK0J4=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -80,18 +80,18 @@
   },
   "pi-ai-model-data": {
     "type": "npm",
-    "url": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-0.82.1.tgz",
-    "hash": "sha256-L535UigItiHNNEmHZTfwPYqN+LjX7C1bGMapEKqFtJA=",
+    "url": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-0.83.0.tgz",
+    "hash": "sha256-+YPCiiEgkwXtnCdJd+KRMPpNiEjfbN836QlNlcx7xtQ=",
     "name": "@earendil-works/pi-ai",
-    "version": "0.82.1"
+    "version": "0.83.0"
   },
   "pi-coding-agent": {
     "type": "github-release",
     "url": "https://github.com/earendil-works/pi",
-    "tag": "v0.82.1",
-    "hash": "sha256-LESpgd/KUoNqdBfnd1oyMN8coKm0Odbo9GYkUDry8Zk=",
-    "version": "0.82.1",
-    "npmDepsHash": "sha256-5pHRwxpKg95/phOcYHeWdvPJNtSOhiw7PRoVxsuh0RM=",
+    "tag": "v0.83.0",
+    "hash": "sha256-+XRJua2TSXkZMnWtxtLMskSzEHrGEFFyvYcPATi7An4=",
+    "version": "0.83.0",
+    "npmDepsHash": "sha256-AbSfP1Ion8bN309NUBQb1QSn2cIIUjNONmZgls9vnYE=",
     "npmDepsLockPath": "package-lock.json"
   },
   "powerlevel10k": {
@@ -118,8 +118,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "4f5416f5fd9b42822de3ff0cebb831843f655d1d",
-    "hash": "sha256-9GpncHU1thw0vIFbRL0jRtJ1H3X6i/wYtILiYmGeJm8="
+    "rev": "6ea4709fbc64f813ffa013fdd062fa0f0d9a0dab",
+    "hash": "sha256-XQJUL/yM3B256OQZYO2evvPxD9qtpBSgmPvkdkxEkeI="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",

@@ -2,9 +2,9 @@
   "name": "pi-extensions",
   "private": true,
   "dependencies": {
-    "@juicesharp/rpiv-ask-user-question": "^2.1.0",
-    "@juicesharp/rpiv-todo": "^2.1.0",
-    "pi-subagents": "^0.37.0",
-    "pi-web-access": "^0.14.0"
+    "@juicesharp/rpiv-ask-user-question": "^2.2.0",
+    "@juicesharp/rpiv-todo": "^2.2.0",
+    "pi-subagents": "^0.38.0",
+    "pi-web-access": "^0.17.0"
   }
 }
