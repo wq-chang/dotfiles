@@ -21,8 +21,25 @@ Any path beginning `../../harness/` in this file or the prompts it
 references resolves against this skill directory — substitute the
 absolute path on disk when executing commands.
 
+**Path resolution rule:** Before spawning any subagent, resolve ALL
+`../../harness/` references to absolute paths and embed the resolved paths
+in the subagent's task string. The subagent has no knowledge of this skill's
+directory. Example: if this skill lives at
+`/home/user/.pi/agent/skills/harness-spec/SKILL.md`, then
+`../../harness/prompts/spec-reviewer.md` resolves to
+`/home/user/.pi/agent/harness/prompts/spec-reviewer.md` — pass that
+absolute path in the task.
+
 ## Flow
 
+0. **Grill (optional)** — if the user's intent is vague or underspecified,
+   run a grilling session first. Interview the user one question at a time,
+   walking down each branch of the decision tree until you reach shared
+   understanding. Look up facts in the codebase rather than asking. Put
+   every decision to the user and wait for their answer before continuing.
+   Do not act until they confirm. The output of this step is a crisp,
+   unambiguous intent statement — feed that as input to step 2.
+   Skip this step if the intent is already precise.
 1. **Slug** — derive a kebab-case feature slug from the user's intent.
    Create `.harness/<slug>/` in the project root.
 2. **Write spec** — read `../../harness/prompts/spec-writer.md` and follow it

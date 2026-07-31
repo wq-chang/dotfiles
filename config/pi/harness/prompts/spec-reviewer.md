@@ -12,6 +12,11 @@ review — judge them cold.
 
 ## Checks (in order)
 
+0. **Feasibility grounding (optional)** — skim the project structure (file
+   tree, public exports of modules referenced in the plan) to verify that the
+   entities the plan references actually exist. Do NOT review implementation
+   quality — only confirm existence of referenced APIs, modules, and paths.
+   Skip this step if you have no codebase access.
 1. **Intent alignment** — does spec.md solve what the user actually asked for?
    Quote the intent; map each part to a goal. Anything unmapped = finding.
 2. **Scope discipline** — any goal/AC that exceeds the intent (scope creep) or

@@ -32,3 +32,10 @@ The test code, plus the AC→AT mapping table at `.harness/<slug>/at-map.md`
 kept current as tests run). at-map.md is the reviewer's source of truth for
 traceability and the report's mapping table. Also append a one-line pointer
 (e.g. `slice 2 ATs: 5/5 PASS, see at-map.md`) to sensor-log.md.
+
+## Ownership
+
+This stage owns at-map.md. It creates the file on first run and updates ALL
+statuses each time it runs (once per slice boundary). Between slice
+boundaries, the implementer updates individual entries from FAIL→PASS as
+tasks cause previously-failing ATs to pass (see implementer.md).

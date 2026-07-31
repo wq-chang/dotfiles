@@ -19,11 +19,16 @@ every checkpoint honestly green.
    d. Append to sensor-log.md: timestamp, task name, each command run,
    exit code, 1-line summary. Finish the entry with a source-fingerprint
    stamp line — run the guard script in --stamp mode
-   (bash ../../harness/guard/harness-guard.sh --stamp) and append its
-   output (`SRC-FT <mtime>`) to sensor-log.md. The log is a mandatory
+   (bash ../../harness/guard/harness-guard.sh --stamp — resolve this
+   `../../harness/` path to absolute per the skill's path resolution rule)
+   and append its output (`SRC-FT <mtime>`) to sensor-log.md. The log is a mandatory
    artifact: an end-of-session guard blocks finishing if sources are newer
    than the newest stamp, a bare `touch` of the log does not count, and
    the reviewer rejects implementations with log gaps.
+   e. After the checkpoint passes, append a progress line to
+   `.harness/<slug>/progress`:
+   `DONE <task-number> <task-name> <ISO-8601-timestamp>`
+   This enables resuming a crashed gauntlet run from the last completed task.
 
 ## Slice boundary (when a slice's tasks are done)
 
@@ -31,6 +36,8 @@ every checkpoint honestly green.
   tests before proceeding.
 - Hand the slice's ACs to the acceptance-test stage (see
   acceptance-test-writer.md), then run the test suite again and log it.
+- If a task causes a previously-failing AT to pass, update its status in
+  `.harness/<slug>/at-map.md` from FAIL to PASS immediately.
 
 ## Hard rules
 
@@ -38,3 +45,7 @@ every checkpoint honestly green.
   a "Notes for human" section in sensor-log.md, never into the code.
 - No new dependencies. If a task seems to require one, stop and report.
 - Never weaken, delete, or skip a failing test to make a checkpoint pass.
+- **Commit discipline:** do not commit until the gauntlet's code review
+  returns GREEN. Stage freely (`git add`), but no `git commit`. Exception:
+  if context overflow is imminent, commit with a `WIP:` prefix so work isn't
+  lost, and note the WIP commit in sensor-log.md.

@@ -103,6 +103,25 @@ fi
 
 LOG="$FEATURE_DIR/sensor-log.md"
 
+# Fast path: if the log has a stamp newer than the last commit AND there are
+# no uncommitted/untracked changes (outside .harness/), no file walk is needed.
+# This avoids stat-ing every file on large repos when nothing has changed.
+if [ -f "$LOG" ]; then
+	LAST_STAMP="$(awk '$1 == "SRC-FT" { v = $2 } END { if (v != "") print v }' "$LOG")"
+	case "$LAST_STAMP" in *[!0-9]*) LAST_STAMP="" ;; esac
+	if [ -n "$LAST_STAMP" ]; then
+		LAST_COMMIT_T="$(git log -1 --format=%ct 2>/dev/null)" || true
+		LAST_COMMIT_T="${LAST_COMMIT_T:-0}"
+		if [ "$LAST_STAMP" -ge "$LAST_COMMIT_T" ] && \
+		   [ -z "$(git status --porcelain -- ':!.harness/' 2>/dev/null)" ]; then
+			rm -f .harness/.guard-state
+			# Drain stdin in --claude mode before exiting (hook protocol).
+			[ "$MODE" = "--claude" ] && cat >/dev/null 2>&1 || true
+			exit 0
+		fi
+	fi
+fi
+
 SRC_MTIME="$(newest_src_mtime)"
 [ -z "$SRC_MTIME" ] && exit 0 # no source files → nothing to enforce
 

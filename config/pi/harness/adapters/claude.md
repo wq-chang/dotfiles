@@ -14,10 +14,12 @@
 
 ## Spawning a fresh-context reviewer
 
-Where the pi adapter says "subagent tool with context fresh", use the **Task
-tool** with a clear instruction that the subagent must judge the artifacts
-cold. The Task tool's subagent has no access to the parent conversation —
-that is the context isolation.
+Where the pi adapter says "subagent tool with context fresh", use the **Agent
+tool** with a self-contained prompt that includes all necessary context
+(file paths, intent, prior review rounds). The Agent tool spawns a subagent
+with NO access to the parent conversation — that is the context isolation.
+Never pass relative paths; resolve all prompt/artifact paths to absolute
+before embedding them in the agent's prompt.
 
 ## End-of-session guard
 

@@ -226,6 +226,24 @@ echo "$R/.harness/feat-x" >"$R/.harness/active"
 (cd "$R" && "$GUARD" >/dev/null 2>&1)
 check "empty repo exits 0" 0 $?
 
+# 17. Fast-path: stamp >= last commit time + clean tree → exit 0 (no full walk)
+R=$(setup_repo)
+activate "$R"
+# Create a stamp that is >= the last commit time and ensure clean tree
+(cd "$R" && "$GUARD" --stamp >>"$R/.harness/feat-x/sensor-log.md")
+# The stamp now reflects current src mtime; tree is clean (no uncommitted changes)
+(cd "$R" && "$GUARD" >/dev/null 2>&1)
+check "fast-path (stamp fresh + clean tree) exits 0" 0 $?
+
+# 18. Fast-path does NOT trigger when tree is dirty (untracked file newer than stamp)
+R=$(setup_repo)
+activate "$R"
+(cd "$R" && "$GUARD" --stamp >>"$R/.harness/feat-x/sensor-log.md")
+sleep 1
+echo "// new" >"$R/dirty.ts" # untracked file newer than the stamp
+(cd "$R" && "$GUARD" >/dev/null 2>&1)
+check "fast-path skipped (dirty tree) exits 1" 1 $?
+
 echo
 echo "$PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
