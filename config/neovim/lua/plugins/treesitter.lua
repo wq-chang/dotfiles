@@ -8,6 +8,7 @@ return {
 			languages = {
 				"bash",
 				"css",
+				"diff",
 				"dockerfile",
 				"gitignore",
 				"go",
