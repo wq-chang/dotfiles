@@ -1,5 +1,5 @@
 return {
-	"echasnovski/mini.align",
+	src = "echasnovski/mini.align",
 	opts = {
 		mappings = {
 			start = "gl",

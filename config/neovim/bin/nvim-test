@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Run the nvim config test suite (busted via plenary.nvim) headlessly.
+#
+# Usage:
+#   bin/nvim-test                 # run every tests/*_spec.lua
+#   bin/nvim-test tests/pack_spec.lua   # run a single spec file
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+CONFIG_DIR="$(pwd)"
+PLENARY="$HOME/.local/share/nvim/site/pack/core/opt/plenary.nvim"
+
+if [[ ! -d "$PLENARY" ]]; then
+  echo "error: plenary.nvim not found at $PLENARY" >&2
+  echo "hint: start nvim once so vim.pack installs plugins from the lockfile" >&2
+  exit 1
+fi
+
+if [[ -f "${1:-}" ]]; then
+  FILES=("$1")
+else
+  FILES=(tests/*_spec.lua)
+fi
+
+failed=0
+for file in "${FILES[@]}"; do
+  echo "== $file"
+  # nvim -l: no user config; plenary busted quits with 0/1/2 (see tests/run.lua).
+  if ! NVIM_TEST_SPEC="$CONFIG_DIR/$file" nvim --headless -l "$CONFIG_DIR/tests/run.lua" > /tmp/nvim-test.log 2>&1; then
+    echo "FAILED: $file"
+    cat /tmp/nvim-test.log
+    failed=1
+  fi
+done
+
+exit "$failed"

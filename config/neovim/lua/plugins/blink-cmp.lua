@@ -25,62 +25,56 @@ local function create_hl_configs(ctx)
 end
 
 return {
-	"saghen/blink.cmp",
-	version = "*",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
-		"onsails/lspkind.nvim",
+	{
+		src = "onsails/lspkind.nvim",
 	},
-	opts = {
-		appearance = {
-			nerd_font_variant = "mono",
-		},
-		completion = {
-			documentation = {
-				auto_show = true,
+	{
+		src = "saghen/blink.cmp",
+		version = vim.version.range("*"),
+		after = { "nvim-web-devicons", "lspkind.nvim" },
+		opts = {
+			appearance = {
+				nerd_font_variant = "mono",
 			},
-			menu = {
-				draw = {
-					columns = {
-						{ "label" },
-						{ "kind_icon", "kind", gap = 1 },
-						{ "source_id", "label_description" },
-					},
-					components = {
-						label_description = { highlight = "Comment" },
-						kind_icon = {
-							text = create_icon_configs,
-							highlight = create_hl_configs,
+			completion = {
+				documentation = {
+					auto_show = true,
+				},
+				menu = {
+					draw = {
+						columns = {
+							{ "label" },
+							{ "kind_icon", "kind", gap = 1 },
+							{ "source_id", "label_description" },
 						},
-						source_id = {
-							text = function(ctx)
-								return "[" .. ctx.source_name .. "]"
-							end,
-							highlight = "Comment",
+						components = {
+							label_description = { highlight = "Comment" },
+							kind_icon = {
+								text = create_icon_configs,
+								highlight = create_hl_configs,
+							},
+							source_id = {
+								text = function(ctx)
+									return "[" .. ctx.source_name .. "]"
+								end,
+								highlight = "Comment",
+							},
 						},
 					},
 				},
 			},
-		},
-		fuzzy = { implementation = "prefer_rust_with_warning" },
-		keymap = {
-			preset = "enter",
-		},
-		signature = {
-			enabled = true,
-			window = { show_documentation = true },
-		},
-		snippets = { preset = "luasnip" },
-		sources = {
-			default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-			providers = {
-				lazydev = {
-					name = "LazyDev",
-					module = "lazydev.integrations.blink",
-					score_offset = 100,
-				},
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+			keymap = {
+				preset = "enter",
+			},
+			signature = {
+				enabled = true,
+				window = { show_documentation = true },
+			},
+			snippets = { preset = "luasnip" },
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
 			},
 		},
 	},
-	opts_extend = { "sources.default" },
 }

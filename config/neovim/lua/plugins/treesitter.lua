@@ -1,8 +1,8 @@
 return {
 	{
-		"nvim-treesitter/nvim-treesitter",
-		lazy = false,
-		branch = "main",
+		src = "nvim-treesitter/nvim-treesitter",
+		version = "main",
+		priority = 100,
 		build = ":TSUpdate",
 		opts = {
 			languages = {
@@ -41,7 +41,7 @@ return {
 				"yaml",
 			},
 		},
-		config = function(_, opts)
+		config = function(opts)
 			require("nvim-treesitter").install(opts.languages)
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = opts.languages,
@@ -57,24 +57,23 @@ return {
 		end,
 	},
 	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		branch = "main",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		opts = {
-			text_objects = {
+		src = "nvim-treesitter/nvim-treesitter-textobjects",
+		version = "main",
+		after = { "nvim-treesitter" },
+		config = function()
+			local move = require("nvim-treesitter-textobjects.move")
+			local select = require("nvim-treesitter-textobjects.select")
+
+			local text_objects = {
 				a = "parameter",
 				c = "conditional",
 				f = "function",
 				l = "loop",
-			},
-		},
-		config = function(_, opts)
-			local move = require("nvim-treesitter-textobjects.move")
-			local select = require("nvim-treesitter-textobjects.select")
+			}
 
 			local mappings = {}
 
-			for key, obj in pairs(opts.text_objects) do
+			for key, obj in pairs(text_objects) do
 				local upper = string.upper(key)
 				local inner = "@" .. obj .. ".inner"
 				local outer = "@" .. obj .. ".outer"
@@ -89,7 +88,6 @@ return {
 				-- stylua: ignore end
 			end
 
-			-- apply all keymaps
 			for key, def in pairs(mappings) do
 				local textobj, modes, func = def[1], def[2], def[3]
 				vim.keymap.set(modes, key, function()
@@ -99,7 +97,7 @@ return {
 		end,
 	},
 	{
-		"nvim-treesitter/nvim-treesitter-context",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		src = "nvim-treesitter/nvim-treesitter-context",
+		after = { "nvim-treesitter" },
 	},
 }

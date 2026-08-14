@@ -1,6 +1,6 @@
 return {
-	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	src = "nvim-lualine/lualine.nvim",
+	after = { "nvim-web-devicons" },
 	opts = function()
 		local mid_sec = {
 			"%=",

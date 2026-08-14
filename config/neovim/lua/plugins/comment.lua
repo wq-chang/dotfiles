@@ -1,14 +1,14 @@
 return {
 	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		src = "JoosepAlviste/nvim-ts-context-commentstring",
+		after = { "nvim-treesitter" },
 		opts = {
 			enable_autocmd = false,
 		},
 	},
 	{
-		"numToStr/Comment.nvim",
-		dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
+		src = "numToStr/Comment.nvim",
+		after = { "nvim-ts-context-commentstring" },
 		config = function()
 			---@diagnostic disable-next-line: missing-fields
 			require("Comment").setup({

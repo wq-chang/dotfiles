@@ -1,15 +1,13 @@
 return {
 	{
-		"copilotlsp-nvim/copilot-lsp",
+		src = "copilotlsp-nvim/copilot-lsp",
 		init = function()
 			vim.g.copilot_nes_debounce = 500
 		end,
 	},
 	{
-		"zbirenbaum/copilot.lua",
-		dependencies = {
-			"copilotlsp-nvim/copilot-lsp",
-		},
+		src = "zbirenbaum/copilot.lua",
+		after = { "copilot-lsp" },
 		opts = {
 			panel = {
 				enabled = false,
@@ -32,7 +30,7 @@ return {
 				custom_server_filepath = os.getenv("COPILOT_LSP"),
 			},
 		},
-		config = function(_, opts)
+		config = function(opts)
 			require("copilot").setup(opts)
 
 			vim.keymap.set("i", "<tab>", function()

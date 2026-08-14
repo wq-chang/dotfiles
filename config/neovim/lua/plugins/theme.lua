@@ -1,5 +1,5 @@
 return {
-	"folke/tokyonight.nvim",
+	src = "folke/tokyonight.nvim",
 	priority = 999,
 	opts = {
 		style = "night",
@@ -9,7 +9,7 @@ return {
 			floats = "transparent",
 		},
 	},
-	config = function(_, opts)
+	config = function(opts)
 		require("tokyonight").setup(opts)
 		local c = require("tokyonight.colors").setup()
 		local hl = function(name, val)

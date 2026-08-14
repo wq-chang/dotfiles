@@ -1,7 +1,6 @@
 return {
-	"nvimdev/dashboard-nvim",
-	event = "VimEnter",
-	dependencies = { { "nvim-tree/nvim-web-devicons" } },
+	src = "nvimdev/dashboard-nvim",
+	after = { "nvim-web-devicons" },
 	opts = {
 		config = {
 			project = {

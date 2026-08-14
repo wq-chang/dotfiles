@@ -1,8 +1,10 @@
 return {
 	{
-		"altermo/ultimate-autopair.nvim",
-		event = { "InsertEnter", "CmdlineEnter" },
+		src = "altermo/ultimate-autopair.nvim",
 		opts = {},
 	},
-	{ "windwp/nvim-ts-autotag", opts = {} },
+	{
+		src = "windwp/nvim-ts-autotag",
+		opts = {},
+	},
 }

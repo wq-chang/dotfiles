@@ -2,8 +2,14 @@ local file_utils = require("utils.file")
 
 local M = {}
 
+---@type string
 M.integration_build_flag = "-tags=integration"
 
+--- Append `-O2` to a Go toolchain flag string unless it already carries an
+--- `-O` level (e.g. from `CGO_CFLAGS`), keeping the flags effective for
+--- optimized debugging. Empty or nil input yields plain `-O2`.
+---@param flags string|nil
+---@return string
 local function ensure_optimization_flag(flags)
 	if flags == nil or flags == vim.NIL then
 		return "-O2"
@@ -20,6 +26,11 @@ local function ensure_optimization_flag(flags)
 	return vim.trim(flags .. " -O2")
 end
 
+--- Whether the current Go test buffer has an integration build tag:
+--- a `//go:build` or legacy `// +build` line mentioning `integration` (but
+--- not negated with `!integration`) in the first 25 lines, before the
+--- `package` clause.
+---@return boolean
 function M.current_test_has_integration_build_tag()
 	local buf = vim.api.nvim_get_current_buf()
 	local path = vim.api.nvim_buf_get_name(buf)
@@ -48,6 +59,9 @@ function M.current_test_has_integration_build_tag()
 	return false
 end
 
+--- Build flags for the current test buffer: the integration tag only when
+--- `current_test_has_integration_build_tag()` says so.
+---@return string[]
 function M.current_test_build_flags()
 	if not M.current_test_has_integration_build_tag() then
 		return {}
@@ -56,6 +70,9 @@ function M.current_test_build_flags()
 	return { M.integration_build_flag }
 end
 
+--- Directory of the current buffer's file, or the working directory when
+--- the buffer has no file name.
+---@return string
 function M.current_package_dir()
 	local path = vim.api.nvim_buf_get_name(0)
 	if path == "" then
@@ -65,6 +82,9 @@ function M.current_package_dir()
 	return vim.fn.fnamemodify(path, ":h")
 end
 
+--- Go module/work root of the current buffer (upward marker search), falling
+--- back to `current_package_dir()`.
+---@return string
 function M.current_go_root()
 	local root = file_utils.find_marker_in_parent({ "go.work", "go.mod" })
 	if root ~= "" then
@@ -74,6 +94,9 @@ function M.current_go_root()
 	return M.current_package_dir()
 end
 
+--- Go toolchain env for debugging, with an `-O2` optimization level appended
+--- to each CGO flags variable unless one is already set.
+---@return { CGO_CFLAGS: string, CGO_CPPFLAGS: string, CGO_CXXFLAGS: string }
 function M.current_debug_env()
 	return {
 		CGO_CFLAGS = ensure_optimization_flag(os.getenv("CGO_CFLAGS")),
@@ -82,6 +105,8 @@ function M.current_debug_env()
 	}
 end
 
+--- dap-go style test configuration for the current buffer.
+---@return { buildFlags: string[], cwd: string, env: { CGO_CFLAGS: string, CGO_CPPFLAGS: string, CGO_CXXFLAGS: string }, outputMode: string, program: string }
 function M.current_debug_test_config()
 	return {
 		buildFlags = M.current_test_build_flags(),

@@ -1,5 +1,8 @@
 local M = {}
 
+---@param src string
+---@param pattern string
+---@return boolean
 local function contains_string(src, pattern)
 	if string.find(src, pattern) then
 		return true
@@ -7,6 +10,12 @@ local function contains_string(src, pattern)
 	return false
 end
 
+--- Walk upward from the current buffer's directory looking for any of the
+--- given markers; the first marker found (in argument order) wins. Returns ""
+--- when nothing is found, when the buffer is a `jdt://` virtual buffer, or
+--- when the walk reaches `$HOME`.
+---@param markers string[]
+---@return string
 function M.find_marker_in_parent(markers)
 	local excluded_patterns = { "jdt://" }
 	local current_file = vim.fn.expand("%:p")
@@ -22,6 +31,7 @@ function M.find_marker_in_parent(markers)
 
 		while
 			current_dir ~= home_dir
+			and current_dir ~= "/"
 			and current_dir ~= ""
 			and current_dir ~= "."
 		do

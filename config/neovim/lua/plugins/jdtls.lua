@@ -91,7 +91,6 @@ local function build_jdtls_config()
 			return
 		end
 
-		-- Delay 2000ms and 0 means "do not repeat"
 		timer:start(
 			3000,
 			0,
@@ -103,20 +102,20 @@ local function build_jdtls_config()
 end
 
 return {
-	"mfussenegger/nvim-jdtls",
+	src = "mfussenegger/nvim-jdtls",
 	config = function()
 		local group =
 			vim.api.nvim_create_augroup("java_jdtls", { clear = true })
-		local function map(lhs, rhx, opts)
-			vim.api.nvim_buf_set_keymap(0, "n", lhs, rhx, opts)
-		end
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = { "java" },
-				-- stylua: ignore
-				callback = function(_)
-					map("<leader>da", "<cmd>lua require('jdtls.dap').test_class()<cr>", { desc = "Test class" })
-					map("<leader>dm", "<cmd>lua require('jdtls.dap').test_nearest_method()<cr>", { desc = "Test method" })
-				end,
+			-- stylua: ignore
+			callback = function(_)
+				local function map(lhs, rhx, opts)
+					vim.api.nvim_buf_set_keymap(0, "n", lhs, rhx, opts)
+				end
+				map("<leader>da", "<cmd>lua require('jdtls.dap').test_class()<cr>", { desc = "Test class" })
+				map("<leader>dm", "<cmd>lua require('jdtls.dap').test_nearest_method()<cr>", { desc = "Test method" })
+			end,
 			group = group,
 		})
 		local config = build_jdtls_config()

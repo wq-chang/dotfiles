@@ -1,6 +1,6 @@
 return {
-	"folke/todo-comments.nvim",
-	dependencies = { "nvim-lua/plenary.nvim" },
+	src = "folke/todo-comments.nvim",
+	after = { "plenary.nvim" },
 	opts = {
 		signs = false,
 		search = {
@@ -15,7 +15,7 @@ return {
 			},
 		},
 	},
-	config = function(_, opts)
+	config = function(opts)
 		local tc = require("todo-comments")
 		tc.setup(opts)
 		local function map(lhs, rhs, desc)

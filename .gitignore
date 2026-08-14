@@ -8,3 +8,6 @@ config/pi/run-history.jsonl
 config/pi/trust.json
 config/pi/extensions/subagent/config.json
 config/pi/sessions/
+
+# nvim falls back to a cwd log when $NVIM_LOG_FILE is unwritable
+nvim.log

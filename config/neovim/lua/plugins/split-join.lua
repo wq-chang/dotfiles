@@ -1,4 +1,4 @@
 return {
-	"echasnovski/mini.splitjoin",
+	src = "echasnovski/mini.splitjoin",
 	opts = {},
 }

@@ -1,6 +1,6 @@
 return {
-	"ibhagwan/fzf-lua",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	src = "ibhagwan/fzf-lua",
+	after = { "nvim-web-devicons" },
 	opts = {
 		defaults = {
 			git_icons = true,
@@ -34,7 +34,7 @@ return {
 			},
 		},
 	},
-	config = function(_, opts)
+	config = function(opts)
 		local fzf = require("fzf-lua")
 		fzf.setup(opts)
 		fzf.register_ui_select()

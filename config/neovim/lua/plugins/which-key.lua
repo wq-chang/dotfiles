@@ -1,5 +1,5 @@
 return {
-	"folke/which-key.nvim",
+	src = "folke/which-key.nvim",
 	opts = {
 		plugins = { spelling = true },
 		win = {

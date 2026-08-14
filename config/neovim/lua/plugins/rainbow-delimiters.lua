@@ -1,3 +1,3 @@
 return {
-	"HiPhish/rainbow-delimiters.nvim",
+	src = "HiPhish/rainbow-delimiters.nvim",
 }

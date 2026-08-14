@@ -87,9 +87,9 @@ local function enable_inline_completion(event, client)
 end
 
 return {
-	"neovim/nvim-lspconfig",
-	opts = {
-		diagnostic = {
+	src = "neovim/nvim-lspconfig",
+	config = function()
+		vim.diagnostic.config({
 			float = { source = "if_many", border = "rounded" },
 			virtual_text = {
 				spacing = 4,
@@ -104,8 +104,33 @@ return {
 					[vim.diagnostic.severity.INFO] = "󰋽 ",
 				},
 			},
-		},
-		servers = {
+		})
+
+		-- stylua: ignore
+		vim.keymap.set( "n", "<leader>li", "<cmd>checkhealth vim.lsp<cr>", { desc = "Lsp info" })
+		vim.api.nvim_del_keymap("n", "gra")
+		vim.api.nvim_del_keymap("n", "gri")
+		vim.api.nvim_del_keymap("n", "grn")
+		vim.api.nvim_del_keymap("n", "grr")
+		vim.api.nvim_del_keymap("n", "grt")
+		vim.api.nvim_del_keymap("n", "grx")
+
+		vim.api.nvim_create_autocmd("LspAttach", {
+			group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+			callback = function(event)
+				config_lsp_keymap(event)
+
+				local client = vim.lsp.get_client_by_id(event.data.client_id)
+				if client then
+					enable_references_highlight(event, client)
+					enable_codelens(event, client)
+					enable_inlay_hints(event, client)
+					enable_inline_completion(event, client)
+				end
+			end,
+		})
+
+		local servers = {
 			basedpyright = {},
 			cssls = {},
 			eslint = {
@@ -153,43 +178,23 @@ return {
 			jsonls = { init_options = { provideFormatter = false } },
 			lua_ls = {
 				settings = {
-					Lua = { completion = { callSnippet = "Replace" } },
+					Lua = {
+						-- Resolve vim.* types (vim.api.keyset.*, vim.lsp.Client, ...)
+						-- from the runtime's bundled _meta annotations (Neovim 0.11+).
+						workspace = {
+							library = { vim.env.VIMRUNTIME .. "/lua" },
+						},
+						completion = { callSnippet = "Replace" },
+					},
 				},
 			},
 			nixd = {},
 			ruff = {},
 			terraformls = {},
 			ts_ls = {},
-		},
-	},
-	config = function(_, opts)
-		vim.diagnostic.config(opts.diagnostic)
+		}
 
-		-- stylua: ignore
-		vim.keymap.set( "n", "<leader>li", "<cmd>checkhealth vim.lsp<cr>", { desc = "Lsp info" })
-		vim.api.nvim_del_keymap("n", "gra")
-		vim.api.nvim_del_keymap("n", "gri")
-		vim.api.nvim_del_keymap("n", "grn")
-		vim.api.nvim_del_keymap("n", "grr")
-		vim.api.nvim_del_keymap("n", "grt")
-		vim.api.nvim_del_keymap("n", "grx")
-
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
-			callback = function(event)
-				config_lsp_keymap(event)
-
-				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client then
-					enable_references_highlight(event, client)
-					enable_codelens(event, client)
-					enable_inlay_hints(event, client)
-					enable_inline_completion(event, client)
-				end
-			end,
-		})
-
-		for server_name, server_config in pairs(opts.servers) do
+		for server_name, server_config in pairs(servers) do
 			vim.lsp.config(server_name, server_config)
 			vim.lsp.enable(server_name)
 		end

@@ -1,26 +1,39 @@
 return {
 	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-neotest/nvim-nio",
-			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"rcasia/neotest-java",
-			"nvim-neotest/neotest-python",
-			"marilari88/neotest-vitest",
-			"fredrikaverpil/neotest-golang",
-		},
-		-- stylua: ignore
-		keys = {
-			{ "<leader>ns", "<cmd>Neotest summary<cr>", desc = "Neotest summary" },
-			{ "<leader>nS", "<cmd>Neotest stop<cr>", desc = "Stop" },
-			---@diagnostic disable-next-line: missing-fields
-			{ "<leader>nd", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Dubug test" },
-			{ "<leader>nm", "<cmd>Neotest run<cr>", desc = "Run test" },
-			{ "<leader>na", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run all tests" },
-			{ "<leader>no", "<cmd>Neotest output<cr>", desc = "Output" },
-			{ "<leader>np", "<cmd>Neotest output-panel<cr>", desc = "Output panel" },
+		src = "antoinemadec/FixCursorHold.nvim",
+	},
+	{
+		src = "nvim-neotest/neotest-python",
+	},
+	{
+		src = "marilari88/neotest-vitest",
+	},
+	{
+		src = "fredrikaverpil/neotest-golang",
+	},
+	{
+		src = "rcasia/neotest-java",
+		config = function()
+			local neotest_java_path = vim.fn.stdpath("data") .. "/neotest-java"
+			local jar_path = vim.fn.glob(
+				neotest_java_path .. "/junit-platform-console-standalone-*.jar"
+			)
+			if jar_path == "" then
+				vim.cmd("NeotestJava setup")
+			end
+		end,
+	},
+	{
+		src = "nvim-neotest/neotest",
+		after = {
+			"nvim-nio",
+			"plenary.nvim",
+			"FixCursorHold.nvim",
+			"nvim-treesitter",
+			"neotest-java",
+			"neotest-python",
+			"neotest-vitest",
+			"neotest-golang",
 		},
 		opts = function()
 			local go_utils = require("utils.go")
@@ -62,17 +75,18 @@ return {
 				},
 			}
 		end,
-	},
-	{
-		"rcasia/neotest-java",
-		config = function()
-			local neotest_java_path = vim.fn.stdpath("data") .. "/neotest-java"
-			local jar_path = vim.fn.glob(
-				neotest_java_path .. "/junit-platform-console-standalone-*.jar"
-			)
-			if jar_path == "" then
-				vim.cmd("NeotestJava setup")
-			end
+		config = function(opts)
+			require("neotest").setup(opts)
+
+			-- stylua: ignore start
+			vim.keymap.set("n", "<leader>ns", "<cmd>Neotest summary<cr>", { desc = "Neotest summary" })
+			vim.keymap.set("n", "<leader>nS", "<cmd>Neotest stop<cr>", { desc = "Stop" })
+			vim.keymap.set("n", "<leader>nd", function() require("neotest").run.run({ strategy = "dap" }) end, { desc = "Debug test" })
+			vim.keymap.set("n", "<leader>nm", "<cmd>Neotest run<cr>", { desc = "Run test" })
+			vim.keymap.set("n", "<leader>na", function() require("neotest").run.run(vim.fn.expand("%")) end, { desc = "Run all tests" })
+			vim.keymap.set("n", "<leader>no", "<cmd>Neotest output<cr>", { desc = "Output" })
+			vim.keymap.set("n", "<leader>np", "<cmd>Neotest output-panel<cr>", { desc = "Output panel" })
+			-- stylua: ignore end
 		end,
 	},
 }
