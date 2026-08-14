@@ -3,8 +3,8 @@
     "type": "git",
     "url": "https://github.com/kislyuk/argcomplete",
     "branchName": "main",
-    "rev": "7ef22fcac46d752831698dc3399458efc2f51c9c",
-    "hash": "sha256-umX5cK8medKRYbQQBMaZvlKCP7Q2kfnFQqtFTwVC6Qo=",
+    "rev": "c922159e140c223488bdd9756418426eb84cd1d7",
+    "hash": "sha256-/x9RWRHjus+3uHeCeFa8wWovtWkbqONI5tkxa++y5So=",
     "sparseCheckout": [
       "argcomplete/bash_completion.d/_python-argcomplete"
     ]
@@ -20,7 +20,7 @@
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "4f84911bfe8811e9b028e4b1fee8e7510be79387",
+    "rev": "eb68ed19d2f0b11f308eefc930bfe5c077c57a7e",
     "hash": "sha256-JGkZVEBhVDQtaQbaB0qRAaJbZVxGlSuDx7y55JSI6uo=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
@@ -36,8 +36,8 @@
   "github-copilot-cli": {
     "type": "github-release",
     "url": "https://github.com/github/copilot-cli",
-    "tag": "v1.0.78",
-    "version": "1.0.78",
+    "tag": "v1.0.80",
+    "version": "1.0.80",
     "assetPatterns": {
       "aarch64-darwin": "^github-copilot-[0-9.]+-darwin-arm64\\.tgz$",
       "aarch64-linux": "^github-copilot-[0-9.]+-linux-arm64\\.tgz$",
@@ -46,24 +46,24 @@
     },
     "assets": {
       "aarch64-darwin": {
-        "name": "github-copilot-1.0.78-darwin-arm64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.78/github-copilot-1.0.78-darwin-arm64.tgz",
-        "hash": "sha256-n6Aqh0NXl3jo67EQ1tMJ0Yjq5cunuSiAvrIRLSfKDro="
+        "name": "github-copilot-1.0.80-darwin-arm64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.80/github-copilot-1.0.80-darwin-arm64.tgz",
+        "hash": "sha256-HR4GBZ0LrHONzMND3rqXzQvw0XV1TsKfg6Ckc6osa0A="
       },
       "aarch64-linux": {
-        "name": "github-copilot-1.0.78-linux-arm64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.78/github-copilot-1.0.78-linux-arm64.tgz",
-        "hash": "sha256-WZOtX+0sSB4/N8ievEzNa+N9EU+v5MExkhaNvpCguJw="
+        "name": "github-copilot-1.0.80-linux-arm64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.80/github-copilot-1.0.80-linux-arm64.tgz",
+        "hash": "sha256-TYgTS5IT+B9eMetc7noZH5FvVv9m4/s9Eh7sdspigJ4="
       },
       "x86_64-darwin": {
-        "name": "github-copilot-1.0.78-darwin-x64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.78/github-copilot-1.0.78-darwin-x64.tgz",
-        "hash": "sha256-+C87FtFJbJw0l7HQuMK24ppsuxKD0xx0kRIANBeKCqw="
+        "name": "github-copilot-1.0.80-darwin-x64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.80/github-copilot-1.0.80-darwin-x64.tgz",
+        "hash": "sha256-mxqn3jGddO4eIglerqwyB6XNp42d8bzMM1AJfgSYWZg="
       },
       "x86_64-linux": {
-        "name": "github-copilot-1.0.78-linux-x64.tgz",
-        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.78/github-copilot-1.0.78-linux-x64.tgz",
-        "hash": "sha256-6XofILpOnXBYP6ayhKOZTXlr43vUP7iKKmfGNo8XC0g="
+        "name": "github-copilot-1.0.80-linux-x64.tgz",
+        "url": "https://github.com/github/copilot-cli/releases/download/v1.0.80/github-copilot-1.0.80-linux-x64.tgz",
+        "hash": "sha256-2s6jYMgj3Vj3ENeoHDa76fZ3PfRYkIeqJctmumN8gig="
       }
     }
   },
@@ -71,7 +71,7 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "0912e05c0589d26ea20d79555487900880aad4d5",
+    "rev": "b54a71977574cfcf659cc2f15a5e6422f17a8da7",
     "hash": "sha256-7rB858smH3bTpa33fOXUFkb1hrza6xXw2AX89m/dqrU=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -118,8 +118,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "334c14d1b49ec8393292b16b2a972f20570361ac",
-    "hash": "sha256-nrWI/EWHKPIKwFRZnm6nRK7c+9U3NHllW8B3zzAtfNs="
+    "rev": "2798b16c74f80cda2094cfed4516db8048d3e6ca",
+    "hash": "sha256-ey2CaZJ4D9ln80/zacP/fWhl/R5ifJgxYw7XdPI7loo="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",

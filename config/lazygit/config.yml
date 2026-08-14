@@ -1,8 +1,8 @@
 git:
   disableForcePushing: true
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --line-numbers --paging=never
+      command: delta --line-numbers --paging=never
 gui:
   nerdFontsVersion: "3"
   theme:
