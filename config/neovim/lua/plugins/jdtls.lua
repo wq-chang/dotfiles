@@ -115,6 +115,12 @@ return {
 				end
 				map("<leader>da", "<cmd>lua require('jdtls.dap').test_class()<cr>", { desc = "Test class" })
 				map("<leader>dm", "<cmd>lua require('jdtls.dap').test_nearest_method()<cr>", { desc = "Test method" })
+
+				-- Re-assert mini.clue triggers after buffer-local mappings
+				local ok, miniclue = pcall(require, "mini.clue")
+				if ok then
+					miniclue.ensure_buf_triggers(0)
+				end
 			end,
 			group = group,
 		})

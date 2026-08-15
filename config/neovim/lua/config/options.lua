@@ -31,8 +31,7 @@ opt.signcolumn = "yes"
 -- Decrease update time
 opt.updatetime = 250
 
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
+-- Decrease mapped sequence wait time (e.g. `jk` insert escape).
 opt.timeoutlen = 300
 
 -- Configure how new splits should be opened

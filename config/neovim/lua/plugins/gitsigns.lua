@@ -33,12 +33,18 @@ return {
 			map("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
 			map("n", "<leader>gp", gs.preview_hunk_inline, "Preview Hunk Inline")
 			map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
-			map("n", "<leader>gB", gs.toggle_current_line_blame, "Blame Line")
+			map("n", "<leader>gB", gs.toggle_current_line_blame, "Toggle blame Line")
 			map("n", "<leader>gd", function() gs.diffthis("~") end, "Diff This ~")
 			map("n", "<leader>gD", gs.diffthis, "Diff This")
 			map("n", "<leader>gt", toggle_inline_diff, "Toggle inline diff")
 			map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<cr>", "GitSigns Select Hunk")
 			-- stylua: ignore end
+
+			-- Re-assert mini.clue triggers after buffer-local mappings
+			local ok, miniclue = pcall(require, "mini.clue")
+			if ok then
+				miniclue.ensure_buf_triggers(buffer)
+			end
 		end,
 	},
 }

@@ -74,6 +74,10 @@
       "rev": "77d7446b9f2452193f13ced9fb73a8b3aa4a4f4d",
       "src": "https://github.com/echasnovski/mini.align"
     },
+    "mini.clue": {
+      "rev": "4d506660e7030a15748ab073bebfe3ed03884000",
+      "src": "https://github.com/nvim-mini/mini.clue"
+    },
     "mini.operators": {
       "rev": "f94f9184155c7f7f9a8fb069be2a97ce8a48c97f",
       "src": "https://github.com/echasnovski/mini.operators"
@@ -215,10 +219,6 @@
     "ultimate-autopair.nvim": {
       "rev": "6b58234de921437836efe27714b2026ed2ee235a",
       "src": "https://github.com/altermo/ultimate-autopair.nvim"
-    },
-    "which-key.nvim": {
-      "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
-      "src": "https://github.com/folke/which-key.nvim"
     }
   }
 }

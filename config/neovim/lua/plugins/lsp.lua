@@ -120,6 +120,12 @@ return {
 			callback = function(event)
 				config_lsp_keymap(event)
 
+				-- Re-assert mini.clue triggers after buffer-local mappings
+				local ok, miniclue = pcall(require, "mini.clue")
+				if ok then
+					miniclue.ensure_buf_triggers(event.buf)
+				end
+
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
 				if client then
 					enable_references_highlight(event, client)
