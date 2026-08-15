@@ -106,8 +106,18 @@ return {
 			},
 		})
 
-		-- stylua: ignore
-		vim.keymap.set( "n", "<leader>li", "<cmd>checkhealth vim.lsp<cr>", { desc = "Lsp info" })
+		vim.keymap.set(
+			"n",
+			"<leader>li",
+			"<cmd>checkhealth vim.lsp<cr>",
+			{ desc = "Lsp info" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>lR",
+			"<cmd>lsp restart<cr>",
+			{ desc = "Restart LSP servers" }
+		)
 		vim.api.nvim_del_keymap("n", "gra")
 		vim.api.nvim_del_keymap("n", "gri")
 		vim.api.nvim_del_keymap("n", "grn")
