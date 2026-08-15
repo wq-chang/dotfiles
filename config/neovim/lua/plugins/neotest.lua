@@ -1,26 +1,28 @@
 return {
-	{
-		src = "antoinemadec/FixCursorHold.nvim",
-	},
-	{
-		src = "nvim-neotest/neotest-python",
-	},
-	{
-		src = "marilari88/neotest-vitest",
-	},
-	{
-		src = "fredrikaverpil/neotest-golang",
-	},
+	{ src = "antoinemadec/FixCursorHold.nvim" },
+	{ src = "nvim-neotest/neotest-python" },
+	{ src = "marilari88/neotest-vitest" },
+	{ src = "fredrikaverpil/neotest-golang" },
 	{
 		src = "rcasia/neotest-java",
 		config = function()
-			local neotest_java_path = vim.fn.stdpath("data") .. "/neotest-java"
-			local jar_path = vim.fn.glob(
-				neotest_java_path .. "/junit-platform-console-standalone-*.jar"
-			)
-			if jar_path == "" then
-				vim.cmd("NeotestJava setup")
-			end
+			-- Ensure the junit console jar exists before java tests run; defer
+			-- the (network) `NeotestJava setup` download to first java open
+			-- instead of running it at every startup.
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "java",
+				callback = function()
+					local neotest_java_path =
+						vim.fn.stdpath("data") .. "/neotest-java"
+					local jar_path = vim.fn.glob(
+						neotest_java_path
+							.. "/junit-platform-console-standalone-*.jar"
+					)
+					if jar_path == "" then
+						vim.cmd("NeotestJava setup")
+					end
+				end,
+			})
 		end,
 	},
 	{
