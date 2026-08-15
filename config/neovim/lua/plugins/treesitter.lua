@@ -78,21 +78,50 @@ return {
 				local inner = "@" .. obj .. ".inner"
 				local outer = "@" .. obj .. ".outer"
 
-				-- stylua: ignore start
-				mappings["]" .. key] = { outer, { "n", "x", "o" }, move.goto_next_start }
-				mappings["]" .. upper] = { outer, { "n", "x", "o" }, move.goto_next_end }
-				mappings["[" .. key] = { outer, { "n", "x", "o" }, move.goto_previous_start }
-				mappings["[" .. upper] = { outer, { "n", "x", "o" }, move.goto_previous_end }
-				mappings["i" .. key] = { inner, { "x", "o" }, select.select_textobject }
-				mappings["a" .. key] = { outer, { "x", "o" }, select.select_textobject }
-				-- stylua: ignore end
+				mappings["]" .. key] = {
+					outer,
+					{ "n", "x", "o" },
+					move.goto_next_start,
+					"Next " .. obj,
+				}
+				mappings["]" .. upper] = {
+					outer,
+					{ "n", "x", "o" },
+					move.goto_next_end,
+					"Next " .. obj .. " end",
+				}
+				mappings["[" .. key] = {
+					outer,
+					{ "n", "x", "o" },
+					move.goto_previous_start,
+					"Previous " .. obj,
+				}
+				mappings["[" .. upper] = {
+					outer,
+					{ "n", "x", "o" },
+					move.goto_previous_end,
+					"Previous " .. obj .. " end",
+				}
+				mappings["i" .. key] = {
+					inner,
+					{ "x", "o" },
+					select.select_textobject,
+					"Inner " .. obj,
+				}
+				mappings["a" .. key] = {
+					outer,
+					{ "x", "o" },
+					select.select_textobject,
+					"Outer " .. obj,
+				}
 			end
 
 			for key, def in pairs(mappings) do
-				local textobj, modes, func = def[1], def[2], def[3]
+				local textobj, modes, func, desc =
+					def[1], def[2], def[3], def[4]
 				vim.keymap.set(modes, key, function()
 					func(textobj, "textobjects")
-				end)
+				end, { desc = desc })
 			end
 		end,
 	},
