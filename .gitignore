@@ -3,6 +3,7 @@
 result
 
 config/pi/auth.json
+config/pi/missions/
 config/pi/models-store.json
 config/pi/run-history.jsonl
 config/pi/trust.json

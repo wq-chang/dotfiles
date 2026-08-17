@@ -3,8 +3,8 @@
     "type": "git",
     "url": "https://github.com/kislyuk/argcomplete",
     "branchName": "main",
-    "rev": "c922159e140c223488bdd9756418426eb84cd1d7",
-    "hash": "sha256-/x9RWRHjus+3uHeCeFa8wWovtWkbqONI5tkxa++y5So=",
+    "rev": "1fbb57effe68ae5d84639fe3740c769dc5aef20d",
+    "hash": "sha256-+DBI0JvmocvvK5FoHzPQCTJWuCVrqtjjTuEzjtpjolQ=",
     "sparseCheckout": [
       "argcomplete/bash_completion.d/_python-argcomplete"
     ]
@@ -20,8 +20,8 @@
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "eb68ed19d2f0b11f308eefc930bfe5c077c57a7e",
-    "hash": "sha256-JGkZVEBhVDQtaQbaB0qRAaJbZVxGlSuDx7y55JSI6uo=",
+    "rev": "8659aa5d4c94008efb258f8a0b9187245ad7ca8b",
+    "hash": "sha256-Aejs+c4RoS2mUzeDqYdEinoowGKX01b7ZqFB6O/pmt4=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -71,7 +71,7 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "b54a71977574cfcf659cc2f15a5e6422f17a8da7",
+    "rev": "97e11051e2f8053b1d694788d1cb4b0dbb1e2365",
     "hash": "sha256-7rB858smH3bTpa33fOXUFkb1hrza6xXw2AX89m/dqrU=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
@@ -80,26 +80,26 @@
   },
   "pi-ai-model-data": {
     "type": "npm",
-    "url": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-0.84.1.tgz",
-    "hash": "sha256-araJGJ58s95c2xJjEqPmDorDX+XuXxtj0A9xHIpDDHM=",
+    "url": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-0.84.2.tgz",
+    "hash": "sha256-AmJ4Wnaw6y7sWWzYp6su4j7vidLvG7EhHE8KGUTaz0E=",
     "name": "@earendil-works/pi-ai",
-    "version": "0.84.1"
+    "version": "0.84.2"
   },
   "pi-coding-agent": {
     "type": "github-release",
     "url": "https://github.com/earendil-works/pi",
-    "tag": "v0.84.1",
-    "hash": "sha256-lg+I4S/aAjazjhGZU567ow+rksoNiqOqjHl//TjAMes=",
-    "version": "0.84.1",
-    "npmDepsHash": "sha256-tufyZQRPAUeDtiq0UQodbKA/Y9xUAvNT8K+NWFjkeME=",
+    "tag": "v0.84.2",
+    "hash": "sha256-d29ft9otYxdHRWYIAX8KMHPpppToX9ME5LbPb1rPcYo=",
+    "version": "0.84.2",
+    "npmDepsHash": "sha256-6J5Efe+6ptCuR3VZojwYPZO8BBnnZsOQ4OAeB64uYOY=",
     "npmDepsLockPath": "package-lock.json"
   },
   "powerlevel10k": {
     "type": "git",
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "9253fb1c5034410c43a0c681ff8294181c54016c",
-    "hash": "sha256-m1IM5sEEf/yVkISC12oVLdgyk0z98hp8OqolGu098zM="
+    "rev": "3308262dfbd743b6e1d3956a2b5572f7a049d692",
+    "hash": "sha256-s0FLaSZdhMTJyHQFtkQWdp0Qi2QAZvy4H40r1FdEOvY="
   },
   "tokyonight": {
     "type": "git",
@@ -118,8 +118,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "2798b16c74f80cda2094cfed4516db8048d3e6ca",
-    "hash": "sha256-ey2CaZJ4D9ln80/zacP/fWhl/R5ifJgxYw7XdPI7loo="
+    "rev": "d1968bd3329c9376b7ce6e37e835e61ca22baab1",
+    "hash": "sha256-Y5Ub9t/5een6jxjHXcHdWuCizzVqX2Ln1jrCz5fezQ8="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",

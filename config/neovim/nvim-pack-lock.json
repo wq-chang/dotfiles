@@ -47,7 +47,7 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf": {
-      "rev": "bd4efa277b49ef34ca4025bff9b1a288e1980eff",
+      "rev": "15f64c492a08f0840b81540c7d1de35737448086",
       "src": "https://github.com/junegunn/fzf"
     },
     "fzf-lua": {
@@ -79,7 +79,7 @@
       "src": "https://github.com/nvim-mini/mini.clue"
     },
     "mini.operators": {
-      "rev": "f94f9184155c7f7f9a8fb069be2a97ce8a48c97f",
+      "rev": "9e0aa164b097c6cb45e59b9371c9347ac06eb822",
       "src": "https://github.com/echasnovski/mini.operators"
     },
     "mini.splitjoin": {
@@ -91,7 +91,7 @@
       "src": "https://github.com/danymat/neogen"
     },
     "neotest": {
-      "rev": "1c529a1ef9c82e8131e872368415cecc2bb86ea2",
+      "rev": "27bf921498043f7ecd821d6db68d05de244bbd02",
       "src": "https://github.com/nvim-neotest/neotest"
     },
     "neotest-golang": {
@@ -147,7 +147,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "51dbf5359da86721662c87ca10eb73add973737b",
+      "rev": "fbaef6156f9ad65790931ab543ab1dfec57bbec7",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-nio": {
@@ -159,7 +159,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "a1bcffc8095c142ad1f7a9671a4ae180333f9209",
+      "rev": "074aa4422bf029908338e855d0c0f71470a971bb",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },

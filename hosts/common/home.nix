@@ -21,7 +21,7 @@
       nurl
       ripgrep
     ])
-    ++ lib.optionals pkgs.stdenv.isLinux [ pkgs.wl-clipboard ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.wl-clipboard ]
     ++ [ customPkgs.zsh-manpage-completion-generator ];
 
   home.sessionPath = [ "$HOME/dotfiles/bin" ];
