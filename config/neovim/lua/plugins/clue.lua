@@ -4,8 +4,8 @@ return {
 		local miniclue = require("mini.clue")
 		return {
 			triggers = {
-				-- Leader triggers
-				{ mode = { "n", "x" }, keys = "<Leader>" },
+				-- leader triggers
+				{ mode = { "n", "x" }, keys = "<leader>" },
 
 				-- `g` and `z` keys
 				{ mode = { "n", "x" }, keys = "g" },
@@ -16,75 +16,75 @@ return {
 				{ mode = "n", keys = "]" },
 			},
 			clues = {
-				-- Leader mapping groups
-				{ mode = { "n", "x" }, keys = "<Leader>a", desc = "+ai" },
-				{ mode = { "n", "x" }, keys = "<Leader>c", desc = "+code" },
-				{ mode = { "n", "x" }, keys = "<Leader>d", desc = "+debug" },
+				-- leader mapping groups
+				{ mode = { "n", "x" }, keys = "<leader>a", desc = "+ai" },
+				{ mode = { "n", "x" }, keys = "<leader>c", desc = "+code" },
+				{ mode = { "n", "x" }, keys = "<leader>d", desc = "+debug" },
 				{
 					mode = { "n", "x" },
-					keys = "<Leader>f",
+					keys = "<leader>f",
 					desc = "+file/find",
 				},
-				{ mode = { "n", "x" }, keys = "<Leader>g", desc = "+git" },
-				{ mode = { "n", "x" }, keys = "<Leader>l", desc = "+lsp" },
+				{ mode = { "n", "x" }, keys = "<leader>g", desc = "+git" },
+				{ mode = { "n", "x" }, keys = "<leader>l", desc = "+lsp" },
 				{
 					mode = { "n", "x" },
-					keys = "<Leader>m",
+					keys = "<leader>m",
 					desc = "+mergetools",
 				},
-				{ mode = { "n", "x" }, keys = "<Leader>n", desc = "+neotest" },
-				{ mode = { "n", "x" }, keys = "<Leader>w", desc = "+windows" },
+				{ mode = { "n", "x" }, keys = "<leader>n", desc = "+neotest" },
+				{ mode = { "n", "x" }, keys = "<leader>w", desc = "+windows" },
 
-				-- Window resize submode: `<Leader>w` + j/k/l/h repeats
+				-- Window resize submode: `<leader>w` + j/k/l/h repeats
 				{
 					mode = "n",
-					keys = "<Leader>wj",
-					postkeys = "<Leader>w",
+					keys = "<leader>wj",
+					postkeys = "<leader>w",
 					desc = "Increase height",
 				},
 				{
 					mode = "n",
-					keys = "<Leader>wk",
-					postkeys = "<Leader>w",
+					keys = "<leader>wk",
+					postkeys = "<leader>w",
 					desc = "Decrease height",
 				},
 				{
 					mode = "n",
-					keys = "<Leader>wh",
-					postkeys = "<Leader>w",
+					keys = "<leader>wh",
+					postkeys = "<leader>w",
 					desc = "Decrease width",
 				},
 				{
 					mode = "n",
-					keys = "<Leader>wl",
-					postkeys = "<Leader>w",
+					keys = "<leader>wl",
+					postkeys = "<leader>w",
 					desc = "Increase width",
 				},
 
-				-- Window swap submode: `<Leader>wx` + h/j/k/l repeats
-				{ mode = { "n", "x" }, keys = "<Leader>wx", desc = "+swap" },
+				-- Window swap submode: `<leader>wx` + h/j/k/l repeats
+				{ mode = { "n", "x" }, keys = "<leader>wx", desc = "+swap" },
 				{
 					mode = "n",
-					keys = "<Leader>wxh",
-					postkeys = "<Leader>wx",
+					keys = "<leader>wxh",
+					postkeys = "<leader>wx",
 					desc = "Swap with left window",
 				},
 				{
 					mode = "n",
-					keys = "<Leader>wxj",
-					postkeys = "<Leader>wx",
+					keys = "<leader>wxj",
+					postkeys = "<leader>wx",
 					desc = "Swap with below window",
 				},
 				{
 					mode = "n",
-					keys = "<Leader>wxk",
-					postkeys = "<Leader>wx",
+					keys = "<leader>wxk",
+					postkeys = "<leader>wx",
 					desc = "Swap with above window",
 				},
 				{
 					mode = "n",
-					keys = "<Leader>wxl",
-					postkeys = "<Leader>wx",
+					keys = "<leader>wxl",
+					postkeys = "<leader>wx",
 					desc = "Swap with right window",
 				},
 

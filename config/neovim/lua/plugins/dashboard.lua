@@ -8,4 +8,16 @@ return {
 			},
 		},
 	},
+	config = function(opts)
+		require("dashboard").setup(opts)
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "dashboard",
+			callback = function()
+				vim.schedule(function()
+					pcall(require("mini.clue").enable_buf_triggers)
+				end)
+			end,
+		})
+	end,
 }
