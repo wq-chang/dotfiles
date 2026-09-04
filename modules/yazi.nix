@@ -17,12 +17,21 @@ let
         "tab_inactive"
       ];
 
+      # Newer yazi versions renamed the `name` key in `[filetype].rules` to `url`
+      filetype = theme.filetype // {
+        rules = map (
+          rule: if rule ? name then (removeAttrs rule [ "name" ]) // { url = rule.name; } else rule
+        ) theme.filetype.rules;
+      };
+
     in
     theme
     // {
       mgr = mgr // {
         syntect_theme = "${deps.tokyonight}/extras/sublime/tokyonight_night.tmTheme";
       };
+
+      filetype = filetype;
 
       tabs = {
         active = {
@@ -54,14 +63,14 @@ let
         mgr.linemode = "size";
         plugin.prepend_fetchers = [
           {
-            id = "git";
-            name = "*";
+            url = "*";
             run = "git";
+            group = "git";
           }
           {
-            id = "git";
-            name = "*/";
+            url = "*/";
             run = "git";
+            group = "git";
           }
         ];
       };
