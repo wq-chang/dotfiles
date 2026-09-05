@@ -131,8 +131,6 @@ darwin-rebuild switch --flake .#macbook
 - `flake.nix` wires `customPkgs` into module arguments separately from nixpkgs overlays.
 - Overlay files in `overlays/*.nix` are auto-loaded into `pkgs`.
 - Repo overlays use the signature `{ deps, depsLock, lib, ... }: final: prev: { ... }`.
-- `overlays/github-copilot-cli.nix` is the reference example for tracking a newer upstream GitHub release than nixpkgs currently provides.
-- `overlays/pi-coding-agent.nix` shows the pattern for overriding a nixpkgs package from a `github-release` source with auto-computed `npmDepsHash`.
 
 ### `mdep`
 
@@ -144,8 +142,8 @@ mdep add <name> <repo-url> -t git -b <branch> -r <commit revision> -s <sparse ch
 mdep add <name> <repo-url> -t github-release --tag <tag>
 
 # Add a GitHub release dependency with a universal asset
-mdep add github-copilot-cli https://github.com/github/copilot-cli -t github-release \
-  --asset-pattern 'universal=^github-copilot-[0-9.]+\.tgz$'
+mdep add my-tool https://github.com/owner/repo -t github-release \
+  --asset-pattern 'universal=^my-tool-[0-9.]+\.tgz$'
 
 # Add a PyPI dependency (uses the latest version when --version is omitted)
 mdep add <name> <package-name> -t pypi --version <version>
@@ -154,8 +152,8 @@ mdep add <name> <package-name> -t pypi --version <version>
 mdep add <name> <package-name> -t npm --version <version>
 
 # Add a GitHub release dependency with npm lockfile tracking
-mdep add pi-coding-agent https://github.com/earendil-works/pi -t github-release \
-  --npm-deps-lock-path packages/coding-agent/package-lock.json
+mdep add my-tool https://github.com/owner/repo -t github-release \
+  --npm-deps-lock-path packages/my-tool/package-lock.json
 
 # Update dependencies in deps-lock.json (recomputes npmDepsHash for npm-tracked deps)
 mdep update

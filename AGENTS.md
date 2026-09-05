@@ -197,11 +197,6 @@ Create `overlays/my-overlay.nix`:
 
 The overlay is automatically loaded by `overlays/default.nix`.
 
-### Reference examples
-
-- **`overlays/github-copilot-cli.nix`** — consuming per-system GitHub release assets.
-- **`overlays/pi-coding-agent.nix`** — overriding a nixpkgs package from a `github-release` source with auto-computed `npmDepsHash`.
-
 ---
 
 ## Dependencies: Types and Management
@@ -274,7 +269,7 @@ Nix selects `assets.<host.system>` when present and otherwise falls back to `ass
 | `npmDepsHash`     | string | SRI hash computed by `nix run nixpkgs#prefetch-npm-deps` on the dependency's lockfile. Set automatically by `mdep add --npm-deps-lock-path`.                                   |
 | `npmDepsLockPath` | string | Path to the npm lockfile within the extracted source tree (e.g. `packages/coding-agent/package-lock.json`). Used by `mdep update` to recompute `npmDepsHash` on version bumps. |
 
-When both fields are present in `deps-lock.json`, the overlay reads `npmDepsHash` directly (see `overlays/pi-coding-agent.nix` for the pattern).
+When both fields are present in `deps-lock.json`, the overlay reads `npmDepsHash` directly.
 
 ### Managing dependencies
 
@@ -286,12 +281,12 @@ mdep add my-tool https://github.com/owner/repo -t git -b main
 mdep add my-tool https://github.com/owner/repo -t github-release --tag v1.0.0
 
 # Add a GitHub release with a universal asset
-mdep add github-copilot-cli https://github.com/github/copilot-cli -t github-release \
-  --asset-pattern 'universal=^github-copilot-[0-9.]+\.tgz$'
+mdep add my-tool https://github.com/owner/repo -t github-release \
+  --asset-pattern 'universal=^my-tool-[0-9.]+\.tgz$'
 
 # Add a GitHub release dependency with npm lockfile tracking
-mdep add pi-coding-agent https://github.com/earendil-works/pi -t github-release \
-  --npm-deps-lock-path packages/coding-agent/package-lock.json
+mdep add my-tool https://github.com/owner/repo -t github-release \
+  --npm-deps-lock-path packages/my-tool/package-lock.json
 
 # Update all locked hashes and versions (recomputes npmDepsHash for npm-tracked deps)
 mdep update
