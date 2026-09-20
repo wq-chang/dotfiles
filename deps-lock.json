@@ -20,8 +20,8 @@
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "d306b9d6007b0e9a0ec1c7a99646fceba4f5e20e",
-    "hash": "sha256-S5Wwbtw8zu2AwWYgAPF7m1sJ8bBhbR144PgjZcHFIXg=",
+    "rev": "4a63305d74332de5ceba7fcbccbc3cbb7412f5ba",
+    "hash": "sha256-rC1xtvGSPSRFY+SfHaqd0zf/zKGVzZ/3VA0Gs1J6c5w=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -37,8 +37,8 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "421d95782d369f266b8087a0eae11eac2f6a6041",
-    "hash": "sha256-XRq4qxYzgQVQ+S1ZkjkXVFLIV7KX2G8/Dajq9+xMndQ=",
+    "rev": "0b50afdbfd8cbd0e03be68ecec4e1b5d3f55ef0a",
+    "hash": "sha256-jyzqtoBWElCJn6JS5zVM8TNXZmgYDrG2edIj1hl1nx0=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
       "plugins/docker-compose/_docker-compose"
@@ -48,8 +48,8 @@
     "type": "git",
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "3308262dfbd743b6e1d3956a2b5572f7a049d692",
-    "hash": "sha256-s0FLaSZdhMTJyHQFtkQWdp0Qi2QAZvy4H40r1FdEOvY="
+    "rev": "d05a1b00f9a61f9578bf9dc19b8451942dde8734",
+    "hash": "sha256-B2Sq/V455mlvMOAv+K7vEyZy53kVdo576ZAMcvbJXgk="
   },
   "tokyonight": {
     "type": "git",
@@ -68,8 +68,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "8cd3bd78e8b1f17271cfdd8269074e5557d8d7b8",
-    "hash": "sha256-/yCvFIhFUQg7k1YfSfEeJhyFBOxUtWuT9wbk2bZbR4g="
+    "rev": "de02bb84ab0af51e328c6ae85ab5555397c31277",
+    "hash": "sha256-DAyQ57pA5u4v5q+NqoLHDo90UCW6WeaqNESEnOZk79U="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",
