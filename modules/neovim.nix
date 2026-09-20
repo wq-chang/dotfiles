@@ -34,6 +34,9 @@ let
     modules.python.packages = p: with p; [ debugpy ];
 
     home.packages = with pkgs; [
+      # image
+      imagemagick
+
       go
 
       delve # go debugger
