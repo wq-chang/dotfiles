@@ -3,25 +3,25 @@
     "type": "git",
     "url": "https://github.com/kislyuk/argcomplete",
     "branchName": "main",
-    "rev": "1fbb57effe68ae5d84639fe3740c769dc5aef20d",
-    "hash": "sha256-+DBI0JvmocvvK5FoHzPQCTJWuCVrqtjjTuEzjtpjolQ=",
+    "rev": "747b4bba348132060348dc609d51192fe2cd2f44",
+    "hash": "sha256-uHVyEgBi7ici6Z0ViepbPI7bDaXwZeI1/R2JlxNCXfw=",
     "sparseCheckout": [
       "argcomplete/bash_completion.d/_python-argcomplete"
     ]
   },
   "awscli-local": {
     "type": "pypi",
-    "url": "https://files.pythonhosted.org/packages/7a/71/591a30da6819c96deca2286f145d5982e73b11e7f657e8cbfc5e003ca73f/awscli_local-0.22.2.tar.gz",
-    "hash": "sha256-B8Uyw3J1O/XxVCZFHckdbuyd6HeXSASTKamogr2sigs=",
+    "url": "https://files.pythonhosted.org/packages/b1/56/fb8eed90e00285f34ba97239c94c63daa963ce1746d2a99b2f66b893ba92/awscli_local-0.23.0.tar.gz",
+    "hash": "sha256-WaoxGQ1XiWek03ZEAyCBDgD/19q7pdy56rauekxjNEE=",
     "name": "awscli_local",
-    "version": "0.22.2"
+    "version": "0.23.0"
   },
   "docker-cli": {
     "type": "git",
     "url": "https://github.com/docker/cli",
     "branchName": "master",
-    "rev": "4a63305d74332de5ceba7fcbccbc3cbb7412f5ba",
-    "hash": "sha256-rC1xtvGSPSRFY+SfHaqd0zf/zKGVzZ/3VA0Gs1J6c5w=",
+    "rev": "fdd4b8e5da335e1d0d83d29af5045f57280cd694",
+    "hash": "sha256-cMg7/DKKSIPYYu8TfU53NFSG64obEQTPRPEP1QdWcHk=",
     "sparseCheckout": [
       "contrib/completion/zsh/_docker"
     ]
@@ -37,8 +37,8 @@
     "type": "git",
     "url": "https://github.com/ohmyzsh/ohmyzsh",
     "branchName": "master",
-    "rev": "0b50afdbfd8cbd0e03be68ecec4e1b5d3f55ef0a",
-    "hash": "sha256-jyzqtoBWElCJn6JS5zVM8TNXZmgYDrG2edIj1hl1nx0=",
+    "rev": "6010fb6260f359e71d99ba25f05f9215809b3ed2",
+    "hash": "sha256-kkCuGEHsegMwDNPLNOEDkBAD2/hKKgosaxm4G+S5lQk=",
     "sparseCheckout": [
       "plugins/terraform/_terraform",
       "plugins/docker-compose/_docker-compose"
@@ -48,8 +48,8 @@
     "type": "git",
     "url": "https://github.com/romkatv/powerlevel10k",
     "branchName": "master",
-    "rev": "d05a1b00f9a61f9578bf9dc19b8451942dde8734",
-    "hash": "sha256-B2Sq/V455mlvMOAv+K7vEyZy53kVdo576ZAMcvbJXgk="
+    "rev": "64df59615df306c7a8bb37d0a5a1ebc46337dfb1",
+    "hash": "sha256-fF53hKX23kdtoCHcErnKCiGpiNstDivUklgBmzgqg5Q="
   },
   "tokyonight": {
     "type": "git",
@@ -68,8 +68,8 @@
     "type": "git",
     "url": "https://github.com/zsh-users/zsh-completions",
     "branchName": "master",
-    "rev": "de02bb84ab0af51e328c6ae85ab5555397c31277",
-    "hash": "sha256-DAyQ57pA5u4v5q+NqoLHDo90UCW6WeaqNESEnOZk79U="
+    "rev": "989b23277ab33e8d5e82df6aed936e846db9d8b8",
+    "hash": "sha256-H25tD8EAj7PRjGaUh8DDtMdSTRTAtzu4VS5Ka0ApCp0="
   },
   "zsh-manpage-completion-generator": {
     "type": "git",
